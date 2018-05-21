@@ -44,6 +44,8 @@ int getNextReady();
 
 int switchTaskTo(int nextTask);
 
+int runFirstTask(int nextTask);
+
 int task_sysTickHandler();
 
 

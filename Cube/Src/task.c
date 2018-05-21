@@ -1,5 +1,9 @@
 #include "task.h"
 
+#include "debug.h"
+
+extern huart1;
+
 task_control_block_t tcb[MAX_TASK_COUNT];
 
 uint32_t currentTask = 0;
@@ -91,7 +95,14 @@ int switchTaskTo(int nextTask)
     currentTask = nextTask;
     saveContext(&tcb[oldTask].sp);
     loadContext(&tcb[currentTask].sp);
+}
 
+int runFirstTask(int nextTask)
+{
+    logger(&huart1, "RunFirstTask\n");
+    currentTask = nextTask;
+    tcb[currentTask].state = TASK_RUNNING;
+    loadContext(&tcb[currentTask].sp);
 }
 
 int task_sysTickHandler()

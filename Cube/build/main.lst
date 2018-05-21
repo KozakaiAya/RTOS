@@ -1,0 +1,858 @@
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccuPWooU.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"main.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.taskA,"ax",%progbits
+  16              		.align	1
+  17              		.global	taskA
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu softvfp
+  23              	taskA:
+  24              	.LFB66:
+  25              		.file 1 "Src/main.c"
+   1:Src/main.c    **** 
+   2:Src/main.c    **** /**
+   3:Src/main.c    ****   ******************************************************************************
+   4:Src/main.c    ****   * @file           : main.c
+   5:Src/main.c    ****   * @brief          : Main program body
+   6:Src/main.c    ****   ******************************************************************************
+   7:Src/main.c    ****   ** This notice applies to any and all portions of this file
+   8:Src/main.c    ****   * that are not between comment pairs USER CODE BEGIN and
+   9:Src/main.c    ****   * USER CODE END. Other portions of this file, whether 
+  10:Src/main.c    ****   * inserted by the user or by software development tools
+  11:Src/main.c    ****   * are owned by their respective copyright owners.
+  12:Src/main.c    ****   *
+  13:Src/main.c    ****   * COPYRIGHT(c) 2018 STMicroelectronics
+  14:Src/main.c    ****   *
+  15:Src/main.c    ****   * Redistribution and use in source and binary forms, with or without modification,
+  16:Src/main.c    ****   * are permitted provided that the following conditions are met:
+  17:Src/main.c    ****   *   1. Redistributions of source code must retain the above copyright notice,
+  18:Src/main.c    ****   *      this list of conditions and the following disclaimer.
+  19:Src/main.c    ****   *   2. Redistributions in binary form must reproduce the above copyright notice,
+  20:Src/main.c    ****   *      this list of conditions and the following disclaimer in the documentation
+  21:Src/main.c    ****   *      and/or other materials provided with the distribution.
+  22:Src/main.c    ****   *   3. Neither the name of STMicroelectronics nor the names of its contributors
+  23:Src/main.c    ****   *      may be used to endorse or promote products derived from this software
+  24:Src/main.c    ****   *      without specific prior written permission.
+  25:Src/main.c    ****   *
+  26:Src/main.c    ****   * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  27:Src/main.c    ****   * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  28:Src/main.c    ****   * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  29:Src/main.c    ****   * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+  30:Src/main.c    ****   * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+  31:Src/main.c    ****   * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+  32:Src/main.c    ****   * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+  33:Src/main.c    ****   * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccuPWooU.s 			page 2
+
+
+  34:Src/main.c    ****   * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  35:Src/main.c    ****   * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  36:Src/main.c    ****   *
+  37:Src/main.c    ****   ******************************************************************************
+  38:Src/main.c    ****   */
+  39:Src/main.c    **** /* Includes ------------------------------------------------------------------*/
+  40:Src/main.c    **** #include "main.h"
+  41:Src/main.c    **** #include "stm32f1xx_hal.h"
+  42:Src/main.c    **** 
+  43:Src/main.c    **** /* USER CODE BEGIN Includes */
+  44:Src/main.c    **** #include "os.h"
+  45:Src/main.c    **** #include "debug.h"
+  46:Src/main.c    **** 
+  47:Src/main.c    **** /* USER CODE END Includes */
+  48:Src/main.c    **** 
+  49:Src/main.c    **** /* Private variables ---------------------------------------------------------*/
+  50:Src/main.c    **** UART_HandleTypeDef huart1;
+  51:Src/main.c    **** 
+  52:Src/main.c    **** /* USER CODE BEGIN PV */
+  53:Src/main.c    **** /* Private variables ---------------------------------------------------------*/
+  54:Src/main.c    **** 
+  55:Src/main.c    **** /* USER CODE END PV */
+  56:Src/main.c    **** 
+  57:Src/main.c    **** /* Private function prototypes -----------------------------------------------*/
+  58:Src/main.c    **** void SystemClock_Config(void);
+  59:Src/main.c    **** static void MX_GPIO_Init(void);
+  60:Src/main.c    **** static void MX_USART1_UART_Init(void);
+  61:Src/main.c    **** 
+  62:Src/main.c    **** /* USER CODE BEGIN PFP */
+  63:Src/main.c    **** /* Private function prototypes -----------------------------------------------*/
+  64:Src/main.c    **** 
+  65:Src/main.c    **** /* USER CODE END PFP */
+  66:Src/main.c    **** 
+  67:Src/main.c    **** /* USER CODE BEGIN 0 */
+  68:Src/main.c    **** void taskA()
+  69:Src/main.c    **** {
+  26              		.loc 1 69 0
+  27              		.cfi_startproc
+  28              		@ Volatile: function does not return.
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31 0000 08B5     		push	{r3, lr}
+  32              	.LCFI0:
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 3, -8
+  35              		.cfi_offset 14, -4
+  70:Src/main.c    ****   logger(&huart1, "Task1_Run\n");
+  36              		.loc 1 70 0
+  37 0002 0A49     		ldr	r1, .L4
+  38 0004 0A48     		ldr	r0, .L4+4
+  39 0006 FFF7FEFF 		bl	logger
+  40              	.LVL0:
+  41              	.L2:
+  71:Src/main.c    **** 	for (;;) {
+  72:Src/main.c    **** 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_RESET);
+  42              		.loc 1 72 0 discriminator 1
+  43 000a 0A4C     		ldr	r4, .L4+8
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccuPWooU.s 			page 3
+
+
+  44 000c 0022     		movs	r2, #0
+  45 000e 0221     		movs	r1, #2
+  46 0010 2046     		mov	r0, r4
+  47 0012 FFF7FEFF 		bl	HAL_GPIO_WritePin
+  48              	.LVL1:
+  73:Src/main.c    **** 		os_setTaskDelay(767);
+  49              		.loc 1 73 0 discriminator 1
+  50 0016 40F2FF20 		movw	r0, #767
+  51 001a FFF7FEFF 		bl	os_setTaskDelay
+  52              	.LVL2:
+  74:Src/main.c    **** 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_SET);
+  53              		.loc 1 74 0 discriminator 1
+  54 001e 0122     		movs	r2, #1
+  55 0020 0221     		movs	r1, #2
+  56 0022 2046     		mov	r0, r4
+  57 0024 FFF7FEFF 		bl	HAL_GPIO_WritePin
+  58              	.LVL3:
+  59 0028 EFE7     		b	.L2
+  60              	.L5:
+  61 002a 00BF     		.align	2
+  62              	.L4:
+  63 002c 00000000 		.word	.LC0
+  64 0030 00000000 		.word	huart1
+  65 0034 00080140 		.word	1073809408
+  66              		.cfi_endproc
+  67              	.LFE66:
+  69              		.section	.text.taskB,"ax",%progbits
+  70              		.align	1
+  71              		.global	taskB
+  72              		.syntax unified
+  73              		.thumb
+  74              		.thumb_func
+  75              		.fpu softvfp
+  77              	taskB:
+  78              	.LFB67:
+  75:Src/main.c    **** 	}
+  76:Src/main.c    **** }
+  77:Src/main.c    **** 
+  78:Src/main.c    **** void taskB()
+  79:Src/main.c    **** {
+  79              		.loc 1 79 0
+  80              		.cfi_startproc
+  81              		@ Volatile: function does not return.
+  82              		@ args = 0, pretend = 0, frame = 0
+  83              		@ frame_needed = 0, uses_anonymous_args = 0
+  84 0000 08B5     		push	{r3, lr}
+  85              	.LCFI1:
+  86              		.cfi_def_cfa_offset 8
+  87              		.cfi_offset 3, -8
+  88              		.cfi_offset 14, -4
+  80:Src/main.c    ****   logger(&huart1, "Task2_Run\n");
+  89              		.loc 1 80 0
+  90 0002 0A49     		ldr	r1, .L9
+  91 0004 0A48     		ldr	r0, .L9+4
+  92 0006 FFF7FEFF 		bl	logger
+  93              	.LVL4:
+  94              	.L7:
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccuPWooU.s 			page 4
+
+
+  81:Src/main.c    **** 	for (;;) {
+  82:Src/main.c    **** 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_RESET);
+  95              		.loc 1 82 0 discriminator 1
+  96 000a 0A4C     		ldr	r4, .L9+8
+  97 000c 0022     		movs	r2, #0
+  98 000e 0421     		movs	r1, #4
+  99 0010 2046     		mov	r0, r4
+ 100 0012 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 101              	.LVL5:
+  83:Src/main.c    **** 		os_setTaskDelay(511);
+ 102              		.loc 1 83 0 discriminator 1
+ 103 0016 40F2FF10 		movw	r0, #511
+ 104 001a FFF7FEFF 		bl	os_setTaskDelay
+ 105              	.LVL6:
+  84:Src/main.c    **** 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_SET);
+ 106              		.loc 1 84 0 discriminator 1
+ 107 001e 0122     		movs	r2, #1
+ 108 0020 0421     		movs	r1, #4
+ 109 0022 2046     		mov	r0, r4
+ 110 0024 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 111              	.LVL7:
+ 112 0028 EFE7     		b	.L7
+ 113              	.L10:
+ 114 002a 00BF     		.align	2
+ 115              	.L9:
+ 116 002c 00000000 		.word	.LC1
+ 117 0030 00000000 		.word	huart1
+ 118 0034 00080140 		.word	1073809408
+ 119              		.cfi_endproc
+ 120              	.LFE67:
+ 122              		.section	.text.MX_GPIO_Init,"ax",%progbits
+ 123              		.align	1
+ 124              		.syntax unified
+ 125              		.thumb
+ 126              		.thumb_func
+ 127              		.fpu softvfp
+ 129              	MX_GPIO_Init:
+ 130              	.LFB71:
+  85:Src/main.c    **** 	}
+  86:Src/main.c    **** }
+  87:Src/main.c    **** /* USER CODE END 0 */
+  88:Src/main.c    **** 
+  89:Src/main.c    **** /**
+  90:Src/main.c    ****   * @brief  The application entry point.
+  91:Src/main.c    ****   *
+  92:Src/main.c    ****   * @retval None
+  93:Src/main.c    ****   */
+  94:Src/main.c    **** int main(void)
+  95:Src/main.c    **** {
+  96:Src/main.c    ****   /* USER CODE BEGIN 1 */
+  97:Src/main.c    **** 
+  98:Src/main.c    ****   /* USER CODE END 1 */
+  99:Src/main.c    **** 
+ 100:Src/main.c    ****   /* MCU Configuration----------------------------------------------------------*/
+ 101:Src/main.c    **** 
+ 102:Src/main.c    ****   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+ 103:Src/main.c    ****   HAL_Init();
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccuPWooU.s 			page 5
+
+
+ 104:Src/main.c    **** 
+ 105:Src/main.c    ****   /* USER CODE BEGIN Init */
+ 106:Src/main.c    **** 
+ 107:Src/main.c    ****   /* USER CODE END Init */
+ 108:Src/main.c    **** 
+ 109:Src/main.c    ****   /* Configure the system clock */
+ 110:Src/main.c    ****   SystemClock_Config();
+ 111:Src/main.c    **** 
+ 112:Src/main.c    ****   /* USER CODE BEGIN SysInit */
+ 113:Src/main.c    **** 
+ 114:Src/main.c    ****   /* USER CODE END SysInit */
+ 115:Src/main.c    **** 
+ 116:Src/main.c    ****   /* Initialize all configured peripherals */
+ 117:Src/main.c    ****   MX_GPIO_Init();
+ 118:Src/main.c    ****   MX_USART1_UART_Init();
+ 119:Src/main.c    ****   /* USER CODE BEGIN 2 */
+ 120:Src/main.c    ****   HAL_Delay(5000);
+ 121:Src/main.c    ****   logger(&huart1, "HW\n");
+ 122:Src/main.c    ****   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_SET);
+ 123:Src/main.c    ****   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_SET);
+ 124:Src/main.c    ****   os_createTask(taskA);
+ 125:Src/main.c    ****   os_createTask(taskB);
+ 126:Src/main.c    ****   osStart();
+ 127:Src/main.c    ****   /* USER CODE END 2 */
+ 128:Src/main.c    **** 
+ 129:Src/main.c    ****   /* Infinite loop */
+ 130:Src/main.c    ****   /* USER CODE BEGIN WHILE */
+ 131:Src/main.c    ****   while (1)
+ 132:Src/main.c    ****   {
+ 133:Src/main.c    **** 
+ 134:Src/main.c    ****   /* USER CODE END WHILE */
+ 135:Src/main.c    **** 
+ 136:Src/main.c    ****   /* USER CODE BEGIN 3 */
+ 137:Src/main.c    ****   }
+ 138:Src/main.c    ****   /* USER CODE END 3 */
+ 139:Src/main.c    **** 
+ 140:Src/main.c    **** }
+ 141:Src/main.c    **** 
+ 142:Src/main.c    **** /**
+ 143:Src/main.c    ****   * @brief System Clock Configuration
+ 144:Src/main.c    ****   * @retval None
+ 145:Src/main.c    ****   */
+ 146:Src/main.c    **** void SystemClock_Config(void)
+ 147:Src/main.c    **** {
+ 148:Src/main.c    **** 
+ 149:Src/main.c    ****   RCC_OscInitTypeDef RCC_OscInitStruct;
+ 150:Src/main.c    ****   RCC_ClkInitTypeDef RCC_ClkInitStruct;
+ 151:Src/main.c    **** 
+ 152:Src/main.c    ****     /**Initializes the CPU, AHB and APB busses clocks 
+ 153:Src/main.c    ****     */
+ 154:Src/main.c    ****   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+ 155:Src/main.c    ****   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+ 156:Src/main.c    ****   RCC_OscInitStruct.HSICalibrationValue = 16;
+ 157:Src/main.c    ****   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+ 158:Src/main.c    ****   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+ 159:Src/main.c    ****   {
+ 160:Src/main.c    ****     _Error_Handler(__FILE__, __LINE__);
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccuPWooU.s 			page 6
+
+
+ 161:Src/main.c    ****   }
+ 162:Src/main.c    **** 
+ 163:Src/main.c    ****     /**Initializes the CPU, AHB and APB busses clocks 
+ 164:Src/main.c    ****     */
+ 165:Src/main.c    ****   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+ 166:Src/main.c    ****                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+ 167:Src/main.c    ****   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
+ 168:Src/main.c    ****   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+ 169:Src/main.c    ****   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+ 170:Src/main.c    ****   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+ 171:Src/main.c    **** 
+ 172:Src/main.c    ****   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
+ 173:Src/main.c    ****   {
+ 174:Src/main.c    ****     _Error_Handler(__FILE__, __LINE__);
+ 175:Src/main.c    ****   }
+ 176:Src/main.c    **** 
+ 177:Src/main.c    ****     /**Configure the Systick interrupt time 
+ 178:Src/main.c    ****     */
+ 179:Src/main.c    ****   HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);
+ 180:Src/main.c    **** 
+ 181:Src/main.c    ****     /**Configure the Systick 
+ 182:Src/main.c    ****     */
+ 183:Src/main.c    ****   HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
+ 184:Src/main.c    **** 
+ 185:Src/main.c    ****   /* SysTick_IRQn interrupt configuration */
+ 186:Src/main.c    ****   HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
+ 187:Src/main.c    **** }
+ 188:Src/main.c    **** 
+ 189:Src/main.c    **** /* USART1 init function */
+ 190:Src/main.c    **** static void MX_USART1_UART_Init(void)
+ 191:Src/main.c    **** {
+ 192:Src/main.c    **** 
+ 193:Src/main.c    ****   huart1.Instance = USART1;
+ 194:Src/main.c    ****   huart1.Init.BaudRate = 115200;
+ 195:Src/main.c    ****   huart1.Init.WordLength = UART_WORDLENGTH_8B;
+ 196:Src/main.c    ****   huart1.Init.StopBits = UART_STOPBITS_1;
+ 197:Src/main.c    ****   huart1.Init.Parity = UART_PARITY_NONE;
+ 198:Src/main.c    ****   huart1.Init.Mode = UART_MODE_TX_RX;
+ 199:Src/main.c    ****   huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+ 200:Src/main.c    ****   huart1.Init.OverSampling = UART_OVERSAMPLING_16;
+ 201:Src/main.c    ****   if (HAL_UART_Init(&huart1) != HAL_OK)
+ 202:Src/main.c    ****   {
+ 203:Src/main.c    ****     _Error_Handler(__FILE__, __LINE__);
+ 204:Src/main.c    ****   }
+ 205:Src/main.c    **** 
+ 206:Src/main.c    **** }
+ 207:Src/main.c    **** 
+ 208:Src/main.c    **** /** Configure pins as 
+ 209:Src/main.c    ****         * Analog 
+ 210:Src/main.c    ****         * Input 
+ 211:Src/main.c    ****         * Output
+ 212:Src/main.c    ****         * EVENT_OUT
+ 213:Src/main.c    ****         * EXTI
+ 214:Src/main.c    **** */
+ 215:Src/main.c    **** static void MX_GPIO_Init(void)
+ 216:Src/main.c    **** {
+ 131              		.loc 1 216 0
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccuPWooU.s 			page 7
+
+
+ 132              		.cfi_startproc
+ 133              		@ args = 0, pretend = 0, frame = 24
+ 134              		@ frame_needed = 0, uses_anonymous_args = 0
+ 135 0000 10B5     		push	{r4, lr}
+ 136              	.LCFI2:
+ 137              		.cfi_def_cfa_offset 8
+ 138              		.cfi_offset 4, -8
+ 139              		.cfi_offset 14, -4
+ 140 0002 86B0     		sub	sp, sp, #24
+ 141              	.LCFI3:
+ 142              		.cfi_def_cfa_offset 32
+ 143              	.LBB2:
+ 217:Src/main.c    **** 
+ 218:Src/main.c    ****   GPIO_InitTypeDef GPIO_InitStruct;
+ 219:Src/main.c    **** 
+ 220:Src/main.c    ****   /* GPIO Ports Clock Enable */
+ 221:Src/main.c    ****   __HAL_RCC_GPIOA_CLK_ENABLE();
+ 144              		.loc 1 221 0
+ 145 0004 0D4B     		ldr	r3, .L13
+ 146 0006 9A69     		ldr	r2, [r3, #24]
+ 147 0008 42F00402 		orr	r2, r2, #4
+ 148 000c 9A61     		str	r2, [r3, #24]
+ 149 000e 9B69     		ldr	r3, [r3, #24]
+ 150 0010 03F00403 		and	r3, r3, #4
+ 151 0014 0193     		str	r3, [sp, #4]
+ 152 0016 019B     		ldr	r3, [sp, #4]
+ 153              	.LBE2:
+ 222:Src/main.c    **** 
+ 223:Src/main.c    ****   /*Configure GPIO pin Output Level */
+ 224:Src/main.c    ****   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1|GPIO_PIN_2, GPIO_PIN_RESET);
+ 154              		.loc 1 224 0
+ 155 0018 094C     		ldr	r4, .L13+4
+ 156 001a 0022     		movs	r2, #0
+ 157 001c 0621     		movs	r1, #6
+ 158 001e 2046     		mov	r0, r4
+ 159 0020 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 160              	.LVL8:
+ 225:Src/main.c    **** 
+ 226:Src/main.c    ****   /*Configure GPIO pins : PA1 PA2 */
+ 227:Src/main.c    ****   GPIO_InitStruct.Pin = GPIO_PIN_1|GPIO_PIN_2;
+ 161              		.loc 1 227 0
+ 162 0024 0623     		movs	r3, #6
+ 163 0026 0293     		str	r3, [sp, #8]
+ 228:Src/main.c    ****   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+ 164              		.loc 1 228 0
+ 165 0028 0123     		movs	r3, #1
+ 166 002a 0393     		str	r3, [sp, #12]
+ 229:Src/main.c    ****   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+ 167              		.loc 1 229 0
+ 168 002c 0223     		movs	r3, #2
+ 169 002e 0593     		str	r3, [sp, #20]
+ 230:Src/main.c    ****   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+ 170              		.loc 1 230 0
+ 171 0030 02A9     		add	r1, sp, #8
+ 172 0032 2046     		mov	r0, r4
+ 173 0034 FFF7FEFF 		bl	HAL_GPIO_Init
+ 174              	.LVL9:
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccuPWooU.s 			page 8
+
+
+ 231:Src/main.c    **** 
+ 232:Src/main.c    **** }
+ 175              		.loc 1 232 0
+ 176 0038 06B0     		add	sp, sp, #24
+ 177              	.LCFI4:
+ 178              		.cfi_def_cfa_offset 8
+ 179              		@ sp needed
+ 180 003a 10BD     		pop	{r4, pc}
+ 181              	.L14:
+ 182              		.align	2
+ 183              	.L13:
+ 184 003c 00100240 		.word	1073876992
+ 185 0040 00080140 		.word	1073809408
+ 186              		.cfi_endproc
+ 187              	.LFE71:
+ 189              		.section	.text._Error_Handler,"ax",%progbits
+ 190              		.align	1
+ 191              		.global	_Error_Handler
+ 192              		.syntax unified
+ 193              		.thumb
+ 194              		.thumb_func
+ 195              		.fpu softvfp
+ 197              	_Error_Handler:
+ 198              	.LFB72:
+ 233:Src/main.c    **** 
+ 234:Src/main.c    **** /* USER CODE BEGIN 4 */
+ 235:Src/main.c    **** 
+ 236:Src/main.c    **** /* USER CODE END 4 */
+ 237:Src/main.c    **** 
+ 238:Src/main.c    **** /**
+ 239:Src/main.c    ****   * @brief  This function is executed in case of error occurrence.
+ 240:Src/main.c    ****   * @param  file: The file name as string.
+ 241:Src/main.c    ****   * @param  line: The line in file as a number.
+ 242:Src/main.c    ****   * @retval None
+ 243:Src/main.c    ****   */
+ 244:Src/main.c    **** void _Error_Handler(char *file, int line)
+ 245:Src/main.c    **** {
+ 199              		.loc 1 245 0
+ 200              		.cfi_startproc
+ 201              		@ Volatile: function does not return.
+ 202              		@ args = 0, pretend = 0, frame = 0
+ 203              		@ frame_needed = 0, uses_anonymous_args = 0
+ 204              		@ link register save eliminated.
+ 205              	.LVL10:
+ 206              	.L16:
+ 207 0000 FEE7     		b	.L16
+ 208              		.cfi_endproc
+ 209              	.LFE72:
+ 211              		.section	.text.MX_USART1_UART_Init,"ax",%progbits
+ 212              		.align	1
+ 213              		.syntax unified
+ 214              		.thumb
+ 215              		.thumb_func
+ 216              		.fpu softvfp
+ 218              	MX_USART1_UART_Init:
+ 219              	.LFB70:
+ 191:Src/main.c    **** 
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccuPWooU.s 			page 9
+
+
+ 220              		.loc 1 191 0
+ 221              		.cfi_startproc
+ 222              		@ args = 0, pretend = 0, frame = 0
+ 223              		@ frame_needed = 0, uses_anonymous_args = 0
+ 191:Src/main.c    **** 
+ 224              		.loc 1 191 0
+ 225 0000 08B5     		push	{r3, lr}
+ 226              	.LCFI5:
+ 227              		.cfi_def_cfa_offset 8
+ 228              		.cfi_offset 3, -8
+ 229              		.cfi_offset 14, -4
+ 193:Src/main.c    ****   huart1.Init.BaudRate = 115200;
+ 230              		.loc 1 193 0
+ 231 0002 0B48     		ldr	r0, .L21
+ 232 0004 0B4B     		ldr	r3, .L21+4
+ 233 0006 0360     		str	r3, [r0]
+ 194:Src/main.c    ****   huart1.Init.WordLength = UART_WORDLENGTH_8B;
+ 234              		.loc 1 194 0
+ 235 0008 4FF4E133 		mov	r3, #115200
+ 236 000c 4360     		str	r3, [r0, #4]
+ 195:Src/main.c    ****   huart1.Init.StopBits = UART_STOPBITS_1;
+ 237              		.loc 1 195 0
+ 238 000e 0023     		movs	r3, #0
+ 239 0010 8360     		str	r3, [r0, #8]
+ 196:Src/main.c    ****   huart1.Init.Parity = UART_PARITY_NONE;
+ 240              		.loc 1 196 0
+ 241 0012 C360     		str	r3, [r0, #12]
+ 197:Src/main.c    ****   huart1.Init.Mode = UART_MODE_TX_RX;
+ 242              		.loc 1 197 0
+ 243 0014 0361     		str	r3, [r0, #16]
+ 198:Src/main.c    ****   huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+ 244              		.loc 1 198 0
+ 245 0016 0C22     		movs	r2, #12
+ 246 0018 4261     		str	r2, [r0, #20]
+ 199:Src/main.c    ****   huart1.Init.OverSampling = UART_OVERSAMPLING_16;
+ 247              		.loc 1 199 0
+ 248 001a 8361     		str	r3, [r0, #24]
+ 200:Src/main.c    ****   if (HAL_UART_Init(&huart1) != HAL_OK)
+ 249              		.loc 1 200 0
+ 250 001c C361     		str	r3, [r0, #28]
+ 201:Src/main.c    ****   {
+ 251              		.loc 1 201 0
+ 252 001e FFF7FEFF 		bl	HAL_UART_Init
+ 253              	.LVL11:
+ 254 0022 00B9     		cbnz	r0, .L20
+ 206:Src/main.c    **** 
+ 255              		.loc 1 206 0
+ 256 0024 08BD     		pop	{r3, pc}
+ 257              	.L20:
+ 203:Src/main.c    ****   }
+ 258              		.loc 1 203 0
+ 259 0026 CB21     		movs	r1, #203
+ 260 0028 0348     		ldr	r0, .L21+8
+ 261 002a FFF7FEFF 		bl	_Error_Handler
+ 262              	.LVL12:
+ 263              	.L22:
+ 264 002e 00BF     		.align	2
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccuPWooU.s 			page 10
+
+
+ 265              	.L21:
+ 266 0030 00000000 		.word	huart1
+ 267 0034 00380140 		.word	1073821696
+ 268 0038 00000000 		.word	.LC2
+ 269              		.cfi_endproc
+ 270              	.LFE70:
+ 272              		.section	.text.SystemClock_Config,"ax",%progbits
+ 273              		.align	1
+ 274              		.global	SystemClock_Config
+ 275              		.syntax unified
+ 276              		.thumb
+ 277              		.thumb_func
+ 278              		.fpu softvfp
+ 280              	SystemClock_Config:
+ 281              	.LFB69:
+ 147:Src/main.c    **** 
+ 282              		.loc 1 147 0
+ 283              		.cfi_startproc
+ 284              		@ args = 0, pretend = 0, frame = 64
+ 285              		@ frame_needed = 0, uses_anonymous_args = 0
+ 286 0000 00B5     		push	{lr}
+ 287              	.LCFI6:
+ 288              		.cfi_def_cfa_offset 4
+ 289              		.cfi_offset 14, -4
+ 290 0002 91B0     		sub	sp, sp, #68
+ 291              	.LCFI7:
+ 292              		.cfi_def_cfa_offset 72
+ 154:Src/main.c    ****   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+ 293              		.loc 1 154 0
+ 294 0004 0223     		movs	r3, #2
+ 295 0006 0693     		str	r3, [sp, #24]
+ 155:Src/main.c    ****   RCC_OscInitStruct.HSICalibrationValue = 16;
+ 296              		.loc 1 155 0
+ 297 0008 0123     		movs	r3, #1
+ 298 000a 0A93     		str	r3, [sp, #40]
+ 156:Src/main.c    ****   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+ 299              		.loc 1 156 0
+ 300 000c 1023     		movs	r3, #16
+ 301 000e 0B93     		str	r3, [sp, #44]
+ 157:Src/main.c    ****   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+ 302              		.loc 1 157 0
+ 303 0010 0023     		movs	r3, #0
+ 304 0012 0D93     		str	r3, [sp, #52]
+ 158:Src/main.c    ****   {
+ 305              		.loc 1 158 0
+ 306 0014 06A8     		add	r0, sp, #24
+ 307 0016 FFF7FEFF 		bl	HAL_RCC_OscConfig
+ 308              	.LVL13:
+ 309 001a F0B9     		cbnz	r0, .L27
+ 165:Src/main.c    ****                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+ 310              		.loc 1 165 0
+ 311 001c 0F23     		movs	r3, #15
+ 312 001e 0193     		str	r3, [sp, #4]
+ 167:Src/main.c    ****   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+ 313              		.loc 1 167 0
+ 314 0020 0021     		movs	r1, #0
+ 315 0022 0291     		str	r1, [sp, #8]
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccuPWooU.s 			page 11
+
+
+ 168:Src/main.c    ****   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+ 316              		.loc 1 168 0
+ 317 0024 0391     		str	r1, [sp, #12]
+ 169:Src/main.c    ****   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+ 318              		.loc 1 169 0
+ 319 0026 0491     		str	r1, [sp, #16]
+ 170:Src/main.c    **** 
+ 320              		.loc 1 170 0
+ 321 0028 0591     		str	r1, [sp, #20]
+ 172:Src/main.c    ****   {
+ 322              		.loc 1 172 0
+ 323 002a 01A8     		add	r0, sp, #4
+ 324 002c FFF7FEFF 		bl	HAL_RCC_ClockConfig
+ 325              	.LVL14:
+ 326 0030 B8B9     		cbnz	r0, .L28
+ 179:Src/main.c    **** 
+ 327              		.loc 1 179 0
+ 328 0032 FFF7FEFF 		bl	HAL_RCC_GetHCLKFreq
+ 329              	.LVL15:
+ 330 0036 0D4B     		ldr	r3, .L29
+ 331 0038 A3FB0030 		umull	r3, r0, r3, r0
+ 332 003c 8009     		lsrs	r0, r0, #6
+ 333 003e FFF7FEFF 		bl	HAL_SYSTICK_Config
+ 334              	.LVL16:
+ 183:Src/main.c    **** 
+ 335              		.loc 1 183 0
+ 336 0042 0420     		movs	r0, #4
+ 337 0044 FFF7FEFF 		bl	HAL_SYSTICK_CLKSourceConfig
+ 338              	.LVL17:
+ 186:Src/main.c    **** }
+ 339              		.loc 1 186 0
+ 340 0048 0022     		movs	r2, #0
+ 341 004a 1146     		mov	r1, r2
+ 342 004c 4FF0FF30 		mov	r0, #-1
+ 343 0050 FFF7FEFF 		bl	HAL_NVIC_SetPriority
+ 344              	.LVL18:
+ 187:Src/main.c    **** 
+ 345              		.loc 1 187 0
+ 346 0054 11B0     		add	sp, sp, #68
+ 347              	.LCFI8:
+ 348              		.cfi_remember_state
+ 349              		.cfi_def_cfa_offset 4
+ 350              		@ sp needed
+ 351 0056 5DF804FB 		ldr	pc, [sp], #4
+ 352              	.L27:
+ 353              	.LCFI9:
+ 354              		.cfi_restore_state
+ 160:Src/main.c    ****   }
+ 355              		.loc 1 160 0
+ 356 005a A021     		movs	r1, #160
+ 357 005c 0448     		ldr	r0, .L29+4
+ 358 005e FFF7FEFF 		bl	_Error_Handler
+ 359              	.LVL19:
+ 360              	.L28:
+ 174:Src/main.c    ****   }
+ 361              		.loc 1 174 0
+ 362 0062 AE21     		movs	r1, #174
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccuPWooU.s 			page 12
+
+
+ 363 0064 0248     		ldr	r0, .L29+4
+ 364 0066 FFF7FEFF 		bl	_Error_Handler
+ 365              	.LVL20:
+ 366              	.L30:
+ 367 006a 00BF     		.align	2
+ 368              	.L29:
+ 369 006c D34D6210 		.word	274877907
+ 370 0070 00000000 		.word	.LC2
+ 371              		.cfi_endproc
+ 372              	.LFE69:
+ 374              		.section	.text.main,"ax",%progbits
+ 375              		.align	1
+ 376              		.global	main
+ 377              		.syntax unified
+ 378              		.thumb
+ 379              		.thumb_func
+ 380              		.fpu softvfp
+ 382              	main:
+ 383              	.LFB68:
+  95:Src/main.c    ****   /* USER CODE BEGIN 1 */
+ 384              		.loc 1 95 0
+ 385              		.cfi_startproc
+ 386              		@ Volatile: function does not return.
+ 387              		@ args = 0, pretend = 0, frame = 0
+ 388              		@ frame_needed = 0, uses_anonymous_args = 0
+ 389 0000 08B5     		push	{r3, lr}
+ 390              	.LCFI10:
+ 391              		.cfi_def_cfa_offset 8
+ 392              		.cfi_offset 3, -8
+ 393              		.cfi_offset 14, -4
+ 103:Src/main.c    **** 
+ 394              		.loc 1 103 0
+ 395 0002 FFF7FEFF 		bl	HAL_Init
+ 396              	.LVL21:
+ 110:Src/main.c    **** 
+ 397              		.loc 1 110 0
+ 398 0006 FFF7FEFF 		bl	SystemClock_Config
+ 399              	.LVL22:
+ 117:Src/main.c    ****   MX_USART1_UART_Init();
+ 400              		.loc 1 117 0
+ 401 000a FFF7FEFF 		bl	MX_GPIO_Init
+ 402              	.LVL23:
+ 118:Src/main.c    ****   /* USER CODE BEGIN 2 */
+ 403              		.loc 1 118 0
+ 404 000e FFF7FEFF 		bl	MX_USART1_UART_Init
+ 405              	.LVL24:
+ 120:Src/main.c    ****   logger(&huart1, "HW\n");
+ 406              		.loc 1 120 0
+ 407 0012 41F28830 		movw	r0, #5000
+ 408 0016 FFF7FEFF 		bl	HAL_Delay
+ 409              	.LVL25:
+ 121:Src/main.c    ****   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_SET);
+ 410              		.loc 1 121 0
+ 411 001a 0C49     		ldr	r1, .L34
+ 412 001c 0C48     		ldr	r0, .L34+4
+ 413 001e FFF7FEFF 		bl	logger
+ 414              	.LVL26:
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccuPWooU.s 			page 13
+
+
+ 122:Src/main.c    ****   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_SET);
+ 415              		.loc 1 122 0
+ 416 0022 0C4C     		ldr	r4, .L34+8
+ 417 0024 0122     		movs	r2, #1
+ 418 0026 0221     		movs	r1, #2
+ 419 0028 2046     		mov	r0, r4
+ 420 002a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 421              	.LVL27:
+ 123:Src/main.c    ****   os_createTask(taskA);
+ 422              		.loc 1 123 0
+ 423 002e 0122     		movs	r2, #1
+ 424 0030 0421     		movs	r1, #4
+ 425 0032 2046     		mov	r0, r4
+ 426 0034 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 427              	.LVL28:
+ 124:Src/main.c    ****   os_createTask(taskB);
+ 428              		.loc 1 124 0
+ 429 0038 0748     		ldr	r0, .L34+12
+ 430 003a FFF7FEFF 		bl	os_createTask
+ 431              	.LVL29:
+ 125:Src/main.c    ****   osStart();
+ 432              		.loc 1 125 0
+ 433 003e 0748     		ldr	r0, .L34+16
+ 434 0040 FFF7FEFF 		bl	os_createTask
+ 435              	.LVL30:
+ 126:Src/main.c    ****   /* USER CODE END 2 */
+ 436              		.loc 1 126 0
+ 437 0044 FFF7FEFF 		bl	osStart
+ 438              	.LVL31:
+ 439              	.L32:
+ 440 0048 FEE7     		b	.L32
+ 441              	.L35:
+ 442 004a 00BF     		.align	2
+ 443              	.L34:
+ 444 004c 00000000 		.word	.LC3
+ 445 0050 00000000 		.word	huart1
+ 446 0054 00080140 		.word	1073809408
+ 447 0058 00000000 		.word	taskA
+ 448 005c 00000000 		.word	taskB
+ 449              		.cfi_endproc
+ 450              	.LFE68:
+ 452              		.comm	huart1,64,4
+ 453              		.section	.rodata.MX_USART1_UART_Init.str1.4,"aMS",%progbits,1
+ 454              		.align	2
+ 455              	.LC2:
+ 456 0000 5372632F 		.ascii	"Src/main.c\000"
+ 456      6D61696E 
+ 456      2E6300
+ 457              		.section	.rodata.main.str1.4,"aMS",%progbits,1
+ 458              		.align	2
+ 459              	.LC3:
+ 460 0000 48570A00 		.ascii	"HW\012\000"
+ 461              		.section	.rodata.taskA.str1.4,"aMS",%progbits,1
+ 462              		.align	2
+ 463              	.LC0:
+ 464 0000 5461736B 		.ascii	"Task1_Run\012\000"
+ 464      315F5275 
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccuPWooU.s 			page 14
+
+
+ 464      6E0A00
+ 465              		.section	.rodata.taskB.str1.4,"aMS",%progbits,1
+ 466              		.align	2
+ 467              	.LC1:
+ 468 0000 5461736B 		.ascii	"Task2_Run\012\000"
+ 468      325F5275 
+ 468      6E0A00
+ 469              		.text
+ 470              	.Letext0:
+ 471              		.file 2 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 472              		.file 3 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 473              		.file 4 "Drivers/CMSIS/Include/core_cm3.h"
+ 474              		.file 5 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 475              		.file 6 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 476              		.file 7 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 477              		.file 8 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 478              		.file 9 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\lib\\gcc\\arm-none-eabi
+ 479              		.file 10 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+ 480              		.file 11 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 481              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h"
+ 482              		.file 13 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc_ex.h"
+ 483              		.file 14 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h"
+ 484              		.file 15 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 485              		.file 16 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h"
+ 486              		.file 17 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h"
+ 487              		.file 18 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 488              		.file 19 "Inc/debug.h"
+ 489              		.file 20 "Inc/os.h"
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccuPWooU.s 			page 15
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\Users\Qian\AppData\Local\Temp\ccuPWooU.s:16     .text.taskA:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccuPWooU.s:23     .text.taskA:00000000 taskA
+C:\Users\Qian\AppData\Local\Temp\ccuPWooU.s:63     .text.taskA:0000002c $d
+                            *COM*:00000040 huart1
+C:\Users\Qian\AppData\Local\Temp\ccuPWooU.s:70     .text.taskB:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccuPWooU.s:77     .text.taskB:00000000 taskB
+C:\Users\Qian\AppData\Local\Temp\ccuPWooU.s:116    .text.taskB:0000002c $d
+C:\Users\Qian\AppData\Local\Temp\ccuPWooU.s:123    .text.MX_GPIO_Init:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccuPWooU.s:129    .text.MX_GPIO_Init:00000000 MX_GPIO_Init
+C:\Users\Qian\AppData\Local\Temp\ccuPWooU.s:184    .text.MX_GPIO_Init:0000003c $d
+C:\Users\Qian\AppData\Local\Temp\ccuPWooU.s:190    .text._Error_Handler:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccuPWooU.s:197    .text._Error_Handler:00000000 _Error_Handler
+C:\Users\Qian\AppData\Local\Temp\ccuPWooU.s:212    .text.MX_USART1_UART_Init:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccuPWooU.s:218    .text.MX_USART1_UART_Init:00000000 MX_USART1_UART_Init
+C:\Users\Qian\AppData\Local\Temp\ccuPWooU.s:266    .text.MX_USART1_UART_Init:00000030 $d
+C:\Users\Qian\AppData\Local\Temp\ccuPWooU.s:273    .text.SystemClock_Config:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccuPWooU.s:280    .text.SystemClock_Config:00000000 SystemClock_Config
+C:\Users\Qian\AppData\Local\Temp\ccuPWooU.s:369    .text.SystemClock_Config:0000006c $d
+C:\Users\Qian\AppData\Local\Temp\ccuPWooU.s:375    .text.main:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccuPWooU.s:382    .text.main:00000000 main
+C:\Users\Qian\AppData\Local\Temp\ccuPWooU.s:444    .text.main:0000004c $d
+C:\Users\Qian\AppData\Local\Temp\ccuPWooU.s:454    .rodata.MX_USART1_UART_Init.str1.4:00000000 $d
+C:\Users\Qian\AppData\Local\Temp\ccuPWooU.s:458    .rodata.main.str1.4:00000000 $d
+C:\Users\Qian\AppData\Local\Temp\ccuPWooU.s:462    .rodata.taskA.str1.4:00000000 $d
+C:\Users\Qian\AppData\Local\Temp\ccuPWooU.s:466    .rodata.taskB.str1.4:00000000 $d
+
+UNDEFINED SYMBOLS
+logger
+HAL_GPIO_WritePin
+os_setTaskDelay
+HAL_GPIO_Init
+HAL_UART_Init
+HAL_RCC_OscConfig
+HAL_RCC_ClockConfig
+HAL_RCC_GetHCLKFreq
+HAL_SYSTICK_Config
+HAL_SYSTICK_CLKSourceConfig
+HAL_NVIC_SetPriority
+HAL_Init
+HAL_Delay
+os_createTask
+osStart

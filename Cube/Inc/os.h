@@ -2,6 +2,8 @@
 
 int scheduler();
 
+int halfScheduler();
+
 int osStart();
 
 int os_sysTickHandler();

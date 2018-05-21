@@ -36,7 +36,7 @@
 #include "stm32f1xx_it.h"
 
 /* USER CODE BEGIN 0 */
-
+#include "os.h"
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
@@ -180,7 +180,7 @@ void SysTick_Handler(void)
   HAL_IncTick();
   HAL_SYSTICK_IRQHandler();
   /* USER CODE BEGIN SysTick_IRQn 1 */
-
+  os_sysTickHandler();
   /* USER CODE END SysTick_IRQn 1 */
 }
 

@@ -66,7 +66,8 @@ Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash.c \
 Src/stm32f1xx_hal_msp.c \
 Src/os.c \
 Src/task.c \
-Src/task_cpu.c
+Src/task_cpu.c \
+Src/debug.c
 
 # ASM sources
 ASM_SOURCES =  \

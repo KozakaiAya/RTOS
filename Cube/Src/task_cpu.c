@@ -1,8 +1,11 @@
 #include "task_cpu.h"
 
+#include "debug.h"
+extern huart1;
+
 void* getCurrentStackPtr()
 {
-    void* result = NULL;
+    void* result = 0;
     asm volatile (
         "MRS    %0, psp             \n\t"
         : "=r" (result)
@@ -31,6 +34,7 @@ int loadContext(char** ptrToNextSP)
         "MRS    %0, psp             \n\t"
         "LDMFD  %0!, {r4-r11}       \n\t"
         "MSR    psp, %0             \n\t"
+        "CPSIE I                    \n\t"
         "bx     lr                  \n\t"
         : "=r" (t)
     );
@@ -49,10 +53,16 @@ int contextSwitcher(char* nextSP)
 
 int enterCritical()
 {
-    __disable_irq();
+    asm volatile (
+        "CPSID I"
+    );
+    return 0;
 }
 
 int exitCritical()
 {
-    __enable_irq();
+    asm volatile (
+        "CPSIE I"
+    );
+    return 0;
 }

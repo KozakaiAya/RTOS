@@ -42,6 +42,7 @@
 
 /* USER CODE BEGIN Includes */
 #include "os.h"
+#include "debug.h"
 
 /* USER CODE END Includes */
 
@@ -66,19 +67,21 @@ static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN 0 */
 void taskA()
 {
+  logger(&huart1, "Task1_Run\n");
 	for (;;) {
 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_RESET);
-		setTaskDelay(100);
-		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_RESET);
+		os_setTaskDelay(767);
+		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_SET);
 	}
 }
 
 void taskB()
 {
+  logger(&huart1, "Task2_Run\n");
 	for (;;) {
 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_RESET);
-		setTaskDelay(100);
-		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_RESET);
+		os_setTaskDelay(511);
+		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_SET);
 	}
 }
 /* USER CODE END 0 */
@@ -114,6 +117,10 @@ int main(void)
   MX_GPIO_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
+  HAL_Delay(5000);
+  logger(&huart1, "HW\n");
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_SET);
   os_createTask(taskA);
   os_createTask(taskB);
   osStart();
@@ -127,7 +134,6 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-
   }
   /* USER CODE END 3 */
 
