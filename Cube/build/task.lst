@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s 			page 1
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccnWXWdc.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s 			page 1
   42 0006 092B     		cmp	r3, #9
   43 0008 FCDD     		ble	.L3
   15:Src/task.c    ****     {
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s 			page 2
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccnWXWdc.s 			page 2
 
 
   16:Src/task.c    ****         tcb[i].state == TASK_FREE;
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s 			page 1
   88 0010 3FDC     		bgt	.L10
   28:Src/task.c    ****     {
   29:Src/task.c    ****         if (tcb[i].state == TASK_FREE)
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s 			page 3
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccnWXWdc.s 			page 3
 
 
   89              		.loc 1 29 0 is_stmt 1
@@ -163,9 +163,9 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s 			page 1
   38:Src/task.c    ****             hw_process_frame->pc = (uint32_t)foo;
  120              		.loc 1 38 0
  121 0050 41F8085C 		str	r5, [r1, #-8]
-  39:Src/task.c    ****             hw_process_frame->lr = RETURN_THREAD_MODE_EXEC_PSP;
+  39:Src/task.c    ****             hw_process_frame->lr = RETURN_THREAD_MODE_EXEC_MSP;
  122              		.loc 1 39 0
- 123 0054 6FF00201 		mvn	r1, #2
+ 123 0054 6FF00601 		mvn	r1, #6
  124 0058 5161     		str	r1, [r2, #20]
   40:Src/task.c    ****             hw_process_frame->psr = PSR_INIT;
  125              		.loc 1 40 0
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s 			page 1
  130 0062 A1F12002 		sub	r2, r1, #32
  131              	.LVL8:
  132 0066 3250     		str	r2, [r6, r0]
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s 			page 4
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccnWXWdc.s 			page 4
 
 
  133              	.LVL9:
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s 			page 1
   61:Src/task.c    ****         return -1;
   62:Src/task.c    ****     else
   63:Src/task.c    ****         return i;
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s 			page 5
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccnWXWdc.s 			page 5
 
 
   64:Src/task.c    **** }
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s 			page 1
  217              		.cfi_startproc
  218              		@ args = 0, pretend = 0, frame = 0
  219              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s 			page 6
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccnWXWdc.s 			page 6
 
 
  220              		@ link register save eliminated.
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s 			page 1
  270              		@ frame_needed = 0, uses_anonymous_args = 0
  271              		@ link register save eliminated.
  272              	.LVL18:
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s 			page 7
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccnWXWdc.s 			page 7
 
 
   79:Src/task.c    ****     int i;
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s 			page 1
   91:Src/task.c    **** {
  316              		.loc 1 91 0
  317              		.cfi_startproc
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s 			page 8
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccnWXWdc.s 			page 8
 
 
  318              		@ args = 0, pretend = 0, frame = 0
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s 			page 1
  365              		.align	2
  366              	.L28:
  367 0040 00000000 		.word	.LANCHOR0
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s 			page 9
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccnWXWdc.s 			page 9
 
 
  368 0044 00000000 		.word	tcb
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s 			page 1
  416              		.loc 1 106 0
  417 002a 10BD     		pop	{r4, pc}
  418              	.LVL31:
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s 			page 10
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccnWXWdc.s 			page 10
 
 
  419              	.L33:
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s 			page 1
  466 001a 0846     		mov	r0, r1
  467 001c 0649     		ldr	r1, .L39
  468 001e 0144     		add	r1, r1, r0
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s 			page 11
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccnWXWdc.s 			page 11
 
 
  469 0020 CA68     		ldr	r2, [r1, #12]
@@ -658,40 +658,40 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s 			page 1
  515              		.file 10 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\lib\\gcc\\arm-none-eab
  516              		.file 11 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
  517              		.file 12 "Inc/debug.h"
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s 			page 12
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccnWXWdc.s 			page 12
 
 
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s 			page 13
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccnWXWdc.s 			page 13
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 task.c
-C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s:16     .text.initTask:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s:23     .text.initTask:00000000 initTask
-C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s:50     .text.createTask:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s:57     .text.createTask:00000000 createTask
-C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s:181    .text.createTask:000000a4 $d
+C:\Users\Qian\AppData\Local\Temp\ccnWXWdc.s:16     .text.initTask:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccnWXWdc.s:23     .text.initTask:00000000 initTask
+C:\Users\Qian\AppData\Local\Temp\ccnWXWdc.s:50     .text.createTask:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccnWXWdc.s:57     .text.createTask:00000000 createTask
+C:\Users\Qian\AppData\Local\Temp\ccnWXWdc.s:181    .text.createTask:000000a4 $d
                             *COM*:000000c8 tcb
-C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s:186    .text.delTask:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s:193    .text.delTask:00000000 delTask
-C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s:207    .text.taskDelay:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s:214    .text.taskDelay:00000000 taskDelay
-C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s:252    .text.taskDelay:00000020 $d
-C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s:258    .text.getNextReady:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s:265    .text.getNextReady:00000000 getNextReady
-C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s:302    .text.getNextReady:00000020 $d
-C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s:307    .text.switchTaskTo:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s:314    .text.switchTaskTo:00000000 switchTaskTo
-C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s:367    .text.switchTaskTo:00000040 $d
-C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s:373    .text.runFirstTask:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s:380    .text.runFirstTask:00000000 runFirstTask
-C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s:422    .text.runFirstTask:0000002c $d
-C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s:430    .text.task_sysTickHandler:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s:437    .text.task_sysTickHandler:00000000 task_sysTickHandler
-C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s:488    .text.task_sysTickHandler:00000038 $d
-C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s:499    .bss.currentTask:00000000 currentTask
-C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s:495    .bss.currentTask:00000000 $d
-C:\Users\Qian\AppData\Local\Temp\ccMXR71K.s:502    .rodata.runFirstTask.str1.4:00000000 $d
+C:\Users\Qian\AppData\Local\Temp\ccnWXWdc.s:186    .text.delTask:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccnWXWdc.s:193    .text.delTask:00000000 delTask
+C:\Users\Qian\AppData\Local\Temp\ccnWXWdc.s:207    .text.taskDelay:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccnWXWdc.s:214    .text.taskDelay:00000000 taskDelay
+C:\Users\Qian\AppData\Local\Temp\ccnWXWdc.s:252    .text.taskDelay:00000020 $d
+C:\Users\Qian\AppData\Local\Temp\ccnWXWdc.s:258    .text.getNextReady:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccnWXWdc.s:265    .text.getNextReady:00000000 getNextReady
+C:\Users\Qian\AppData\Local\Temp\ccnWXWdc.s:302    .text.getNextReady:00000020 $d
+C:\Users\Qian\AppData\Local\Temp\ccnWXWdc.s:307    .text.switchTaskTo:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccnWXWdc.s:314    .text.switchTaskTo:00000000 switchTaskTo
+C:\Users\Qian\AppData\Local\Temp\ccnWXWdc.s:367    .text.switchTaskTo:00000040 $d
+C:\Users\Qian\AppData\Local\Temp\ccnWXWdc.s:373    .text.runFirstTask:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccnWXWdc.s:380    .text.runFirstTask:00000000 runFirstTask
+C:\Users\Qian\AppData\Local\Temp\ccnWXWdc.s:422    .text.runFirstTask:0000002c $d
+C:\Users\Qian\AppData\Local\Temp\ccnWXWdc.s:430    .text.task_sysTickHandler:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccnWXWdc.s:437    .text.task_sysTickHandler:00000000 task_sysTickHandler
+C:\Users\Qian\AppData\Local\Temp\ccnWXWdc.s:488    .text.task_sysTickHandler:00000038 $d
+C:\Users\Qian\AppData\Local\Temp\ccnWXWdc.s:499    .bss.currentTask:00000000 currentTask
+C:\Users\Qian\AppData\Local\Temp\ccnWXWdc.s:495    .bss.currentTask:00000000 $d
+C:\Users\Qian\AppData\Local\Temp\ccnWXWdc.s:502    .rodata.runFirstTask.str1.4:00000000 $d
 
 UNDEFINED SYMBOLS
 enterCritical

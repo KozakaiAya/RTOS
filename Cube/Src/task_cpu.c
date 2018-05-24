@@ -16,26 +16,26 @@ void* getCurrentStackPtr()
 int saveContext(char** ptrToCurrentSP)
 {
     uint32_t t;
-    *(ptrToCurrentSP) = (char*)getCurrentStackPtr();
     asm volatile (
         "MRS    %0, psp             \n\t"
         "STMDB  %0!, {r4-r11}       \n\t"
-        "MSR    psp, %0             \n\t"
+        "MSR    msp, %0             \n\t"
         : "=r" (t)        
     );
+    *(ptrToCurrentSP) = (char*)t;
     return 0;
 }
 
 int loadContext(char** ptrToNextSP)
 {
     uint32_t t;
-    contextSwitcher(*ptrToNextSP);
     asm volatile (
         "MRS    %0, psp             \n\t"
         "LDMFD  %0!, {r4-r11}       \n\t"
         "MSR    psp, %0             \n\t"
+        "MOV    lr, 0xFFFFFFFD      \n\t"
         "CPSIE I                    \n\t"
-        "bx     lr                  \n\t"
+        "BX     lr                  \n\t"
         : "=r" (t)
     );
     return 0;

@@ -76,12 +76,14 @@ int taskDelay(uint32_t value)
 
 int getNextReady()
 {
-    int i;
-    for (i = 0; i < MAX_TASK_COUNT; i++)
+    int i, j;
+    for (i = 1; i <= MAX_TASK_COUNT; i++)
     {
-        if (tcb[i].state == TASK_READY)
+        j = currentTask + i;
+        if (j >= MAX_TASK_COUNT) j-=MAX_TASK_COUNT;
+        if (tcb[j].state == TASK_READY)
         {
-            return i;
+            return j;
         }
     }
     return NO_SUCH_TASK;
@@ -94,7 +96,8 @@ int switchTaskTo(int nextTask)
     tcb[nextTask].state = TASK_RUNNING;
     currentTask = nextTask;
     saveContext(&tcb[oldTask].sp);
-    loadContext(&tcb[currentTask].sp);
+    contextSwitcher(tcb[nextTask].sp);
+    loadContext(&tcb[nextTask].sp);
 }
 
 int runFirstTask(int nextTask)
@@ -102,7 +105,8 @@ int runFirstTask(int nextTask)
     logger(&huart1, "RunFirstTask\n");
     currentTask = nextTask;
     tcb[currentTask].state = TASK_RUNNING;
-    loadContext(&tcb[currentTask].sp);
+    contextSwitcher(tcb[nextTask].sp);
+    loadContext(&tcb[nextTask].sp);
 }
 
 int task_sysTickHandler()

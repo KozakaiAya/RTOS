@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccHAhRac.s 			page 1
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccIKdGF8.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -23,54 +23,57 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccHAhRac.s 			page 1
   20              		.thumb_func
   21              		.fpu softvfp
   23              	getCurrentStackPtr:
-  24              	.LFB0:
+  24              	.LFB66:
   25              		.file 1 "Src/task_cpu.c"
    1:Src/task_cpu.c **** #include "task_cpu.h"
    2:Src/task_cpu.c **** 
-   3:Src/task_cpu.c **** void* getCurrentStackPtr()
-   4:Src/task_cpu.c **** {
-  26              		.loc 1 4 0
+   3:Src/task_cpu.c **** #include "debug.h"
+   4:Src/task_cpu.c **** extern huart1;
+   5:Src/task_cpu.c **** 
+   6:Src/task_cpu.c **** void* getCurrentStackPtr()
+   7:Src/task_cpu.c **** {
+  26              		.loc 1 7 0
   27              		.cfi_startproc
   28              		@ args = 0, pretend = 0, frame = 0
   29              		@ frame_needed = 0, uses_anonymous_args = 0
   30              		@ link register save eliminated.
   31              	.LVL0:
-   5:Src/task_cpu.c ****     void* result = 0;
-   6:Src/task_cpu.c ****     asm volatile (
-  32              		.loc 1 6 0
+   8:Src/task_cpu.c ****     void* result = 0;
+   9:Src/task_cpu.c ****     asm volatile (
+  32              		.loc 1 9 0
   33              		.syntax unified
-  34              	@ 6 "Src/task_cpu.c" 1
-  35 0000 EFF30980 		MRS    r0, psp             
+  34              	@ 9 "Src/task_cpu.c" 1
+  35 0000 EFF30880 		MRS    r0, msp             
   36              		
   37              	@ 0 "" 2
   38              	.LVL1:
-   7:Src/task_cpu.c ****         "MRS    %0, psp             \n\t"
-   8:Src/task_cpu.c ****         : "=r" (result)
-   9:Src/task_cpu.c ****     );
-  10:Src/task_cpu.c ****     return result;
-  11:Src/task_cpu.c **** }
-  39              		.loc 1 11 0
+  10:Src/task_cpu.c ****         "MRS    %0, msp             \n\t"
+  11:Src/task_cpu.c ****         : "=r" (result)
+  12:Src/task_cpu.c ****     );
+  13:Src/task_cpu.c ****     return result;
+  14:Src/task_cpu.c **** }
+  39              		.loc 1 14 0
   40              		.thumb
   41              		.syntax unified
   42 0004 7047     		bx	lr
   43              		.cfi_endproc
-  44              	.LFE0:
+  44              	.LFE66:
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccIKdGF8.s 			page 2
+
+
   46              		.section	.text.saveContext,"ax",%progbits
   47              		.align	1
   48              		.global	saveContext
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccHAhRac.s 			page 2
-
-
   49              		.syntax unified
   50              		.thumb
   51              		.thumb_func
   52              		.fpu softvfp
   54              	saveContext:
-  55              	.LFB1:
-  12:Src/task_cpu.c **** 
-  13:Src/task_cpu.c **** int saveContext(char** ptrToCurrentSP)
-  14:Src/task_cpu.c **** {
-  56              		.loc 1 14 0
+  55              	.LFB67:
+  15:Src/task_cpu.c **** 
+  16:Src/task_cpu.c **** int saveContext(char** ptrToCurrentSP)
+  17:Src/task_cpu.c **** {
+  56              		.loc 1 17 0
   57              		.cfi_startproc
   58              		@ args = 0, pretend = 0, frame = 0
   59              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -81,93 +84,93 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccHAhRac.s 			page 1
   64              		.cfi_offset 4, -8
   65              		.cfi_offset 14, -4
   66 0002 0446     		mov	r4, r0
-  15:Src/task_cpu.c ****     uint32_t t;
-  16:Src/task_cpu.c ****     *(ptrToCurrentSP) = (char*)getCurrentStackPtr();
-  67              		.loc 1 16 0
+  18:Src/task_cpu.c ****     uint32_t t;
+  19:Src/task_cpu.c ****     *(ptrToCurrentSP) = (char*)getCurrentStackPtr();
+  67              		.loc 1 19 0
   68 0004 FFF7FEFF 		bl	getCurrentStackPtr
   69              	.LVL3:
   70 0008 2060     		str	r0, [r4]
-  17:Src/task_cpu.c ****     asm volatile (
-  71              		.loc 1 17 0
+  20:Src/task_cpu.c ****     asm volatile (
+  71              		.loc 1 20 0
   72              		.syntax unified
-  73              	@ 17 "Src/task_cpu.c" 1
-  74 000a EFF30983 		MRS    r3, psp             
+  73              	@ 20 "Src/task_cpu.c" 1
+  74 000a EFF30883 		MRS    r3, msp             
   75 000e 23E9F00F 		STMDB  r3!, {r4-r11}       
-  76 0012 83F30988 		MSR    psp, r3             
+  76 0012 83F30888 		MSR    msp, r3             
   77              		
   78              	@ 0 "" 2
   79              	.LVL4:
-  18:Src/task_cpu.c ****         "MRS    %0, psp             \n\t"
-  19:Src/task_cpu.c ****         "STMDB  %0!, {r4-r11}       \n\t"
-  20:Src/task_cpu.c ****         "MSR    psp, %0             \n\t"
-  21:Src/task_cpu.c ****         : "=r" (t)        
-  22:Src/task_cpu.c ****     );
-  23:Src/task_cpu.c ****     return 0;
-  24:Src/task_cpu.c **** }
-  80              		.loc 1 24 0
+  21:Src/task_cpu.c ****         "MRS    %0, msp             \n\t"
+  22:Src/task_cpu.c ****         "STMDB  %0!, {r4-r11}       \n\t"
+  23:Src/task_cpu.c ****         "MSR    msp, %0             \n\t"
+  24:Src/task_cpu.c ****         : "=r" (t)        
+  25:Src/task_cpu.c ****     );
+  26:Src/task_cpu.c ****     return 0;
+  27:Src/task_cpu.c **** }
+  80              		.loc 1 27 0
   81              		.thumb
   82              		.syntax unified
   83 0016 0020     		movs	r0, #0
   84 0018 10BD     		pop	{r4, pc}
   85              		.cfi_endproc
-  86              	.LFE1:
+  86              	.LFE67:
   88              		.section	.text.contextSwitcher,"ax",%progbits
   89              		.align	1
   90              		.global	contextSwitcher
   91              		.syntax unified
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccIKdGF8.s 			page 3
+
+
   92              		.thumb
   93              		.thumb_func
   94              		.fpu softvfp
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccHAhRac.s 			page 3
-
-
   96              	contextSwitcher:
-  97              	.LFB3:
-  25:Src/task_cpu.c **** 
-  26:Src/task_cpu.c **** int loadContext(char** ptrToNextSP)
-  27:Src/task_cpu.c **** {
-  28:Src/task_cpu.c ****     uint32_t t;
-  29:Src/task_cpu.c ****     contextSwitcher(*ptrToNextSP);
-  30:Src/task_cpu.c ****     asm volatile (
-  31:Src/task_cpu.c ****         "MRS    %0, psp             \n\t"
-  32:Src/task_cpu.c ****         "LDMFD  %0!, {r4-r11}       \n\t"
-  33:Src/task_cpu.c ****         "MSR    psp, %0             \n\t"
-  34:Src/task_cpu.c ****         "CPSIE I                    \n\t"
-  35:Src/task_cpu.c ****         "bx     lr                  \n\t"
-  36:Src/task_cpu.c ****         : "=r" (t)
-  37:Src/task_cpu.c ****     );
-  38:Src/task_cpu.c ****     return 0;
-  39:Src/task_cpu.c **** }
-  40:Src/task_cpu.c **** 
-  41:Src/task_cpu.c **** int contextSwitcher(char* nextSP)
-  42:Src/task_cpu.c **** {
-  98              		.loc 1 42 0
+  97              	.LFB69:
+  28:Src/task_cpu.c **** 
+  29:Src/task_cpu.c **** int loadContext(char** ptrToNextSP)
+  30:Src/task_cpu.c **** {
+  31:Src/task_cpu.c ****     uint32_t t;
+  32:Src/task_cpu.c ****     contextSwitcher(*ptrToNextSP);
+  33:Src/task_cpu.c ****     asm volatile (
+  34:Src/task_cpu.c ****         "MRS    %0, msp             \n\t"
+  35:Src/task_cpu.c ****         "LDMFD  %0!, {r4-r11}       \n\t"
+  36:Src/task_cpu.c ****         "MSR    msp, %0             \n\t"
+  37:Src/task_cpu.c ****         "CPSIE I                    \n\t"
+  38:Src/task_cpu.c ****         "bx     lr                  \n\t"
+  39:Src/task_cpu.c ****         : "=r" (t)
+  40:Src/task_cpu.c ****     );
+  41:Src/task_cpu.c ****     return 0;
+  42:Src/task_cpu.c **** }
+  43:Src/task_cpu.c **** 
+  44:Src/task_cpu.c **** int contextSwitcher(char* nextSP)
+  45:Src/task_cpu.c **** {
+  98              		.loc 1 45 0
   99              		.cfi_startproc
  100              		@ args = 0, pretend = 0, frame = 0
  101              		@ frame_needed = 0, uses_anonymous_args = 0
  102              		@ link register save eliminated.
  103              	.LVL5:
-  43:Src/task_cpu.c ****     asm volatile (
- 104              		.loc 1 43 0
+  46:Src/task_cpu.c ****     asm volatile (
+ 104              		.loc 1 46 0
  105              		.syntax unified
- 106              	@ 43 "Src/task_cpu.c" 1
- 107 0000 80F30988 		MSR    psp, r0             
+ 106              	@ 46 "Src/task_cpu.c" 1
+ 107 0000 80F30888 		MSR    msp, r0             
  108              		
  109              	@ 0 "" 2
-  44:Src/task_cpu.c ****         "MSR    psp, %0             \n\t"
-  45:Src/task_cpu.c ****         :
-  46:Src/task_cpu.c ****         : "r" (nextSP)
-  47:Src/task_cpu.c ****     );
-  48:Src/task_cpu.c ****     return 0;
-  49:Src/task_cpu.c **** }
- 110              		.loc 1 49 0
+  47:Src/task_cpu.c ****         "MSR    msp, %0             \n\t"
+  48:Src/task_cpu.c ****         :
+  49:Src/task_cpu.c ****         : "r" (nextSP)
+  50:Src/task_cpu.c ****     );
+  51:Src/task_cpu.c ****     return 0;
+  52:Src/task_cpu.c **** }
+ 110              		.loc 1 52 0
  111              		.thumb
  112              		.syntax unified
  113 0004 0020     		movs	r0, #0
  114              	.LVL6:
  115 0006 7047     		bx	lr
  116              		.cfi_endproc
- 117              	.LFE3:
+ 117              	.LFE69:
  119              		.section	.text.loadContext,"ax",%progbits
  120              		.align	1
  121              		.global	loadContext
@@ -175,13 +178,13 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccHAhRac.s 			page 1
  123              		.thumb
  124              		.thumb_func
  125              		.fpu softvfp
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccIKdGF8.s 			page 4
+
+
  127              	loadContext:
- 128              	.LFB2:
-  27:Src/task_cpu.c ****     uint32_t t;
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccHAhRac.s 			page 4
-
-
- 129              		.loc 1 27 0
+ 128              	.LFB68:
+  30:Src/task_cpu.c ****     uint32_t t;
+ 129              		.loc 1 30 0
  130              		.cfi_startproc
  131              		@ args = 0, pretend = 0, frame = 0
  132              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -191,32 +194,32 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccHAhRac.s 			page 1
  136              		.cfi_def_cfa_offset 8
  137              		.cfi_offset 3, -8
  138              		.cfi_offset 14, -4
-  29:Src/task_cpu.c ****     asm volatile (
- 139              		.loc 1 29 0
+  32:Src/task_cpu.c ****     asm volatile (
+ 139              		.loc 1 32 0
  140 0002 0068     		ldr	r0, [r0]
  141              	.LVL8:
  142 0004 FFF7FEFF 		bl	contextSwitcher
  143              	.LVL9:
-  30:Src/task_cpu.c ****         "MRS    %0, psp             \n\t"
- 144              		.loc 1 30 0
+  33:Src/task_cpu.c ****         "MRS    %0, msp             \n\t"
+ 144              		.loc 1 33 0
  145              		.syntax unified
- 146              	@ 30 "Src/task_cpu.c" 1
- 147 0008 EFF30983 		MRS    r3, psp             
+ 146              	@ 33 "Src/task_cpu.c" 1
+ 147 0008 EFF30883 		MRS    r3, msp             
  148 000c B3E8F00F 		LDMFD  r3!, {r4-r11}       
- 149 0010 83F30988 		MSR    psp, r3             
+ 149 0010 83F30888 		MSR    msp, r3             
  150 0014 62B6     		CPSIE I                    
  151 0016 7047     		bx     lr                  
  152              		
  153              	@ 0 "" 2
  154              	.LVL10:
-  39:Src/task_cpu.c **** 
- 155              		.loc 1 39 0
+  42:Src/task_cpu.c **** 
+ 155              		.loc 1 42 0
  156              		.thumb
  157              		.syntax unified
  158 0018 0020     		movs	r0, #0
  159 001a 08BD     		pop	{r3, pc}
  160              		.cfi_endproc
- 161              	.LFE2:
+ 161              	.LFE68:
  163              		.section	.text.enterCritical,"ax",%progbits
  164              		.align	1
  165              		.global	enterCritical
@@ -225,35 +228,35 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccHAhRac.s 			page 1
  168              		.thumb_func
  169              		.fpu softvfp
  171              	enterCritical:
- 172              	.LFB4:
-  50:Src/task_cpu.c **** 
-  51:Src/task_cpu.c **** int enterCritical()
-  52:Src/task_cpu.c **** {
- 173              		.loc 1 52 0
+ 172              	.LFB70:
+  53:Src/task_cpu.c **** 
+  54:Src/task_cpu.c **** int enterCritical()
+  55:Src/task_cpu.c **** {
+ 173              		.loc 1 55 0
  174              		.cfi_startproc
  175              		@ args = 0, pretend = 0, frame = 0
  176              		@ frame_needed = 0, uses_anonymous_args = 0
  177              		@ link register save eliminated.
-  53:Src/task_cpu.c ****     asm volatile (
- 178              		.loc 1 53 0
+  56:Src/task_cpu.c ****     asm volatile (
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccIKdGF8.s 			page 5
+
+
+ 178              		.loc 1 56 0
  179              		.syntax unified
- 180              	@ 53 "Src/task_cpu.c" 1
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccHAhRac.s 			page 5
-
-
+ 180              	@ 56 "Src/task_cpu.c" 1
  181 0000 72B6     		CPSID I
  182              	@ 0 "" 2
-  54:Src/task_cpu.c ****         "CPSID I"
-  55:Src/task_cpu.c ****     );
-  56:Src/task_cpu.c ****     return 0;
-  57:Src/task_cpu.c **** }
- 183              		.loc 1 57 0
+  57:Src/task_cpu.c ****         "CPSID I"
+  58:Src/task_cpu.c ****     );
+  59:Src/task_cpu.c ****     return 0;
+  60:Src/task_cpu.c **** }
+ 183              		.loc 1 60 0
  184              		.thumb
  185              		.syntax unified
  186 0002 0020     		movs	r0, #0
  187 0004 7047     		bx	lr
  188              		.cfi_endproc
- 189              	.LFE4:
+ 189              	.LFE70:
  191              		.section	.text.exitCritical,"ax",%progbits
  192              		.align	1
  193              		.global	exitCritical
@@ -262,52 +265,61 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccHAhRac.s 			page 1
  196              		.thumb_func
  197              		.fpu softvfp
  199              	exitCritical:
- 200              	.LFB5:
-  58:Src/task_cpu.c **** 
-  59:Src/task_cpu.c **** int exitCritical()
-  60:Src/task_cpu.c **** {
- 201              		.loc 1 60 0
+ 200              	.LFB71:
+  61:Src/task_cpu.c **** 
+  62:Src/task_cpu.c **** int exitCritical()
+  63:Src/task_cpu.c **** {
+ 201              		.loc 1 63 0
  202              		.cfi_startproc
  203              		@ args = 0, pretend = 0, frame = 0
  204              		@ frame_needed = 0, uses_anonymous_args = 0
  205              		@ link register save eliminated.
-  61:Src/task_cpu.c ****     asm volatile (
- 206              		.loc 1 61 0
+  64:Src/task_cpu.c ****     asm volatile (
+ 206              		.loc 1 64 0
  207              		.syntax unified
- 208              	@ 61 "Src/task_cpu.c" 1
+ 208              	@ 64 "Src/task_cpu.c" 1
  209 0000 62B6     		CPSIE I
  210              	@ 0 "" 2
-  62:Src/task_cpu.c ****         "CPSIE I"
-  63:Src/task_cpu.c ****     );
-  64:Src/task_cpu.c ****     return 0;
-  65:Src/task_cpu.c **** }...
- 211              		.loc 1 65 0
+  65:Src/task_cpu.c ****         "CPSIE I"
+  66:Src/task_cpu.c ****     );
+  67:Src/task_cpu.c ****     return 0;
+  68:Src/task_cpu.c **** }...
+ 211              		.loc 1 68 0
  212              		.thumb
  213              		.syntax unified
  214 0002 0020     		movs	r0, #0
  215 0004 7047     		bx	lr
  216              		.cfi_endproc
- 217              	.LFE5:
+ 217              	.LFE71:
  219              		.text
  220              	.Letext0:
  221              		.file 2 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
  222              		.file 3 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccHAhRac.s 			page 6
+ 223              		.file 4 "Drivers/CMSIS/Include/core_cm3.h"
+ 224              		.file 5 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 225              		.file 6 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccIKdGF8.s 			page 6
+
+
+ 226              		.file 7 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 227              		.file 8 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\lib\\gcc\\arm-none-eabi
+ 228              		.file 9 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccIKdGF8.s 			page 7
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 task_cpu.c
-C:\Users\Qian\AppData\Local\Temp\ccHAhRac.s:16     .text.getCurrentStackPtr:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccHAhRac.s:23     .text.getCurrentStackPtr:00000000 getCurrentStackPtr
-C:\Users\Qian\AppData\Local\Temp\ccHAhRac.s:47     .text.saveContext:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccHAhRac.s:54     .text.saveContext:00000000 saveContext
-C:\Users\Qian\AppData\Local\Temp\ccHAhRac.s:89     .text.contextSwitcher:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccHAhRac.s:96     .text.contextSwitcher:00000000 contextSwitcher
-C:\Users\Qian\AppData\Local\Temp\ccHAhRac.s:120    .text.loadContext:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccHAhRac.s:127    .text.loadContext:00000000 loadContext
-C:\Users\Qian\AppData\Local\Temp\ccHAhRac.s:164    .text.enterCritical:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccHAhRac.s:171    .text.enterCritical:00000000 enterCritical
-C:\Users\Qian\AppData\Local\Temp\ccHAhRac.s:192    .text.exitCritical:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccHAhRac.s:199    .text.exitCritical:00000000 exitCritical
+C:\Users\Qian\AppData\Local\Temp\ccIKdGF8.s:16     .text.getCurrentStackPtr:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccIKdGF8.s:23     .text.getCurrentStackPtr:00000000 getCurrentStackPtr
+C:\Users\Qian\AppData\Local\Temp\ccIKdGF8.s:47     .text.saveContext:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccIKdGF8.s:54     .text.saveContext:00000000 saveContext
+C:\Users\Qian\AppData\Local\Temp\ccIKdGF8.s:89     .text.contextSwitcher:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccIKdGF8.s:96     .text.contextSwitcher:00000000 contextSwitcher
+C:\Users\Qian\AppData\Local\Temp\ccIKdGF8.s:120    .text.loadContext:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccIKdGF8.s:127    .text.loadContext:00000000 loadContext
+C:\Users\Qian\AppData\Local\Temp\ccIKdGF8.s:164    .text.enterCritical:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccIKdGF8.s:171    .text.enterCritical:00000000 enterCritical
+C:\Users\Qian\AppData\Local\Temp\ccIKdGF8.s:192    .text.exitCritical:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccIKdGF8.s:199    .text.exitCritical:00000000 exitCritical
 
 NO UNDEFINED SYMBOLS

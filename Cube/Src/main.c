@@ -121,6 +121,8 @@ int main(void)
   logger(&huart1, "HW\n");
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_SET);
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_SET);
+
+  os_enterCritical();
   os_createTask(taskA);
   os_createTask(taskB);
   osStart();
