@@ -70,7 +70,7 @@ void taskA()
   logger(&huart1, "Task1_Run\n");
 	for (;;) {
 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_RESET);
-		os_setTaskDelay(767);
+		os_setTaskDelay(13);
 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_SET);
 	}
 }
@@ -80,7 +80,7 @@ void taskB()
   logger(&huart1, "Task2_Run\n");
 	for (;;) {
 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_RESET);
-		os_setTaskDelay(511);
+		os_setTaskDelay(23);
 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_SET);
 	}
 }

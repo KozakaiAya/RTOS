@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "os.h": "c"
+        "os.h": "c",
+        "task_cpu.h": "c"
     }
 }

@@ -2,7 +2,6 @@
 
 #include "debug.h"
 
-extern huart1;
 
 task_control_block_t tcb[MAX_TASK_COUNT];
 
@@ -28,7 +27,7 @@ int createTask( void* (*foo)(void*))
     {
         if (tcb[i].state == TASK_FREE)
         {
-            tcb[i].sp = (char*)((SRAM_TOP_ADDRESS - (i * STACK_FRAME_SIZE)) - sizeof(hw_stack_frame_t));
+            tcb[i].sp = (char*)((PROC_STACK_TOP - (i * STACK_FRAME_SIZE)) - sizeof(hw_stack_frame_t));
             hw_process_frame = (hw_stack_frame_t*)tcb[i].sp;
             hw_process_frame->r0 = 0;
             hw_process_frame->r1 = 0;
@@ -68,13 +67,13 @@ int delTask()
     return 0;
 }
 
-int taskDelay(uint32_t value)
+inline int taskDelay(uint32_t value)
 {
     tcb[currentTask].delay = value;
     tcb[currentTask].state = TASK_SLEEPING;
 }
 
-int getNextReady()
+inline int getNextReady()
 {
     int i, j;
     for (i = 1; i <= MAX_TASK_COUNT; i++)
@@ -89,7 +88,7 @@ int getNextReady()
     return NO_SUCH_TASK;
 }
 
-int switchTaskTo(int nextTask)
+inline int switchTaskTo(int nextTask)
 {
     int oldTask = currentTask;
     tcb[currentTask].state = TASK_READY;
@@ -100,7 +99,7 @@ int switchTaskTo(int nextTask)
     loadContext(&tcb[nextTask].sp);
 }
 
-int runFirstTask(int nextTask)
+inline int runFirstTask(int nextTask)
 {
     logger(&huart1, "RunFirstTask\n");
     currentTask = nextTask;
@@ -111,18 +110,24 @@ int runFirstTask(int nextTask)
 
 int task_sysTickHandler()
 {
-    int i;
+    logger(&huart1, "Task_Systick\n");
+
+    int i, f;
+    f = 0;
     for (i = 0; i < MAX_TASK_COUNT; i++)
     {
         if (tcb[i].state == TASK_SLEEPING)
         {
+            logger(&huart1, "Task_Systick_HasSleeping\n");
             tcb[i].delay--;
             if (tcb[i].delay == 0)
             {
+                logger(&huart1, "Task_SystickHandler_NeedResched\n");
+                f = 1;
                 tcb[i].state = TASK_READY;
             }
         }
     }
-    return 0;
+    return f;
 }
 

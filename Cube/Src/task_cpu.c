@@ -1,9 +1,12 @@
+#include <stdlib.h>
+
 #include "task_cpu.h"
 
-#include "debug.h"
-extern huart1;
 
-void* getCurrentStackPtr()
+#include "debug.h"
+
+
+inline void* getCurrentStackPtr()
 {
     void* result = 0;
     asm volatile (
@@ -13,22 +16,23 @@ void* getCurrentStackPtr()
     return result;
 }
 
-int saveContext(char** ptrToCurrentSP)
+inline int saveContext(char** ptrToCurrentSP)
 {
     uint32_t t;
     asm volatile (
         "MRS    %0, psp             \n\t"
         "STMDB  %0!, {r4-r11}       \n\t"
-        "MSR    msp, %0             \n\t"
+        "MSR    psp, %0             \n\t"
         : "=r" (t)        
     );
     *(ptrToCurrentSP) = (char*)t;
     return 0;
 }
 
-int loadContext(char** ptrToNextSP)
+inline int loadContext(char** ptrToNextSP)
 {
     uint32_t t;
+    logger(&huart1, "LoadContext\n");
     asm volatile (
         "MRS    %0, psp             \n\t"
         "LDMFD  %0!, {r4-r11}       \n\t"
@@ -41,8 +45,9 @@ int loadContext(char** ptrToNextSP)
     return 0;
 }
 
-int contextSwitcher(char* nextSP)
+inline int contextSwitcher(char* nextSP)
 {
+    logger(&huart1, "ContextSwitcher\n");
     asm volatile (
         "MSR    psp, %0             \n\t"
         :
@@ -51,7 +56,7 @@ int contextSwitcher(char* nextSP)
     return 0;
 }
 
-int enterCritical()
+inline int enterCritical()
 {
     asm volatile (
         "CPSID I"
@@ -59,7 +64,7 @@ int enterCritical()
     return 0;
 }
 
-int exitCritical()
+inline int exitCritical()
 {
     asm volatile (
         "CPSIE I"

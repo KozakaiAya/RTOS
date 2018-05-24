@@ -3,7 +3,7 @@
 
 #include "debug.h"
 
-extern huart1;
+int os_started = 0;
 
 int scheduler()
 {
@@ -13,7 +13,7 @@ int scheduler()
     {
         //Enter Sleep Mode
         logger(&huart1, "Scheduler_Sleep\n");
-
+        exitCritical();
         while(1){};
     }
     else
@@ -39,7 +39,7 @@ int halfScheduler()
 int osStart()
 {
     logger(&huart1, "OS_Started\n");
-
+    os_started = 1;
     initTask();
     //scheduler();
     halfScheduler();
@@ -48,13 +48,21 @@ int osStart()
 
 int os_sysTickHandler()
 {
-    //TODO: Problem with the Interrupt
     enterCritical();
+    if (!os_started)
+    {
+        exitCritical();
+        return 0;
+    }
+    //TODO: Problem with the Interrupt
+    
     
     logger(&huart1, "OS_Systick\n");
 
-    task_sysTickHandler();
-    scheduler();
+    if (task_sysTickHandler())
+    {
+        scheduler();
+    }
     
     //TODO: Problem with the Interrupt
     exitCritical();
@@ -63,24 +71,27 @@ int os_sysTickHandler()
 
 int os_setTaskDelay(uint32_t ms)
 {
+    enterCritical();
+
     logger(&huart1, "OS_SetDelay\n");
 
     taskDelay(ms * 72);
     scheduler();
+    exitCritical();
     return 0;
 }
 
-int os_createTask( void* (*foo)(void*))
+inline int os_createTask( void* (*foo)(void*))
 {
     return createTask(foo);
 }
 
-int os_enterCritical()
+inline int os_enterCritical()
 {
     enterCritical();
 }
 
-int os_exitCritical()
+inline int os_exitCritical()
 {
     exitCritical();
 }

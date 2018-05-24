@@ -1,7 +1,5 @@
 #include <stdint.h>
 
-#define SRAM_TOP_ADDRESS 0x20001000
-
 typedef struct {
     uint32_t r0;
     uint32_t r1;

@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc6hc6sQ.s 			page 1
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -30,13 +30,11 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc6hc6sQ.s 			page 1
    3:Src/os.c      **** 
    4:Src/os.c      **** #include "debug.h"
    5:Src/os.c      **** 
-   6:Src/os.c      **** extern huart1;
+   6:Src/os.c      **** int os_started = 0;
    7:Src/os.c      **** 
-   8:Src/os.c      **** int os_started = 0;
-   9:Src/os.c      **** 
-  10:Src/os.c      **** int scheduler()
-  11:Src/os.c      **** {
-  26              		.loc 1 11 0
+   8:Src/os.c      **** int scheduler()
+   9:Src/os.c      **** {
+  26              		.loc 1 9 0
   27              		.cfi_startproc
   28              		@ args = 0, pretend = 0, frame = 0
   29              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -45,442 +43,532 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc6hc6sQ.s 			page 1
   32              		.cfi_def_cfa_offset 8
   33              		.cfi_offset 4, -8
   34              		.cfi_offset 14, -4
-  12:Src/os.c      ****     enterCritical();
-  35              		.loc 1 12 0
+  10:Src/os.c      ****     enterCritical();
+  35              		.loc 1 10 0
   36 0002 FFF7FEFF 		bl	enterCritical
   37              	.LVL0:
-  13:Src/os.c      ****     int nextTask = getNextReady();
-  38              		.loc 1 13 0
+  11:Src/os.c      ****     int nextTask = getNextReady();
+  38              		.loc 1 11 0
   39 0006 FFF7FEFF 		bl	getNextReady
   40              	.LVL1:
-  14:Src/os.c      ****     if (nextTask == NO_SUCH_TASK)
-  41              		.loc 1 14 0
+  12:Src/os.c      ****     if (nextTask == NO_SUCH_TASK)
+  41              		.loc 1 12 0
   42 000a B0F1FF3F 		cmp	r0, #-1
   43 000e 09D0     		beq	.L5
   44 0010 0446     		mov	r4, r0
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc6hc6sQ.s 			page 2
+  13:Src/os.c      ****     {
+  14:Src/os.c      ****         //Enter Sleep Mode
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s 			page 2
 
 
-  15:Src/os.c      ****     {
-  16:Src/os.c      ****         //Enter Sleep Mode
-  17:Src/os.c      ****         logger(&huart1, "Scheduler_Sleep\n");
-  18:Src/os.c      **** 
-  19:Src/os.c      ****         while(1){};
-  20:Src/os.c      ****     }
-  21:Src/os.c      ****     else
-  22:Src/os.c      ****     {
-  23:Src/os.c      ****         logger(&huart1, "Scheduler_Switch\n");
-  45              		.loc 1 23 0
-  46 0012 0749     		ldr	r1, .L6
-  47 0014 0748     		ldr	r0, .L6+4
+  15:Src/os.c      ****         logger(&huart1, "Scheduler_Sleep\n");
+  16:Src/os.c      ****         exitCritical();
+  17:Src/os.c      ****         while(1){};
+  18:Src/os.c      ****     }
+  19:Src/os.c      ****     else
+  20:Src/os.c      ****     {
+  21:Src/os.c      ****         logger(&huart1, "Scheduler_Switch\n");
+  45              		.loc 1 21 0
+  46 0012 0849     		ldr	r1, .L6
+  47 0014 0848     		ldr	r0, .L6+4
   48              	.LVL2:
   49 0016 FFF7FEFF 		bl	logger
   50              	.LVL3:
-  24:Src/os.c      ****         switchTaskTo(nextTask);
-  51              		.loc 1 24 0
+  22:Src/os.c      ****         switchTaskTo(nextTask);
+  51              		.loc 1 22 0
   52 001a 2046     		mov	r0, r4
   53 001c FFF7FEFF 		bl	switchTaskTo
   54              	.LVL4:
-  25:Src/os.c      ****     }
-  26:Src/os.c      ****     return 0;
-  27:Src/os.c      **** }
-  55              		.loc 1 27 0
+  23:Src/os.c      ****     }
+  24:Src/os.c      ****     return 0;
+  25:Src/os.c      **** }
+  55              		.loc 1 25 0
   56 0020 0020     		movs	r0, #0
   57 0022 10BD     		pop	{r4, pc}
   58              	.LVL5:
   59              	.L5:
-  17:Src/os.c      **** 
-  60              		.loc 1 17 0
-  61 0024 0449     		ldr	r1, .L6+8
-  62 0026 0348     		ldr	r0, .L6+4
+  15:Src/os.c      ****         exitCritical();
+  60              		.loc 1 15 0
+  61 0024 0549     		ldr	r1, .L6+8
+  62 0026 0448     		ldr	r0, .L6+4
   63              	.LVL6:
   64 0028 FFF7FEFF 		bl	logger
   65              	.LVL7:
-  66              	.L3:
-  67 002c FEE7     		b	.L3
-  68              	.L7:
-  69 002e 00BF     		.align	2
-  70              	.L6:
-  71 0030 14000000 		.word	.LC1
-  72 0034 00000000 		.word	huart1
-  73 0038 00000000 		.word	.LC0
-  74              		.cfi_endproc
-  75              	.LFE66:
-  77              		.section	.text.halfScheduler,"ax",%progbits
-  78              		.align	1
-  79              		.global	halfScheduler
-  80              		.syntax unified
-  81              		.thumb
-  82              		.thumb_func
-  83              		.fpu softvfp
-  85              	halfScheduler:
-  86              	.LFB67:
-  28:Src/os.c      **** 
-  29:Src/os.c      **** int halfScheduler()
-  30:Src/os.c      **** {
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc6hc6sQ.s 			page 3
+  16:Src/os.c      ****         while(1){};
+  66              		.loc 1 16 0
+  67 002c FFF7FEFF 		bl	exitCritical
+  68              	.LVL8:
+  69              	.L3:
+  70 0030 FEE7     		b	.L3
+  71              	.L7:
+  72 0032 00BF     		.align	2
+  73              	.L6:
+  74 0034 14000000 		.word	.LC1
+  75 0038 00000000 		.word	huart1
+  76 003c 00000000 		.word	.LC0
+  77              		.cfi_endproc
+  78              	.LFE66:
+  80              		.section	.text.halfScheduler,"ax",%progbits
+  81              		.align	1
+  82              		.global	halfScheduler
+  83              		.syntax unified
+  84              		.thumb
+  85              		.thumb_func
+  86              		.fpu softvfp
+  88              	halfScheduler:
+  89              	.LFB67:
+  26:Src/os.c      **** 
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s 			page 3
 
 
-  87              		.loc 1 30 0
-  88              		.cfi_startproc
-  89              		@ args = 0, pretend = 0, frame = 0
-  90              		@ frame_needed = 0, uses_anonymous_args = 0
-  91 0000 08B5     		push	{r3, lr}
-  92              	.LCFI1:
-  93              		.cfi_def_cfa_offset 8
-  94              		.cfi_offset 3, -8
-  95              		.cfi_offset 14, -4
-  31:Src/os.c      ****     enterCritical();
-  96              		.loc 1 31 0
-  97 0002 FFF7FEFF 		bl	enterCritical
-  98              	.LVL8:
-  32:Src/os.c      **** 
-  33:Src/os.c      ****     int nextTask = getNextReady();
-  99              		.loc 1 33 0
- 100 0006 FFF7FEFF 		bl	getNextReady
+  27:Src/os.c      **** int halfScheduler()
+  28:Src/os.c      **** {
+  90              		.loc 1 28 0
+  91              		.cfi_startproc
+  92              		@ args = 0, pretend = 0, frame = 0
+  93              		@ frame_needed = 0, uses_anonymous_args = 0
+  94 0000 08B5     		push	{r3, lr}
+  95              	.LCFI1:
+  96              		.cfi_def_cfa_offset 8
+  97              		.cfi_offset 3, -8
+  98              		.cfi_offset 14, -4
+  29:Src/os.c      ****     enterCritical();
+  99              		.loc 1 29 0
+ 100 0002 FFF7FEFF 		bl	enterCritical
  101              	.LVL9:
-  34:Src/os.c      ****     if (nextTask != NO_SUCH_TASK)
- 102              		.loc 1 34 0
- 103 000a B0F1FF3F 		cmp	r0, #-1
- 104 000e 01D0     		beq	.L9
-  35:Src/os.c      ****     {
-  36:Src/os.c      ****         runFirstTask(nextTask);
- 105              		.loc 1 36 0
- 106 0010 FFF7FEFF 		bl	runFirstTask
- 107              	.LVL10:
- 108              	.L9:
-  37:Src/os.c      ****     }
-  38:Src/os.c      ****     return 0;
-  39:Src/os.c      **** }
- 109              		.loc 1 39 0
- 110 0014 0020     		movs	r0, #0
- 111 0016 08BD     		pop	{r3, pc}
- 112              		.cfi_endproc
- 113              	.LFE67:
- 115              		.section	.text.osStart,"ax",%progbits
- 116              		.align	1
- 117              		.global	osStart
- 118              		.syntax unified
- 119              		.thumb
- 120              		.thumb_func
- 121              		.fpu softvfp
- 123              	osStart:
- 124              	.LFB68:
-  40:Src/os.c      **** 
-  41:Src/os.c      **** int osStart()
-  42:Src/os.c      **** {
- 125              		.loc 1 42 0
- 126              		.cfi_startproc
- 127              		@ args = 0, pretend = 0, frame = 0
- 128              		@ frame_needed = 0, uses_anonymous_args = 0
- 129 0000 08B5     		push	{r3, lr}
- 130              	.LCFI2:
- 131              		.cfi_def_cfa_offset 8
- 132              		.cfi_offset 3, -8
- 133              		.cfi_offset 14, -4
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc6hc6sQ.s 			page 4
+  30:Src/os.c      **** 
+  31:Src/os.c      ****     int nextTask = getNextReady();
+ 102              		.loc 1 31 0
+ 103 0006 FFF7FEFF 		bl	getNextReady
+ 104              	.LVL10:
+  32:Src/os.c      ****     if (nextTask != NO_SUCH_TASK)
+ 105              		.loc 1 32 0
+ 106 000a B0F1FF3F 		cmp	r0, #-1
+ 107 000e 01D0     		beq	.L9
+  33:Src/os.c      ****     {
+  34:Src/os.c      ****         runFirstTask(nextTask);
+ 108              		.loc 1 34 0
+ 109 0010 FFF7FEFF 		bl	runFirstTask
+ 110              	.LVL11:
+ 111              	.L9:
+  35:Src/os.c      ****     }
+  36:Src/os.c      ****     return 0;
+  37:Src/os.c      **** }
+ 112              		.loc 1 37 0
+ 113 0014 0020     		movs	r0, #0
+ 114 0016 08BD     		pop	{r3, pc}
+ 115              		.cfi_endproc
+ 116              	.LFE67:
+ 118              		.section	.text.osStart,"ax",%progbits
+ 119              		.align	1
+ 120              		.global	osStart
+ 121              		.syntax unified
+ 122              		.thumb
+ 123              		.thumb_func
+ 124              		.fpu softvfp
+ 126              	osStart:
+ 127              	.LFB68:
+  38:Src/os.c      **** 
+  39:Src/os.c      **** int osStart()
+  40:Src/os.c      **** {
+ 128              		.loc 1 40 0
+ 129              		.cfi_startproc
+ 130              		@ args = 0, pretend = 0, frame = 0
+ 131              		@ frame_needed = 0, uses_anonymous_args = 0
+ 132 0000 08B5     		push	{r3, lr}
+ 133              	.LCFI2:
+ 134              		.cfi_def_cfa_offset 8
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s 			page 4
 
 
-  43:Src/os.c      ****     logger(&huart1, "OS_Started\n");
- 134              		.loc 1 43 0
- 135 0002 0649     		ldr	r1, .L13
- 136 0004 0648     		ldr	r0, .L13+4
- 137 0006 FFF7FEFF 		bl	logger
- 138              	.LVL11:
-  44:Src/os.c      **** 
-  45:Src/os.c      ****     os_started = 1;
- 139              		.loc 1 45 0
- 140 000a 064B     		ldr	r3, .L13+8
- 141 000c 0122     		movs	r2, #1
- 142 000e 1A60     		str	r2, [r3]
-  46:Src/os.c      ****     initTask();
- 143              		.loc 1 46 0
- 144 0010 FFF7FEFF 		bl	initTask
- 145              	.LVL12:
-  47:Src/os.c      ****     //scheduler();
-  48:Src/os.c      ****     halfScheduler();
- 146              		.loc 1 48 0
- 147 0014 FFF7FEFF 		bl	halfScheduler
+ 135              		.cfi_offset 3, -8
+ 136              		.cfi_offset 14, -4
+  41:Src/os.c      ****     logger(&huart1, "OS_Started\n");
+ 137              		.loc 1 41 0
+ 138 0002 0649     		ldr	r1, .L13
+ 139 0004 0648     		ldr	r0, .L13+4
+ 140 0006 FFF7FEFF 		bl	logger
+ 141              	.LVL12:
+  42:Src/os.c      ****     os_started = 1;
+ 142              		.loc 1 42 0
+ 143 000a 064B     		ldr	r3, .L13+8
+ 144 000c 0122     		movs	r2, #1
+ 145 000e 1A60     		str	r2, [r3]
+  43:Src/os.c      ****     initTask();
+ 146              		.loc 1 43 0
+ 147 0010 FFF7FEFF 		bl	initTask
  148              	.LVL13:
-  49:Src/os.c      ****     return 0;
-  50:Src/os.c      **** }
- 149              		.loc 1 50 0
- 150 0018 0020     		movs	r0, #0
- 151 001a 08BD     		pop	{r3, pc}
- 152              	.L14:
- 153              		.align	2
- 154              	.L13:
- 155 001c 00000000 		.word	.LC2
- 156 0020 00000000 		.word	huart1
- 157 0024 00000000 		.word	.LANCHOR0
- 158              		.cfi_endproc
- 159              	.LFE68:
- 161              		.section	.text.os_sysTickHandler,"ax",%progbits
- 162              		.align	1
- 163              		.global	os_sysTickHandler
- 164              		.syntax unified
- 165              		.thumb
- 166              		.thumb_func
- 167              		.fpu softvfp
- 169              	os_sysTickHandler:
- 170              	.LFB69:
-  51:Src/os.c      **** 
-  52:Src/os.c      **** int os_sysTickHandler()
-  53:Src/os.c      **** {
- 171              		.loc 1 53 0
- 172              		.cfi_startproc
- 173              		@ args = 0, pretend = 0, frame = 0
- 174              		@ frame_needed = 0, uses_anonymous_args = 0
- 175 0000 08B5     		push	{r3, lr}
- 176              	.LCFI3:
- 177              		.cfi_def_cfa_offset 8
- 178              		.cfi_offset 3, -8
- 179              		.cfi_offset 14, -4
-  54:Src/os.c      ****     //TODO: Problem with the Interrupt
-  55:Src/os.c      ****     enterCritical();
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc6hc6sQ.s 			page 5
+  44:Src/os.c      ****     //scheduler();
+  45:Src/os.c      ****     halfScheduler();
+ 149              		.loc 1 45 0
+ 150 0014 FFF7FEFF 		bl	halfScheduler
+ 151              	.LVL14:
+  46:Src/os.c      ****     return 0;
+  47:Src/os.c      **** }
+ 152              		.loc 1 47 0
+ 153 0018 0020     		movs	r0, #0
+ 154 001a 08BD     		pop	{r3, pc}
+ 155              	.L14:
+ 156              		.align	2
+ 157              	.L13:
+ 158 001c 00000000 		.word	.LC2
+ 159 0020 00000000 		.word	huart1
+ 160 0024 00000000 		.word	.LANCHOR0
+ 161              		.cfi_endproc
+ 162              	.LFE68:
+ 164              		.section	.text.os_sysTickHandler,"ax",%progbits
+ 165              		.align	1
+ 166              		.global	os_sysTickHandler
+ 167              		.syntax unified
+ 168              		.thumb
+ 169              		.thumb_func
+ 170              		.fpu softvfp
+ 172              	os_sysTickHandler:
+ 173              	.LFB69:
+  48:Src/os.c      **** 
+  49:Src/os.c      **** int os_sysTickHandler()
+  50:Src/os.c      **** {
+ 174              		.loc 1 50 0
+ 175              		.cfi_startproc
+ 176              		@ args = 0, pretend = 0, frame = 0
+ 177              		@ frame_needed = 0, uses_anonymous_args = 0
+ 178 0000 08B5     		push	{r3, lr}
+ 179              	.LCFI3:
+ 180              		.cfi_def_cfa_offset 8
+ 181              		.cfi_offset 3, -8
+ 182              		.cfi_offset 14, -4
+  51:Src/os.c      ****     enterCritical();
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s 			page 5
 
 
- 180              		.loc 1 55 0
- 181 0002 FFF7FEFF 		bl	enterCritical
- 182              	.LVL14:
-  56:Src/os.c      **** 
-  57:Src/os.c      ****     if (!os_started) 
- 183              		.loc 1 57 0
- 184 0006 094B     		ldr	r3, .L20
- 185 0008 1B68     		ldr	r3, [r3]
- 186 000a 5BB1     		cbz	r3, .L19
-  58:Src/os.c      ****     {
-  59:Src/os.c      ****         exitCritical();
-  60:Src/os.c      ****         return 0;
-  61:Src/os.c      ****     }
-  62:Src/os.c      ****     logger(&huart1, "OS_Systick\n");
- 187              		.loc 1 62 0
- 188 000c 0849     		ldr	r1, .L20+4
- 189 000e 0948     		ldr	r0, .L20+8
- 190 0010 FFF7FEFF 		bl	logger
- 191              	.LVL15:
-  63:Src/os.c      **** 
-  64:Src/os.c      ****     task_sysTickHandler();
- 192              		.loc 1 64 0
- 193 0014 FFF7FEFF 		bl	task_sysTickHandler
+ 183              		.loc 1 51 0
+ 184 0002 FFF7FEFF 		bl	enterCritical
+ 185              	.LVL15:
+  52:Src/os.c      ****     if (!os_started)
+ 186              		.loc 1 52 0
+ 187 0006 0A4B     		ldr	r3, .L22
+ 188 0008 1B68     		ldr	r3, [r3]
+ 189 000a 53B1     		cbz	r3, .L20
+  53:Src/os.c      ****     {
+  54:Src/os.c      ****         exitCritical();
+  55:Src/os.c      ****         return 0;
+  56:Src/os.c      ****     }
+  57:Src/os.c      ****     //TODO: Problem with the Interrupt
+  58:Src/os.c      ****     
+  59:Src/os.c      ****     
+  60:Src/os.c      ****     logger(&huart1, "OS_Systick\n");
+ 190              		.loc 1 60 0
+ 191 000c 0949     		ldr	r1, .L22+4
+ 192 000e 0A48     		ldr	r0, .L22+8
+ 193 0010 FFF7FEFF 		bl	logger
  194              	.LVL16:
-  65:Src/os.c      ****     scheduler();
- 195              		.loc 1 65 0
- 196 0018 FFF7FEFF 		bl	scheduler
+  61:Src/os.c      **** 
+  62:Src/os.c      ****     if (task_sysTickHandler())
+ 195              		.loc 1 62 0
+ 196 0014 FFF7FEFF 		bl	task_sysTickHandler
  197              	.LVL17:
+ 198 0018 30B9     		cbnz	r0, .L21
+ 199              	.L18:
+  63:Src/os.c      ****     {
+  64:Src/os.c      ****         scheduler();
+  65:Src/os.c      ****     }
   66:Src/os.c      ****     
   67:Src/os.c      ****     //TODO: Problem with the Interrupt
   68:Src/os.c      ****     exitCritical();
- 198              		.loc 1 68 0
- 199 001c FFF7FEFF 		bl	exitCritical
- 200              	.LVL18:
- 201              	.L17:
+ 200              		.loc 1 68 0
+ 201 001a FFF7FEFF 		bl	exitCritical
+ 202              	.LVL18:
+ 203              	.L17:
   69:Src/os.c      ****     return 0;
   70:Src/os.c      **** }
- 202              		.loc 1 70 0
- 203 0020 0020     		movs	r0, #0
- 204 0022 08BD     		pop	{r3, pc}
- 205              	.L19:
-  59:Src/os.c      ****         return 0;
- 206              		.loc 1 59 0
- 207 0024 FFF7FEFF 		bl	exitCritical
- 208              	.LVL19:
-  60:Src/os.c      ****     }
- 209              		.loc 1 60 0
- 210 0028 FAE7     		b	.L17
- 211              	.L21:
- 212 002a 00BF     		.align	2
- 213              	.L20:
- 214 002c 00000000 		.word	.LANCHOR0
- 215 0030 00000000 		.word	.LC3
- 216 0034 00000000 		.word	huart1
- 217              		.cfi_endproc
- 218              	.LFE69:
- 220              		.section	.text.os_setTaskDelay,"ax",%progbits
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc6hc6sQ.s 			page 6
+ 204              		.loc 1 70 0
+ 205 001e 0020     		movs	r0, #0
+ 206 0020 08BD     		pop	{r3, pc}
+ 207              	.L20:
+  54:Src/os.c      ****         return 0;
+ 208              		.loc 1 54 0
+ 209 0022 FFF7FEFF 		bl	exitCritical
+ 210              	.LVL19:
+  55:Src/os.c      ****     }
+ 211              		.loc 1 55 0
+ 212 0026 FAE7     		b	.L17
+ 213              	.L21:
+  64:Src/os.c      ****     }
+ 214              		.loc 1 64 0
+ 215 0028 FFF7FEFF 		bl	scheduler
+ 216              	.LVL20:
+ 217 002c F5E7     		b	.L18
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s 			page 6
 
 
- 221              		.align	1
- 222              		.global	os_setTaskDelay
- 223              		.syntax unified
- 224              		.thumb
- 225              		.thumb_func
- 226              		.fpu softvfp
- 228              	os_setTaskDelay:
- 229              	.LFB70:
+ 218              	.L23:
+ 219 002e 00BF     		.align	2
+ 220              	.L22:
+ 221 0030 00000000 		.word	.LANCHOR0
+ 222 0034 00000000 		.word	.LC3
+ 223 0038 00000000 		.word	huart1
+ 224              		.cfi_endproc
+ 225              	.LFE69:
+ 227              		.section	.text.os_setTaskDelay,"ax",%progbits
+ 228              		.align	1
+ 229              		.global	os_setTaskDelay
+ 230              		.syntax unified
+ 231              		.thumb
+ 232              		.thumb_func
+ 233              		.fpu softvfp
+ 235              	os_setTaskDelay:
+ 236              	.LFB70:
   71:Src/os.c      **** 
   72:Src/os.c      **** int os_setTaskDelay(uint32_t ms)
   73:Src/os.c      **** {
- 230              		.loc 1 73 0
- 231              		.cfi_startproc
- 232              		@ args = 0, pretend = 0, frame = 0
- 233              		@ frame_needed = 0, uses_anonymous_args = 0
- 234              	.LVL20:
- 235 0000 10B5     		push	{r4, lr}
- 236              	.LCFI4:
- 237              		.cfi_def_cfa_offset 8
- 238              		.cfi_offset 4, -8
- 239              		.cfi_offset 14, -4
- 240 0002 0446     		mov	r4, r0
-  74:Src/os.c      ****     logger(&huart1, "OS_SetDelay\n");
- 241              		.loc 1 74 0
- 242 0004 0649     		ldr	r1, .L24
- 243 0006 0748     		ldr	r0, .L24+4
- 244              	.LVL21:
- 245 0008 FFF7FEFF 		bl	logger
- 246              	.LVL22:
+ 237              		.loc 1 73 0
+ 238              		.cfi_startproc
+ 239              		@ args = 0, pretend = 0, frame = 0
+ 240              		@ frame_needed = 0, uses_anonymous_args = 0
+ 241              	.LVL21:
+ 242 0000 10B5     		push	{r4, lr}
+ 243              	.LCFI4:
+ 244              		.cfi_def_cfa_offset 8
+ 245              		.cfi_offset 4, -8
+ 246              		.cfi_offset 14, -4
+ 247 0002 0446     		mov	r4, r0
+  74:Src/os.c      ****     enterCritical();
+ 248              		.loc 1 74 0
+ 249 0004 FFF7FEFF 		bl	enterCritical
+ 250              	.LVL22:
   75:Src/os.c      **** 
-  76:Src/os.c      ****     taskDelay(ms * 72);
- 247              		.loc 1 76 0
- 248 000c 04EBC404 		add	r4, r4, r4, lsl #3
- 249              	.LVL23:
- 250 0010 E000     		lsls	r0, r4, #3
- 251 0012 FFF7FEFF 		bl	taskDelay
- 252              	.LVL24:
-  77:Src/os.c      ****     scheduler();
- 253              		.loc 1 77 0
- 254 0016 FFF7FEFF 		bl	scheduler
- 255              	.LVL25:
-  78:Src/os.c      ****     return 0;
-  79:Src/os.c      **** }
- 256              		.loc 1 79 0
- 257 001a 0020     		movs	r0, #0
- 258 001c 10BD     		pop	{r4, pc}
- 259              	.L25:
- 260 001e 00BF     		.align	2
- 261              	.L24:
- 262 0020 00000000 		.word	.LC4
- 263 0024 00000000 		.word	huart1
- 264              		.cfi_endproc
- 265              	.LFE70:
- 267              		.section	.text.os_createTask,"ax",%progbits
- 268              		.align	1
- 269              		.global	os_createTask
- 270              		.syntax unified
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc6hc6sQ.s 			page 7
+  76:Src/os.c      ****     logger(&huart1, "OS_SetDelay\n");
+ 251              		.loc 1 76 0
+ 252 0008 0749     		ldr	r1, .L26
+ 253 000a 0848     		ldr	r0, .L26+4
+ 254 000c FFF7FEFF 		bl	logger
+ 255              	.LVL23:
+  77:Src/os.c      **** 
+  78:Src/os.c      ****     taskDelay(ms * 72);
+ 256              		.loc 1 78 0
+ 257 0010 04EBC404 		add	r4, r4, r4, lsl #3
+ 258              	.LVL24:
+ 259 0014 E000     		lsls	r0, r4, #3
+ 260 0016 FFF7FEFF 		bl	taskDelay
+ 261              	.LVL25:
+  79:Src/os.c      ****     scheduler();
+ 262              		.loc 1 79 0
+ 263 001a FFF7FEFF 		bl	scheduler
+ 264              	.LVL26:
+  80:Src/os.c      ****     exitCritical();
+ 265              		.loc 1 80 0
+ 266 001e FFF7FEFF 		bl	exitCritical
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s 			page 7
 
 
- 271              		.thumb
- 272              		.thumb_func
- 273              		.fpu softvfp
- 275              	os_createTask:
- 276              	.LFB71:
-  80:Src/os.c      **** 
-  81:Src/os.c      **** int os_createTask( void* (*foo)(void*))
-  82:Src/os.c      **** {
- 277              		.loc 1 82 0
- 278              		.cfi_startproc
- 279              		@ args = 0, pretend = 0, frame = 0
- 280              		@ frame_needed = 0, uses_anonymous_args = 0
- 281              	.LVL26:
- 282 0000 08B5     		push	{r3, lr}
- 283              	.LCFI5:
- 284              		.cfi_def_cfa_offset 8
- 285              		.cfi_offset 3, -8
- 286              		.cfi_offset 14, -4
-  83:Src/os.c      ****     return createTask(foo);
- 287              		.loc 1 83 0
- 288 0002 FFF7FEFF 		bl	createTask
- 289              	.LVL27:
-  84:Src/os.c      **** }
- 290              		.loc 1 84 0
- 291 0006 08BD     		pop	{r3, pc}
- 292              		.cfi_endproc
- 293              	.LFE71:
- 295              		.global	os_started
- 296              		.section	.bss.os_started,"aw",%nobits
- 297              		.align	2
- 298              		.set	.LANCHOR0,. + 0
- 301              	os_started:
- 302 0000 00000000 		.space	4
- 303              		.section	.rodata.osStart.str1.4,"aMS",%progbits,1
- 304              		.align	2
- 305              	.LC2:
- 306 0000 4F535F53 		.ascii	"OS_Started\012\000"
- 306      74617274 
- 306      65640A00 
- 307              		.section	.rodata.os_setTaskDelay.str1.4,"aMS",%progbits,1
- 308              		.align	2
- 309              	.LC4:
- 310 0000 4F535F53 		.ascii	"OS_SetDelay\012\000"
- 310      65744465 
- 310      6C61790A 
- 310      00
- 311              		.section	.rodata.os_sysTickHandler.str1.4,"aMS",%progbits,1
- 312              		.align	2
- 313              	.LC3:
- 314 0000 4F535F53 		.ascii	"OS_Systick\012\000"
- 314      79737469 
- 314      636B0A00 
- 315              		.section	.rodata.scheduler.str1.4,"aMS",%progbits,1
- 316              		.align	2
- 317              	.LC0:
- 318 0000 53636865 		.ascii	"Scheduler_Sleep\012\000"
- 318      64756C65 
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc6hc6sQ.s 			page 8
+ 267              	.LVL27:
+  81:Src/os.c      ****     return 0;
+  82:Src/os.c      **** }
+ 268              		.loc 1 82 0
+ 269 0022 0020     		movs	r0, #0
+ 270 0024 10BD     		pop	{r4, pc}
+ 271              	.L27:
+ 272 0026 00BF     		.align	2
+ 273              	.L26:
+ 274 0028 00000000 		.word	.LC4
+ 275 002c 00000000 		.word	huart1
+ 276              		.cfi_endproc
+ 277              	.LFE70:
+ 279              		.section	.text.os_createTask,"ax",%progbits
+ 280              		.align	1
+ 281              		.global	os_createTask
+ 282              		.syntax unified
+ 283              		.thumb
+ 284              		.thumb_func
+ 285              		.fpu softvfp
+ 287              	os_createTask:
+ 288              	.LFB71:
+  83:Src/os.c      **** 
+  84:Src/os.c      **** inline int os_createTask( void* (*foo)(void*))
+  85:Src/os.c      **** {
+ 289              		.loc 1 85 0
+ 290              		.cfi_startproc
+ 291              		@ args = 0, pretend = 0, frame = 0
+ 292              		@ frame_needed = 0, uses_anonymous_args = 0
+ 293              	.LVL28:
+ 294 0000 08B5     		push	{r3, lr}
+ 295              	.LCFI5:
+ 296              		.cfi_def_cfa_offset 8
+ 297              		.cfi_offset 3, -8
+ 298              		.cfi_offset 14, -4
+  86:Src/os.c      ****     return createTask(foo);
+ 299              		.loc 1 86 0
+ 300 0002 FFF7FEFF 		bl	createTask
+ 301              	.LVL29:
+  87:Src/os.c      **** }
+ 302              		.loc 1 87 0
+ 303 0006 08BD     		pop	{r3, pc}
+ 304              		.cfi_endproc
+ 305              	.LFE71:
+ 307              		.section	.text.os_enterCritical,"ax",%progbits
+ 308              		.align	1
+ 309              		.global	os_enterCritical
+ 310              		.syntax unified
+ 311              		.thumb
+ 312              		.thumb_func
+ 313              		.fpu softvfp
+ 315              	os_enterCritical:
+ 316              	.LFB72:
+  88:Src/os.c      **** 
+  89:Src/os.c      **** inline int os_enterCritical()
+  90:Src/os.c      **** {
+ 317              		.loc 1 90 0
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s 			page 8
 
 
- 318      725F536C 
- 318      6565700A 
- 318      00
- 319 0011 000000   		.space	3
- 320              	.LC1:
- 321 0014 53636865 		.ascii	"Scheduler_Switch\012\000"
- 321      64756C65 
- 321      725F5377 
- 321      69746368 
- 321      0A00
- 322              		.text
- 323              	.Letext0:
- 324              		.file 2 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
- 325              		.file 3 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
- 326              		.file 4 "Drivers/CMSIS/Include/core_cm3.h"
- 327              		.file 5 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
- 328              		.file 6 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
- 329              		.file 7 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
- 330              		.file 8 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\lib\\gcc\\arm-none-eabi
- 331              		.file 9 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
- 332              		.file 10 "Inc/task.h"
- 333              		.file 11 "Inc/debug.h"
- 334              		.file 12 "Inc/task_cpu.h"
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc6hc6sQ.s 			page 9
+ 318              		.cfi_startproc
+ 319              		@ args = 0, pretend = 0, frame = 0
+ 320              		@ frame_needed = 0, uses_anonymous_args = 0
+ 321 0000 08B5     		push	{r3, lr}
+ 322              	.LCFI6:
+ 323              		.cfi_def_cfa_offset 8
+ 324              		.cfi_offset 3, -8
+ 325              		.cfi_offset 14, -4
+  91:Src/os.c      ****     enterCritical();
+ 326              		.loc 1 91 0
+ 327 0002 FFF7FEFF 		bl	enterCritical
+ 328              	.LVL30:
+  92:Src/os.c      **** }
+ 329              		.loc 1 92 0
+ 330 0006 08BD     		pop	{r3, pc}
+ 331              		.cfi_endproc
+ 332              	.LFE72:
+ 334              		.section	.text.os_exitCritical,"ax",%progbits
+ 335              		.align	1
+ 336              		.global	os_exitCritical
+ 337              		.syntax unified
+ 338              		.thumb
+ 339              		.thumb_func
+ 340              		.fpu softvfp
+ 342              	os_exitCritical:
+ 343              	.LFB73:
+  93:Src/os.c      **** 
+  94:Src/os.c      **** inline int os_exitCritical()
+  95:Src/os.c      **** {
+ 344              		.loc 1 95 0
+ 345              		.cfi_startproc
+ 346              		@ args = 0, pretend = 0, frame = 0
+ 347              		@ frame_needed = 0, uses_anonymous_args = 0
+ 348 0000 08B5     		push	{r3, lr}
+ 349              	.LCFI7:
+ 350              		.cfi_def_cfa_offset 8
+ 351              		.cfi_offset 3, -8
+ 352              		.cfi_offset 14, -4
+  96:Src/os.c      ****     exitCritical();
+ 353              		.loc 1 96 0
+ 354 0002 FFF7FEFF 		bl	exitCritical
+ 355              	.LVL31:
+  97:Src/os.c      **** }
+ 356              		.loc 1 97 0
+ 357 0006 08BD     		pop	{r3, pc}
+ 358              		.cfi_endproc
+ 359              	.LFE73:
+ 361              		.global	os_started
+ 362              		.section	.bss.os_started,"aw",%nobits
+ 363              		.align	2
+ 364              		.set	.LANCHOR0,. + 0
+ 367              	os_started:
+ 368 0000 00000000 		.space	4
+ 369              		.section	.rodata.osStart.str1.4,"aMS",%progbits,1
+ 370              		.align	2
+ 371              	.LC2:
+ 372 0000 4F535F53 		.ascii	"OS_Started\012\000"
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s 			page 9
+
+
+ 372      74617274 
+ 372      65640A00 
+ 373              		.section	.rodata.os_setTaskDelay.str1.4,"aMS",%progbits,1
+ 374              		.align	2
+ 375              	.LC4:
+ 376 0000 4F535F53 		.ascii	"OS_SetDelay\012\000"
+ 376      65744465 
+ 376      6C61790A 
+ 376      00
+ 377              		.section	.rodata.os_sysTickHandler.str1.4,"aMS",%progbits,1
+ 378              		.align	2
+ 379              	.LC3:
+ 380 0000 4F535F53 		.ascii	"OS_Systick\012\000"
+ 380      79737469 
+ 380      636B0A00 
+ 381              		.section	.rodata.scheduler.str1.4,"aMS",%progbits,1
+ 382              		.align	2
+ 383              	.LC0:
+ 384 0000 53636865 		.ascii	"Scheduler_Sleep\012\000"
+ 384      64756C65 
+ 384      725F536C 
+ 384      6565700A 
+ 384      00
+ 385 0011 000000   		.space	3
+ 386              	.LC1:
+ 387 0014 53636865 		.ascii	"Scheduler_Switch\012\000"
+ 387      64756C65 
+ 387      725F5377 
+ 387      69746368 
+ 387      0A00
+ 388              		.text
+ 389              	.Letext0:
+ 390              		.file 2 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 391              		.file 3 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 392              		.file 4 "Drivers/CMSIS/Include/core_cm3.h"
+ 393              		.file 5 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 394              		.file 6 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 395              		.file 7 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 396              		.file 8 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 397              		.file 9 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\lib\\gcc\\arm-none-eabi
+ 398              		.file 10 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+ 399              		.file 11 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 400              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 401              		.file 13 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h"
+ 402              		.file 14 "Inc/debug.h"
+ 403              		.file 15 "Inc/task_cpu.h"
+ 404              		.file 16 "Inc/task.h"
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s 			page 10
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 os.c
-C:\Users\Qian\AppData\Local\Temp\cc6hc6sQ.s:16     .text.scheduler:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\cc6hc6sQ.s:23     .text.scheduler:00000000 scheduler
-C:\Users\Qian\AppData\Local\Temp\cc6hc6sQ.s:71     .text.scheduler:00000030 $d
-C:\Users\Qian\AppData\Local\Temp\cc6hc6sQ.s:78     .text.halfScheduler:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\cc6hc6sQ.s:85     .text.halfScheduler:00000000 halfScheduler
-C:\Users\Qian\AppData\Local\Temp\cc6hc6sQ.s:116    .text.osStart:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\cc6hc6sQ.s:123    .text.osStart:00000000 osStart
-C:\Users\Qian\AppData\Local\Temp\cc6hc6sQ.s:155    .text.osStart:0000001c $d
-C:\Users\Qian\AppData\Local\Temp\cc6hc6sQ.s:162    .text.os_sysTickHandler:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\cc6hc6sQ.s:169    .text.os_sysTickHandler:00000000 os_sysTickHandler
-C:\Users\Qian\AppData\Local\Temp\cc6hc6sQ.s:214    .text.os_sysTickHandler:0000002c $d
-C:\Users\Qian\AppData\Local\Temp\cc6hc6sQ.s:221    .text.os_setTaskDelay:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\cc6hc6sQ.s:228    .text.os_setTaskDelay:00000000 os_setTaskDelay
-C:\Users\Qian\AppData\Local\Temp\cc6hc6sQ.s:262    .text.os_setTaskDelay:00000020 $d
-C:\Users\Qian\AppData\Local\Temp\cc6hc6sQ.s:268    .text.os_createTask:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\cc6hc6sQ.s:275    .text.os_createTask:00000000 os_createTask
-C:\Users\Qian\AppData\Local\Temp\cc6hc6sQ.s:301    .bss.os_started:00000000 os_started
-C:\Users\Qian\AppData\Local\Temp\cc6hc6sQ.s:297    .bss.os_started:00000000 $d
-C:\Users\Qian\AppData\Local\Temp\cc6hc6sQ.s:304    .rodata.osStart.str1.4:00000000 $d
-C:\Users\Qian\AppData\Local\Temp\cc6hc6sQ.s:308    .rodata.os_setTaskDelay.str1.4:00000000 $d
-C:\Users\Qian\AppData\Local\Temp\cc6hc6sQ.s:312    .rodata.os_sysTickHandler.str1.4:00000000 $d
-C:\Users\Qian\AppData\Local\Temp\cc6hc6sQ.s:316    .rodata.scheduler.str1.4:00000000 $d
+C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:16     .text.scheduler:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:23     .text.scheduler:00000000 scheduler
+C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:74     .text.scheduler:00000034 $d
+C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:81     .text.halfScheduler:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:88     .text.halfScheduler:00000000 halfScheduler
+C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:119    .text.osStart:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:126    .text.osStart:00000000 osStart
+C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:158    .text.osStart:0000001c $d
+C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:165    .text.os_sysTickHandler:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:172    .text.os_sysTickHandler:00000000 os_sysTickHandler
+C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:221    .text.os_sysTickHandler:00000030 $d
+C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:228    .text.os_setTaskDelay:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:235    .text.os_setTaskDelay:00000000 os_setTaskDelay
+C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:274    .text.os_setTaskDelay:00000028 $d
+C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:280    .text.os_createTask:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:287    .text.os_createTask:00000000 os_createTask
+C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:308    .text.os_enterCritical:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:315    .text.os_enterCritical:00000000 os_enterCritical
+C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:335    .text.os_exitCritical:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:342    .text.os_exitCritical:00000000 os_exitCritical
+C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:367    .bss.os_started:00000000 os_started
+C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:363    .bss.os_started:00000000 $d
+C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:370    .rodata.osStart.str1.4:00000000 $d
+C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:374    .rodata.os_setTaskDelay.str1.4:00000000 $d
+C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:378    .rodata.os_sysTickHandler.str1.4:00000000 $d
+C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:382    .rodata.scheduler.str1.4:00000000 $d
 
 UNDEFINED SYMBOLS
 enterCritical
 getNextReady
 logger
 switchTaskTo
+exitCritical
 huart1
 runFirstTask
 initTask
 task_sysTickHandler
-exitCritical
 taskDelay
 createTask
