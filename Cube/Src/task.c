@@ -1,6 +1,7 @@
 #include "task.h"
 
 #include "debug.h"
+#include <stdio.h>
 
 
 task_control_block_t tcb[MAX_TASK_COUNT];
@@ -16,6 +17,7 @@ int initTask()
     {
         tcb[i].state == TASK_FREE;
     }
+    return 0;
 }
 
 int createTask( void* (*foo)(void*))
@@ -29,7 +31,7 @@ int createTask( void* (*foo)(void*))
     {
         if (tcb[i].state == TASK_FREE)
         {
-            tcb[i].sp = (char*)((stackFrame + (MAX_TASK_COUNT * STACK_FRAME_SIZE) - 1) - sizeof(hw_stack_frame_t));
+            tcb[i].sp = (char*)((stackFrame + (MAX_TASK_COUNT * STACK_FRAME_SIZE) - 1 - i * STACK_FRAME_SIZE) - sizeof(hw_stack_frame_t));
             hw_process_frame = (hw_stack_frame_t*)tcb[i].sp;
             hw_process_frame->r0 = 0;
             hw_process_frame->r1 = 0;
@@ -54,10 +56,12 @@ int createTask( void* (*foo)(void*))
             tcb[i].state = TASK_READY;
             tcb[i].delay = 0;
             tcb[i].priority = 0;
+            break;
         }
     }
     exitCritical();
 
+    printf("Created Task %d\tSP: %lx\n", i, (uint32_t)tcb[i].sp);
     if (i == MAX_TASK_COUNT)
         return -1;
     else
@@ -73,6 +77,7 @@ inline int taskDelay(uint32_t value)
 {
     tcb[currentTask].delay = value;
     tcb[currentTask].state = TASK_SLEEPING;
+    return 0;
 }
 
 inline int getNextReady()
@@ -97,8 +102,11 @@ inline int switchTaskTo(int nextTask)
     tcb[nextTask].state = TASK_RUNNING;
     currentTask = nextTask;
     saveContext(&tcb[oldTask].sp);
+    logger(&huart1, "ContextSwitcher\n");
     contextSwitcher(tcb[nextTask].sp);
+    logger(&huart1, "LoadContext\n");
     loadContext(&tcb[nextTask].sp);
+    return 0;
 }
 
 inline int runFirstTask(int nextTask)
@@ -110,8 +118,13 @@ inline int runFirstTask(int nextTask)
     tcb[currentTask].state = TASK_RUNNING;
     //itoa(tcb[nextTask].sp, 16);
     //logger(&huart1, buf);
+    logger(&huart1, "ContextSwitcher\n");
+    printf("Run First Task %d\tSP: %lx\n", nextTask, (uint32_t)tcb[nextTask].sp);
     contextSwitcher(tcb[nextTask].sp);
+    printf("Current SP: %lx\n", getCurrentStackPtr());
+    logger(&huart1, "LoadContext\n");
     loadContext(&tcb[nextTask].sp);
+    return 0;
 }
 
 int task_sysTickHandler()

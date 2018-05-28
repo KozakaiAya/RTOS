@@ -67,7 +67,8 @@ Src/stm32f1xx_hal_msp.c \
 Src/os.c \
 Src/task.c \
 Src/task_cpu.c \
-Src/debug.c
+Src/debug.c \
+Src/syscalls.c
 
 # ASM sources
 ASM_SOURCES =  \

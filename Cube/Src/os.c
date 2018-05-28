@@ -5,7 +5,7 @@
 
 int os_started = 0;
 
-__attribute__((naked)) int scheduler()
+int scheduler()
 {
     enterCritical();
     int nextTask = getNextReady();
@@ -24,7 +24,7 @@ __attribute__((naked)) int scheduler()
     return 0;
 }
 
-__attribute__((naked)) int halfScheduler()
+int halfScheduler()
 {
     enterCritical();
 
@@ -47,15 +47,18 @@ int osStart()
 
 int os_pre()
 {
+    logger(&huart1, "OS_Pre\n");
     initTask();
     return 0;
 }
 
-__attribute__((naked)) int os_sysTickHandler()
+int os_sysTickHandler()
 {
+    logger(&huart1, "OS_Systick1\n");
     enterCritical();
     if (!os_started)
     {
+        logger(&huart1, "OS_Systick_notStarted\n");
         exitCritical();
         return 0;
     }
@@ -86,17 +89,19 @@ int os_setTaskDelay(uint32_t ms)
     return 0;
 }
 
-inline int os_createTask( void* (*foo)(void*))
+int os_createTask( void* (*foo)())
 {
     return createTask(foo);
 }
 
-__attribute__((naked)) inline int os_enterCritical()
+int os_enterCritical()
 {
     enterCritical();
+    return 0;
 }
 
-__attribute__((naked)) inline int os_exitCritical()
+int os_exitCritical()
 {
     exitCritical();
+    return 0;
 }
