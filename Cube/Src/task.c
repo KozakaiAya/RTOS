@@ -8,7 +8,7 @@ task_control_block_t tcb[MAX_TASK_COUNT];
 
 char stackFrame[MAX_TASK_COUNT * STACK_FRAME_SIZE];
 
-uint32_t currentTask = 0;
+uint32_t currentTask = -1;
 
 int initTask()
 {
@@ -120,6 +120,7 @@ inline int runFirstTask(int nextTask)
     //logger(&huart1, buf);
     logger(&huart1, "ContextSwitcher\n");
     printf("Run First Task %d\tSP: %lx\n", nextTask, (uint32_t)tcb[nextTask].sp);
+    printf("Current SP: %lx\n", getCurrentStackPtr());
     contextSwitcher(tcb[nextTask].sp);
     printf("Current SP: %lx\n", getCurrentStackPtr());
     logger(&huart1, "LoadContext\n");
