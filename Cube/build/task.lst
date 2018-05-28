@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s 			page 1
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s 			page 1
   43 0008 FCDD     		ble	.L3
   14:Src/task.c    ****     {
   15:Src/task.c    ****         tcb[i].state == TASK_FREE;
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s 			page 2
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s 			page 2
 
 
   16:Src/task.c    ****     }
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s 			page 1
   27:Src/task.c    ****     {
   28:Src/task.c    ****         if (tcb[i].state == TASK_FREE)
   89              		.loc 1 28 0 is_stmt 1
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s 			page 3
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s 			page 3
 
 
   90 0012 04EB8403 		add	r3, r4, r4, lsl #2
@@ -171,14 +171,14 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s 			page 1
  126 005a 4FF00451 		mov	r1, #553648128
  127 005e D161     		str	r1, [r2, #28]
   40:Src/task.c    **** 
-  41:Src/task.c    ****             tcb[i].sp = tcb[i].sp - sizeof(sw_stack_frame_t);
+  41:Src/task.c    ****             tcb[i].sp = (char*)((uint32_t)tcb[i].sp - sizeof(sw_stack_frame_t));
  128              		.loc 1 41 0
  129 0060 3158     		ldr	r1, [r6, r0]
  130 0062 A1F12002 		sub	r2, r1, #32
  131              	.LVL8:
  132 0066 3250     		str	r2, [r6, r0]
  133              	.LVL9:
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s 			page 4
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s 			page 4
 
 
   42:Src/task.c    ****             sw_process_frame = (sw_stack_frame_t*)tcb[i].sp;
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s 			page 1
   61:Src/task.c    ****     else
   62:Src/task.c    ****         return i;
   63:Src/task.c    **** }
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s 			page 5
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s 			page 5
 
 
  169              		.loc 1 63 0
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s 			page 1
  218              		@ args = 0, pretend = 0, frame = 0
  219              		@ frame_needed = 0, uses_anonymous_args = 0
  220              		@ link register save eliminated.
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s 			page 6
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s 			page 6
 
 
  221              	.LVL16:
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s 			page 1
  271              		@ link register save eliminated.
  272              	.LVL18:
   78:Src/task.c    ****     int i, j;
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s 			page 7
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s 			page 7
 
 
   79:Src/task.c    ****     for (i = 1; i <= MAX_TASK_COUNT; i++)
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s 			page 1
  311 002c 7047     		bx	lr
  312              	.L26:
  313 002e 00BF     		.align	2
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s 			page 8
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s 			page 8
 
 
  314              	.L25:
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s 			page 1
  364 0022 82F810C0 		strb	ip, [r2, #16]
   96:Src/task.c    ****     currentTask = nextTask;
  365              		.loc 1 96 0
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s 			page 9
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s 			page 9
 
 
  366 0026 0660     		str	r6, [r0]
@@ -536,22 +536,24 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s 			page 1
  413              		.cfi_offset 6, -8
  414              		.cfi_offset 14, -4
  415 0002 0546     		mov	r5, r0
- 104:Src/task.c    ****     logger(&huart1, "RunFirstTask\n");
- 416              		.loc 1 104 0
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s 			page 10
+ 104:Src/task.c    ****     //char* buf[30];
+ 105:Src/task.c    ****     //memset(buf, 0, 30);
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s 			page 10
 
 
+ 106:Src/task.c    ****     logger(&huart1, "RunFirstTask\n");
+ 416              		.loc 1 106 0
  417 0004 0B49     		ldr	r1, .L33
  418 0006 0C48     		ldr	r0, .L33+4
  419              	.LVL32:
  420 0008 FFF7FEFF 		bl	logger
  421              	.LVL33:
- 105:Src/task.c    ****     currentTask = nextTask;
- 422              		.loc 1 105 0
+ 107:Src/task.c    ****     currentTask = nextTask;
+ 422              		.loc 1 107 0
  423 000c 0B4B     		ldr	r3, .L33+8
  424 000e 1D60     		str	r5, [r3]
- 106:Src/task.c    ****     tcb[currentTask].state = TASK_RUNNING;
- 425              		.loc 1 106 0
+ 108:Src/task.c    ****     tcb[currentTask].state = TASK_RUNNING;
+ 425              		.loc 1 108 0
  426 0010 0B4E     		ldr	r6, .L33+12
  427 0012 AC00     		lsls	r4, r5, #2
  428 0014 6219     		adds	r2, r4, r5
@@ -559,22 +561,24 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s 			page 1
  430 0018 3344     		add	r3, r3, r6
  431 001a 0222     		movs	r2, #2
  432 001c 1A74     		strb	r2, [r3, #16]
- 107:Src/task.c    ****     contextSwitcher(tcb[nextTask].sp);
- 433              		.loc 1 107 0
+ 109:Src/task.c    ****     //itoa(tcb[nextTask].sp, 16);
+ 110:Src/task.c    ****     //logger(&huart1, buf);
+ 111:Src/task.c    ****     contextSwitcher(tcb[nextTask].sp);
+ 433              		.loc 1 111 0
  434 001e 6219     		adds	r2, r4, r5
  435 0020 9300     		lsls	r3, r2, #2
  436 0022 F058     		ldr	r0, [r6, r3]
  437 0024 FFF7FEFF 		bl	contextSwitcher
  438              	.LVL34:
- 108:Src/task.c    ****     loadContext(&tcb[nextTask].sp);
- 439              		.loc 1 108 0
+ 112:Src/task.c    ****     loadContext(&tcb[nextTask].sp);
+ 439              		.loc 1 112 0
  440 0028 2C44     		add	r4, r4, r5
  441 002a A000     		lsls	r0, r4, #2
  442 002c 3044     		add	r0, r0, r6
  443 002e FFF7FEFF 		bl	loadContext
  444              	.LVL35:
- 109:Src/task.c    **** }
- 445              		.loc 1 109 0
+ 113:Src/task.c    **** }
+ 445              		.loc 1 113 0
  446 0032 70BD     		pop	{r4, r5, r6, pc}
  447              	.LVL36:
  448              	.L34:
@@ -594,14 +598,14 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s 			page 1
  463              		.thumb_func
  464              		.fpu softvfp
  466              	task_sysTickHandler:
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s 			page 11
+
+
  467              	.LFB73:
- 110:Src/task.c    **** 
- 111:Src/task.c    **** int task_sysTickHandler()
- 112:Src/task.c    **** {
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s 			page 11
-
-
- 468              		.loc 1 112 0
+ 114:Src/task.c    **** 
+ 115:Src/task.c    **** int task_sysTickHandler()
+ 116:Src/task.c    **** {
+ 468              		.loc 1 116 0
  469              		.cfi_startproc
  470              		@ args = 0, pretend = 0, frame = 0
  471              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -612,33 +616,33 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s 			page 1
  476              		.cfi_offset 4, -12
  477              		.cfi_offset 5, -8
  478              		.cfi_offset 14, -4
- 113:Src/task.c    ****     logger(&huart1, "Task_Systick\n");
- 479              		.loc 1 113 0
+ 117:Src/task.c    ****     logger(&huart1, "Task_Systick\n");
+ 479              		.loc 1 117 0
  480 0002 1749     		ldr	r1, .L41
  481 0004 1748     		ldr	r0, .L41+4
  482 0006 FFF7FEFF 		bl	logger
  483              	.LVL37:
- 114:Src/task.c    **** 
- 115:Src/task.c    ****     int i, f;
- 116:Src/task.c    ****     f = 0;
- 484              		.loc 1 116 0
+ 118:Src/task.c    **** 
+ 119:Src/task.c    ****     int i, f;
+ 120:Src/task.c    ****     f = 0;
+ 484              		.loc 1 120 0
  485 000a 0025     		movs	r5, #0
- 117:Src/task.c    ****     for (i = 0; i < MAX_TASK_COUNT; i++)
- 486              		.loc 1 117 0
+ 121:Src/task.c    ****     for (i = 0; i < MAX_TASK_COUNT; i++)
+ 486              		.loc 1 121 0
  487 000c 2C46     		mov	r4, r5
  488 000e 00E0     		b	.L36
  489              	.LVL38:
  490              	.L37:
- 491              		.loc 1 117 0 is_stmt 0 discriminator 2
+ 491              		.loc 1 121 0 is_stmt 0 discriminator 2
  492 0010 0134     		adds	r4, r4, #1
  493              	.LVL39:
  494              	.L36:
- 495              		.loc 1 117 0 discriminator 1
+ 495              		.loc 1 121 0 discriminator 1
  496 0012 092C     		cmp	r4, #9
  497 0014 21DC     		bgt	.L40
- 118:Src/task.c    ****     {
- 119:Src/task.c    ****         if (tcb[i].state == TASK_SLEEPING)
- 498              		.loc 1 119 0 is_stmt 1
+ 122:Src/task.c    ****     {
+ 123:Src/task.c    ****         if (tcb[i].state == TASK_SLEEPING)
+ 498              		.loc 1 123 0 is_stmt 1
  499 0016 04EB8403 		add	r3, r4, r4, lsl #2
  500 001a 9A00     		lsls	r2, r3, #2
  501 001c 124B     		ldr	r3, .L41+8
@@ -646,40 +650,40 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s 			page 1
  503 0020 1B7C     		ldrb	r3, [r3, #16]	@ zero_extendqisi2
  504 0022 032B     		cmp	r3, #3
  505 0024 F4D1     		bne	.L37
- 120:Src/task.c    ****         {
- 121:Src/task.c    ****             logger(&huart1, "Task_Systick_HasSleeping\n");
- 506              		.loc 1 121 0
+ 124:Src/task.c    ****         {
+ 125:Src/task.c    ****             logger(&huart1, "Task_Systick_HasSleeping\n");
+ 506              		.loc 1 125 0
  507 0026 1149     		ldr	r1, .L41+12
  508 0028 0E48     		ldr	r0, .L41+4
  509 002a FFF7FEFF 		bl	logger
  510              	.LVL40:
- 122:Src/task.c    ****             tcb[i].delay--;
- 511              		.loc 1 122 0
+ 126:Src/task.c    ****             tcb[i].delay--;
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s 			page 12
+
+
+ 511              		.loc 1 126 0
  512 002e A300     		lsls	r3, r4, #2
  513 0030 2344     		add	r3, r3, r4
  514 0032 9900     		lsls	r1, r3, #2
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s 			page 12
-
-
  515 0034 0C4A     		ldr	r2, .L41+8
  516 0036 0A44     		add	r2, r2, r1
  517 0038 D368     		ldr	r3, [r2, #12]
  518 003a 013B     		subs	r3, r3, #1
  519 003c D360     		str	r3, [r2, #12]
- 123:Src/task.c    ****             if (tcb[i].delay == 0)
- 520              		.loc 1 123 0
+ 127:Src/task.c    ****             if (tcb[i].delay == 0)
+ 520              		.loc 1 127 0
  521 003e 002B     		cmp	r3, #0
  522 0040 E6D1     		bne	.L37
- 124:Src/task.c    ****             {
- 125:Src/task.c    ****                 logger(&huart1, "Task_SystickHandler_NeedResched\n");
- 523              		.loc 1 125 0
+ 128:Src/task.c    ****             {
+ 129:Src/task.c    ****                 logger(&huart1, "Task_SystickHandler_NeedResched\n");
+ 523              		.loc 1 129 0
  524 0042 0B49     		ldr	r1, .L41+16
  525 0044 0748     		ldr	r0, .L41+4
  526 0046 FFF7FEFF 		bl	logger
  527              	.LVL41:
- 126:Src/task.c    ****                 f = 1;
- 127:Src/task.c    ****                 tcb[i].state = TASK_READY;
- 528              		.loc 1 127 0
+ 130:Src/task.c    ****                 f = 1;
+ 131:Src/task.c    ****                 tcb[i].state = TASK_READY;
+ 528              		.loc 1 131 0
  529 004a 04EB8403 		add	r3, r4, r4, lsl #2
  530 004e 9A00     		lsls	r2, r3, #2
  531 0050 054B     		ldr	r3, .L41+8
@@ -689,12 +693,12 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s 			page 1
  535 0058 DAE7     		b	.L37
  536              	.LVL42:
  537              	.L40:
- 128:Src/task.c    ****             }
- 129:Src/task.c    ****         }
- 130:Src/task.c    ****     }
- 131:Src/task.c    ****     return f;
- 132:Src/task.c    **** }
- 538              		.loc 1 132 0
+ 132:Src/task.c    ****             }
+ 133:Src/task.c    ****         }
+ 134:Src/task.c    ****     }
+ 135:Src/task.c    ****     return f;
+ 136:Src/task.c    **** }
+ 538              		.loc 1 136 0
  539 005a 2846     		mov	r0, r5
  540 005c 38BD     		pop	{r3, r4, r5, pc}
  541              	.LVL43:
@@ -714,13 +718,13 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s 			page 1
  556              		.align	2
  557              		.set	.LANCHOR0,. + 0
  560              	currentTask:
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s 			page 13
+
+
  561 0000 00000000 		.space	4
  562              		.section	.rodata.runFirstTask.str1.4,"aMS",%progbits,1
  563              		.align	2
  564              	.LC0:
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s 			page 13
-
-
  565 0000 52756E46 		.ascii	"RunFirstTask\012\000"
  565      69727374 
  565      5461736B 
@@ -763,38 +767,38 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s 			page 1
  590              		.file 14 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
  591              		.file 15 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h"
  592              		.file 16 "Inc/debug.h"
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s 			page 14
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s 			page 14
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 task.c
-C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s:16     .text.initTask:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s:23     .text.initTask:00000000 initTask
-C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s:50     .text.createTask:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s:57     .text.createTask:00000000 createTask
-C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s:181    .text.createTask:000000a4 $d
+C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s:16     .text.initTask:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s:23     .text.initTask:00000000 initTask
+C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s:50     .text.createTask:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s:57     .text.createTask:00000000 createTask
+C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s:181    .text.createTask:000000a4 $d
                             *COM*:000000c8 tcb
-C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s:186    .text.delTask:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s:193    .text.delTask:00000000 delTask
-C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s:207    .text.taskDelay:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s:214    .text.taskDelay:00000000 taskDelay
-C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s:252    .text.taskDelay:00000020 $d
-C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s:258    .text.getNextReady:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s:265    .text.getNextReady:00000000 getNextReady
-C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s:315    .text.getNextReady:00000030 $d
-C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s:321    .text.switchTaskTo:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s:328    .text.switchTaskTo:00000000 switchTaskTo
-C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s:388    .text.switchTaskTo:00000044 $d
-C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s:394    .text.runFirstTask:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s:401    .text.runFirstTask:00000000 runFirstTask
-C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s:451    .text.runFirstTask:00000034 $d
-C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s:459    .text.task_sysTickHandler:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s:466    .text.task_sysTickHandler:00000000 task_sysTickHandler
-C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s:545    .text.task_sysTickHandler:00000060 $d
-C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s:560    .bss.currentTask:00000000 currentTask
-C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s:556    .bss.currentTask:00000000 $d
-C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s:563    .rodata.runFirstTask.str1.4:00000000 $d
-C:\Users\Qian\AppData\Local\Temp\cc94bo2U.s:567    .rodata.task_sysTickHandler.str1.4:00000000 $d
+C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s:186    .text.delTask:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s:193    .text.delTask:00000000 delTask
+C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s:207    .text.taskDelay:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s:214    .text.taskDelay:00000000 taskDelay
+C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s:252    .text.taskDelay:00000020 $d
+C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s:258    .text.getNextReady:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s:265    .text.getNextReady:00000000 getNextReady
+C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s:315    .text.getNextReady:00000030 $d
+C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s:321    .text.switchTaskTo:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s:328    .text.switchTaskTo:00000000 switchTaskTo
+C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s:388    .text.switchTaskTo:00000044 $d
+C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s:394    .text.runFirstTask:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s:401    .text.runFirstTask:00000000 runFirstTask
+C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s:451    .text.runFirstTask:00000034 $d
+C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s:459    .text.task_sysTickHandler:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s:466    .text.task_sysTickHandler:00000000 task_sysTickHandler
+C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s:545    .text.task_sysTickHandler:00000060 $d
+C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s:560    .bss.currentTask:00000000 currentTask
+C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s:556    .bss.currentTask:00000000 $d
+C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s:563    .rodata.runFirstTask.str1.4:00000000 $d
+C:\Users\Qian\AppData\Local\Temp\cccFhXP3.s:567    .rodata.task_sysTickHandler.str1.4:00000000 $d
 
 UNDEFINED SYMBOLS
 enterCritical

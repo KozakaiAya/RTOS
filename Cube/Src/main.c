@@ -65,7 +65,7 @@ static void MX_USART1_UART_Init(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
-void taskA()
+void* taskA()
 {
   logger(&huart1, "Task1_Run\n");
 	for (;;) {
@@ -75,7 +75,7 @@ void taskA()
 	}
 }
 
-void taskB()
+void* taskB()
 {
   logger(&huart1, "Task2_Run\n");
 	for (;;) {
@@ -123,6 +123,7 @@ int main(void)
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_SET);
 
   os_enterCritical();
+  os_pre();
   os_createTask(taskA);
   os_createTask(taskB);
   osStart();

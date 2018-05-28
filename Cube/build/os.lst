@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s 			page 1
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccRzbOQP.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s 			page 1
   44 0010 0446     		mov	r4, r0
   13:Src/os.c      ****     {
   14:Src/os.c      ****         //Enter Sleep Mode
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s 			page 2
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccRzbOQP.s 			page 2
 
 
   15:Src/os.c      ****         logger(&huart1, "Scheduler_Sleep\n");
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s 			page 1
   88              	halfScheduler:
   89              	.LFB67:
   26:Src/os.c      **** 
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s 			page 3
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccRzbOQP.s 			page 3
 
 
   27:Src/os.c      **** int halfScheduler()
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s 			page 1
  132 0000 08B5     		push	{r3, lr}
  133              	.LCFI2:
  134              		.cfi_def_cfa_offset 8
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s 			page 4
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccRzbOQP.s 			page 4
 
 
  135              		.cfi_offset 3, -8
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s 			page 1
  181              		.cfi_offset 3, -8
  182              		.cfi_offset 14, -4
   51:Src/os.c      ****     enterCritical();
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s 			page 5
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccRzbOQP.s 			page 5
 
 
  183              		.loc 1 51 0
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s 			page 1
  215 0028 FFF7FEFF 		bl	scheduler
  216              	.LVL20:
  217 002c F5E7     		b	.L18
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s 			page 6
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccRzbOQP.s 			page 6
 
 
  218              	.L23:
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s 			page 1
   80:Src/os.c      ****     exitCritical();
  265              		.loc 1 80 0
  266 001e FFF7FEFF 		bl	exitCritical
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s 			page 7
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccRzbOQP.s 			page 7
 
 
  267              	.LVL27:
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s 			page 1
   89:Src/os.c      **** inline int os_enterCritical()
   90:Src/os.c      **** {
  317              		.loc 1 90 0
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s 			page 8
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccRzbOQP.s 			page 8
 
 
  318              		.cfi_startproc
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s 			page 1
  370              		.align	2
  371              	.LC2:
  372 0000 4F535F53 		.ascii	"OS_Started\012\000"
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s 			page 9
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccRzbOQP.s 			page 9
 
 
  372      74617274 
@@ -528,37 +528,37 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s 			page 1
  402              		.file 14 "Inc/debug.h"
  403              		.file 15 "Inc/task_cpu.h"
  404              		.file 16 "Inc/task.h"
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s 			page 10
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccRzbOQP.s 			page 10
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 os.c
-C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:16     .text.scheduler:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:23     .text.scheduler:00000000 scheduler
-C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:74     .text.scheduler:00000034 $d
-C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:81     .text.halfScheduler:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:88     .text.halfScheduler:00000000 halfScheduler
-C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:119    .text.osStart:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:126    .text.osStart:00000000 osStart
-C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:158    .text.osStart:0000001c $d
-C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:165    .text.os_sysTickHandler:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:172    .text.os_sysTickHandler:00000000 os_sysTickHandler
-C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:221    .text.os_sysTickHandler:00000030 $d
-C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:228    .text.os_setTaskDelay:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:235    .text.os_setTaskDelay:00000000 os_setTaskDelay
-C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:274    .text.os_setTaskDelay:00000028 $d
-C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:280    .text.os_createTask:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:287    .text.os_createTask:00000000 os_createTask
-C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:308    .text.os_enterCritical:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:315    .text.os_enterCritical:00000000 os_enterCritical
-C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:335    .text.os_exitCritical:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:342    .text.os_exitCritical:00000000 os_exitCritical
-C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:367    .bss.os_started:00000000 os_started
-C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:363    .bss.os_started:00000000 $d
-C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:370    .rodata.osStart.str1.4:00000000 $d
-C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:374    .rodata.os_setTaskDelay.str1.4:00000000 $d
-C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:378    .rodata.os_sysTickHandler.str1.4:00000000 $d
-C:\Users\Qian\AppData\Local\Temp\ccm1zRgO.s:382    .rodata.scheduler.str1.4:00000000 $d
+C:\Users\Qian\AppData\Local\Temp\ccRzbOQP.s:16     .text.scheduler:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccRzbOQP.s:23     .text.scheduler:00000000 scheduler
+C:\Users\Qian\AppData\Local\Temp\ccRzbOQP.s:74     .text.scheduler:00000034 $d
+C:\Users\Qian\AppData\Local\Temp\ccRzbOQP.s:81     .text.halfScheduler:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccRzbOQP.s:88     .text.halfScheduler:00000000 halfScheduler
+C:\Users\Qian\AppData\Local\Temp\ccRzbOQP.s:119    .text.osStart:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccRzbOQP.s:126    .text.osStart:00000000 osStart
+C:\Users\Qian\AppData\Local\Temp\ccRzbOQP.s:158    .text.osStart:0000001c $d
+C:\Users\Qian\AppData\Local\Temp\ccRzbOQP.s:165    .text.os_sysTickHandler:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccRzbOQP.s:172    .text.os_sysTickHandler:00000000 os_sysTickHandler
+C:\Users\Qian\AppData\Local\Temp\ccRzbOQP.s:221    .text.os_sysTickHandler:00000030 $d
+C:\Users\Qian\AppData\Local\Temp\ccRzbOQP.s:228    .text.os_setTaskDelay:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccRzbOQP.s:235    .text.os_setTaskDelay:00000000 os_setTaskDelay
+C:\Users\Qian\AppData\Local\Temp\ccRzbOQP.s:274    .text.os_setTaskDelay:00000028 $d
+C:\Users\Qian\AppData\Local\Temp\ccRzbOQP.s:280    .text.os_createTask:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccRzbOQP.s:287    .text.os_createTask:00000000 os_createTask
+C:\Users\Qian\AppData\Local\Temp\ccRzbOQP.s:308    .text.os_enterCritical:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccRzbOQP.s:315    .text.os_enterCritical:00000000 os_enterCritical
+C:\Users\Qian\AppData\Local\Temp\ccRzbOQP.s:335    .text.os_exitCritical:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccRzbOQP.s:342    .text.os_exitCritical:00000000 os_exitCritical
+C:\Users\Qian\AppData\Local\Temp\ccRzbOQP.s:367    .bss.os_started:00000000 os_started
+C:\Users\Qian\AppData\Local\Temp\ccRzbOQP.s:363    .bss.os_started:00000000 $d
+C:\Users\Qian\AppData\Local\Temp\ccRzbOQP.s:370    .rodata.osStart.str1.4:00000000 $d
+C:\Users\Qian\AppData\Local\Temp\ccRzbOQP.s:374    .rodata.os_setTaskDelay.str1.4:00000000 $d
+C:\Users\Qian\AppData\Local\Temp\ccRzbOQP.s:378    .rodata.os_sysTickHandler.str1.4:00000000 $d
+C:\Users\Qian\AppData\Local\Temp\ccRzbOQP.s:382    .rodata.scheduler.str1.4:00000000 $d
 
 UNDEFINED SYMBOLS
 enterCritical

@@ -5,7 +5,7 @@
 
 int os_started = 0;
 
-int scheduler()
+__attribute__((naked)) int scheduler()
 {
     enterCritical();
     int nextTask = getNextReady();
@@ -24,7 +24,7 @@ int scheduler()
     return 0;
 }
 
-int halfScheduler()
+__attribute__((naked)) int halfScheduler()
 {
     enterCritical();
 
@@ -40,13 +40,18 @@ int osStart()
 {
     logger(&huart1, "OS_Started\n");
     os_started = 1;
-    initTask();
     //scheduler();
     halfScheduler();
     return 0;
 }
 
-int os_sysTickHandler()
+int os_pre()
+{
+    initTask();
+    return 0;
+}
+
+__attribute__((naked)) int os_sysTickHandler()
 {
     enterCritical();
     if (!os_started)
@@ -86,12 +91,12 @@ inline int os_createTask( void* (*foo)(void*))
     return createTask(foo);
 }
 
-inline int os_enterCritical()
+__attribute__((naked)) inline int os_enterCritical()
 {
     enterCritical();
 }
 
-inline int os_exitCritical()
+__attribute__((naked)) inline int os_exitCritical()
 {
     exitCritical();
 }

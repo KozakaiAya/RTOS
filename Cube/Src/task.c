@@ -5,6 +5,8 @@
 
 task_control_block_t tcb[MAX_TASK_COUNT];
 
+char stackFrame[MAX_TASK_COUNT * STACK_FRAME_SIZE];
+
 uint32_t currentTask = 0;
 
 int initTask()
@@ -27,7 +29,7 @@ int createTask( void* (*foo)(void*))
     {
         if (tcb[i].state == TASK_FREE)
         {
-            tcb[i].sp = (char*)((PROC_STACK_TOP - (i * STACK_FRAME_SIZE)) - sizeof(hw_stack_frame_t));
+            tcb[i].sp = (char*)((stackFrame + (MAX_TASK_COUNT * STACK_FRAME_SIZE) - 1) - sizeof(hw_stack_frame_t));
             hw_process_frame = (hw_stack_frame_t*)tcb[i].sp;
             hw_process_frame->r0 = 0;
             hw_process_frame->r1 = 0;
@@ -38,7 +40,7 @@ int createTask( void* (*foo)(void*))
             hw_process_frame->lr = RETURN_THREAD_MODE_EXEC_PSP;
             hw_process_frame->psr = PSR_INIT;
 
-            tcb[i].sp = tcb[i].sp - sizeof(sw_stack_frame_t);
+            tcb[i].sp = (char*)((uint32_t)tcb[i].sp - sizeof(sw_stack_frame_t));
             sw_process_frame = (sw_stack_frame_t*)tcb[i].sp;
             sw_process_frame->r4 = 0;
             sw_process_frame->r5 = 0;
@@ -101,9 +103,13 @@ inline int switchTaskTo(int nextTask)
 
 inline int runFirstTask(int nextTask)
 {
+    //char* buf[30];
+    //memset(buf, 0, 30);
     logger(&huart1, "RunFirstTask\n");
     currentTask = nextTask;
     tcb[currentTask].state = TASK_RUNNING;
+    //itoa(tcb[nextTask].sp, 16);
+    //logger(&huart1, buf);
     contextSwitcher(tcb[nextTask].sp);
     loadContext(&tcb[nextTask].sp);
 }

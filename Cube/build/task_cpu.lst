@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccyniPX3.s 			page 1
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccyvOl4f.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccyniPX3.s 			page 1
   39              		.loc 1 17 0
   40              		.thumb
   41              		.syntax unified
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccyniPX3.s 			page 2
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccyvOl4f.s 			page 2
 
 
   42 0004 7047     		bx	lr
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccyniPX3.s 			page 1
   86              		.thumb
   87              		.thumb_func
   88              		.fpu softvfp
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccyniPX3.s 			page 3
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccyvOl4f.s 			page 3
 
 
   90              	loadContext:
@@ -151,248 +151,237 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccyniPX3.s 			page 1
  111              	@ 36 "Src/task_cpu.c" 1
  112 000c EFF30983 		MRS    r3, psp             
  113 0010 B3E8F00F 		LDMFD  r3!, {r4-r11}       
- 114              		
- 115              	@ 0 "" 2
- 116              	.LVL8:
+ 114 0014 83F30988 		MSR    psp, r3             
+ 115 0018 6FF0020E 		MOV    lr, #0xFFFFFFFD      
+ 116 001c 62B6     		CPSIE I                    
+ 117 001e 7047     		BX     lr                  
+ 118              		
+ 119              	@ 0 "" 2
+ 120              	.LVL8:
   37:Src/task_cpu.c ****         "MRS    %0, psp             \n\t"
   38:Src/task_cpu.c ****         "LDMFD  %0!, {r4-r11}       \n\t"
-  39:Src/task_cpu.c ****         : "=r" (t)
-  40:Src/task_cpu.c ****     );
-  41:Src/task_cpu.c ****     logger(&huart1, "LoadContext_MoveSPFin\n");
- 117              		.loc 1 41 0
- 118              		.thumb
- 119              		.syntax unified
- 120 0014 0749     		ldr	r1, .L5+8
- 121 0016 2046     		mov	r0, r4
- 122 0018 FFF7FEFF 		bl	logger
- 123              	.LVL9:
-  42:Src/task_cpu.c ****     asm volatile (
- 124              		.loc 1 42 0
- 125              		.syntax unified
- 126              	@ 42 "Src/task_cpu.c" 1
- 127 001c 83F30988 		MSR    psp, r3             
- 128 0020 6FF0020E 		MOV    lr, 0xFFFFFFFD      
- 129 0024 62B6     		CPSIE I                    
- 130 0026 7047     		BX     lr                  
- 131              		
- 132              	@ 0 "" 2
-  43:Src/task_cpu.c ****         "MSR    psp, %0             \n\t"
-  44:Src/task_cpu.c ****         "MOV    lr, 0xFFFFFFFD      \n\t"
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccyniPX3.s 			page 4
+  39:Src/task_cpu.c ****         "MSR    psp, %0             \n\t"
+  40:Src/task_cpu.c ****         "MOV    lr, #0xFFFFFFFD      \n\t"
+  41:Src/task_cpu.c ****         "CPSIE I                    \n\t"
+  42:Src/task_cpu.c ****         "BX     lr                  \n\t"
+  43:Src/task_cpu.c ****         : "=r" (t)
+  44:Src/task_cpu.c ****     );
+  45:Src/task_cpu.c ****     logger(&huart1, "LoadContext_end\n");
+ 121              		.loc 1 45 0
+ 122              		.thumb
+ 123              		.syntax unified
+ 124 0020 0449     		ldr	r1, .L5+8
+ 125 0022 2046     		mov	r0, r4
+ 126 0024 FFF7FEFF 		bl	logger
+ 127              	.LVL9:
+  46:Src/task_cpu.c ****     return 0;
+  47:Src/task_cpu.c **** }
+ 128              		.loc 1 47 0
+ 129 0028 0020     		movs	r0, #0
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccyvOl4f.s 			page 4
 
 
-  45:Src/task_cpu.c ****         "CPSIE I                    \n\t"
-  46:Src/task_cpu.c ****         "BX     lr                  \n\t"
-  47:Src/task_cpu.c ****         : "=r" (t)
-  48:Src/task_cpu.c ****     );
-  49:Src/task_cpu.c ****     return 0;
-  50:Src/task_cpu.c **** }
- 133              		.loc 1 50 0
- 134              		.thumb
- 135              		.syntax unified
- 136 0028 0020     		movs	r0, #0
- 137 002a 10BD     		pop	{r4, pc}
- 138              	.L6:
- 139              		.align	2
- 140              	.L5:
- 141 002c 00000000 		.word	huart1
- 142 0030 00000000 		.word	.LC0
- 143 0034 10000000 		.word	.LC1
- 144              		.cfi_endproc
- 145              	.LFE68:
- 147              		.section	.text.contextSwitcher,"ax",%progbits
- 148              		.align	1
- 149              		.global	contextSwitcher
- 150              		.syntax unified
- 151              		.thumb
- 152              		.thumb_func
- 153              		.fpu softvfp
- 155              	contextSwitcher:
- 156              	.LFB69:
-  51:Src/task_cpu.c **** 
-  52:Src/task_cpu.c **** inline int contextSwitcher(char* nextSP)
-  53:Src/task_cpu.c **** {
- 157              		.loc 1 53 0
- 158              		.cfi_startproc
- 159              		@ args = 0, pretend = 0, frame = 0
- 160              		@ frame_needed = 0, uses_anonymous_args = 0
- 161              	.LVL10:
- 162 0000 10B5     		push	{r4, lr}
- 163              	.LCFI1:
- 164              		.cfi_def_cfa_offset 8
- 165              		.cfi_offset 4, -8
- 166              		.cfi_offset 14, -4
- 167 0002 0446     		mov	r4, r0
-  54:Src/task_cpu.c ****     logger(&huart1, "ContextSwitcher\n");
- 168              		.loc 1 54 0
- 169 0004 0349     		ldr	r1, .L9
- 170 0006 0448     		ldr	r0, .L9+4
- 171              	.LVL11:
- 172 0008 FFF7FEFF 		bl	logger
- 173              	.LVL12:
-  55:Src/task_cpu.c ****     asm volatile (
- 174              		.loc 1 55 0
+ 130 002a 10BD     		pop	{r4, pc}
+ 131              	.L6:
+ 132              		.align	2
+ 133              	.L5:
+ 134 002c 00000000 		.word	huart1
+ 135 0030 00000000 		.word	.LC0
+ 136 0034 10000000 		.word	.LC1
+ 137              		.cfi_endproc
+ 138              	.LFE68:
+ 140              		.section	.text.contextSwitcher,"ax",%progbits
+ 141              		.align	1
+ 142              		.global	contextSwitcher
+ 143              		.syntax unified
+ 144              		.thumb
+ 145              		.thumb_func
+ 146              		.fpu softvfp
+ 148              	contextSwitcher:
+ 149              	.LFB69:
+  48:Src/task_cpu.c **** 
+  49:Src/task_cpu.c **** inline int contextSwitcher(char* nextSP)
+  50:Src/task_cpu.c **** {
+ 150              		.loc 1 50 0
+ 151              		.cfi_startproc
+ 152              		@ args = 0, pretend = 0, frame = 0
+ 153              		@ frame_needed = 0, uses_anonymous_args = 0
+ 154              	.LVL10:
+ 155 0000 10B5     		push	{r4, lr}
+ 156              	.LCFI1:
+ 157              		.cfi_def_cfa_offset 8
+ 158              		.cfi_offset 4, -8
+ 159              		.cfi_offset 14, -4
+ 160 0002 0446     		mov	r4, r0
+  51:Src/task_cpu.c ****     logger(&huart1, "ContextSwitcher\n");
+ 161              		.loc 1 51 0
+ 162 0004 0349     		ldr	r1, .L9
+ 163 0006 0448     		ldr	r0, .L9+4
+ 164              	.LVL11:
+ 165 0008 FFF7FEFF 		bl	logger
+ 166              	.LVL12:
+  52:Src/task_cpu.c ****     asm volatile (
+ 167              		.loc 1 52 0
+ 168              		.syntax unified
+ 169              	@ 52 "Src/task_cpu.c" 1
+ 170 000c 84F30988 		MSR    psp, r4             
+ 171              		
+ 172              	@ 0 "" 2
+  53:Src/task_cpu.c ****         "MSR    psp, %0             \n\t"
+  54:Src/task_cpu.c ****         :
+  55:Src/task_cpu.c ****         : "r" (nextSP)
+  56:Src/task_cpu.c ****     );
+  57:Src/task_cpu.c ****     return 0;
+  58:Src/task_cpu.c **** }
+ 173              		.loc 1 58 0
+ 174              		.thumb
  175              		.syntax unified
- 176              	@ 55 "Src/task_cpu.c" 1
- 177 000c 80F30988 		MSR    psp, r0             
- 178              		
- 179              	@ 0 "" 2
-  56:Src/task_cpu.c **** //        "MSR    psp, %0             \n\t"
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccyniPX3.s 			page 5
+ 176 0010 0020     		movs	r0, #0
+ 177 0012 10BD     		pop	{r4, pc}
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccyvOl4f.s 			page 5
 
 
-  57:Src/task_cpu.c ****         "MSR    psp, r0             \n\t"
-  58:Src/task_cpu.c ****         :
-  59:Src/task_cpu.c ****         : "r" (nextSP)
-  60:Src/task_cpu.c ****     );
-  61:Src/task_cpu.c ****     return 0;
-  62:Src/task_cpu.c **** }
- 180              		.loc 1 62 0
- 181              		.thumb
- 182              		.syntax unified
- 183 0010 0020     		movs	r0, #0
- 184 0012 10BD     		pop	{r4, pc}
- 185              	.LVL13:
- 186              	.L10:
- 187              		.align	2
- 188              	.L9:
- 189 0014 00000000 		.word	.LC2
- 190 0018 00000000 		.word	huart1
- 191              		.cfi_endproc
- 192              	.LFE69:
- 194              		.section	.text.enterCritical,"ax",%progbits
- 195              		.align	1
- 196              		.global	enterCritical
- 197              		.syntax unified
- 198              		.thumb
- 199              		.thumb_func
- 200              		.fpu softvfp
- 202              	enterCritical:
- 203              	.LFB70:
-  63:Src/task_cpu.c **** 
-  64:Src/task_cpu.c **** inline int enterCritical()
-  65:Src/task_cpu.c **** {
- 204              		.loc 1 65 0
- 205              		.cfi_startproc
- 206              		@ args = 0, pretend = 0, frame = 0
- 207              		@ frame_needed = 0, uses_anonymous_args = 0
- 208              		@ link register save eliminated.
-  66:Src/task_cpu.c ****     asm volatile (
- 209              		.loc 1 66 0
- 210              		.syntax unified
- 211              	@ 66 "Src/task_cpu.c" 1
- 212 0000 72B6     		CPSID I
- 213              	@ 0 "" 2
-  67:Src/task_cpu.c ****         "CPSID I"
-  68:Src/task_cpu.c ****     );
-  69:Src/task_cpu.c ****     return 0;
-  70:Src/task_cpu.c **** }
- 214              		.loc 1 70 0
- 215              		.thumb
- 216              		.syntax unified
- 217 0002 0020     		movs	r0, #0
- 218 0004 7047     		bx	lr
- 219              		.cfi_endproc
- 220              	.LFE70:
- 222              		.section	.text.exitCritical,"ax",%progbits
- 223              		.align	1
- 224              		.global	exitCritical
- 225              		.syntax unified
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccyniPX3.s 			page 6
+ 178              	.LVL13:
+ 179              	.L10:
+ 180              		.align	2
+ 181              	.L9:
+ 182 0014 00000000 		.word	.LC2
+ 183 0018 00000000 		.word	huart1
+ 184              		.cfi_endproc
+ 185              	.LFE69:
+ 187              		.section	.text.enterCritical,"ax",%progbits
+ 188              		.align	1
+ 189              		.global	enterCritical
+ 190              		.syntax unified
+ 191              		.thumb
+ 192              		.thumb_func
+ 193              		.fpu softvfp
+ 195              	enterCritical:
+ 196              	.LFB70:
+  59:Src/task_cpu.c **** 
+  60:Src/task_cpu.c **** inline int enterCritical()
+  61:Src/task_cpu.c **** {
+ 197              		.loc 1 61 0
+ 198              		.cfi_startproc
+ 199              		@ args = 0, pretend = 0, frame = 0
+ 200              		@ frame_needed = 0, uses_anonymous_args = 0
+ 201              		@ link register save eliminated.
+  62:Src/task_cpu.c ****     asm volatile (
+ 202              		.loc 1 62 0
+ 203              		.syntax unified
+ 204              	@ 62 "Src/task_cpu.c" 1
+ 205 0000 72B6     		CPSID I
+ 206              	@ 0 "" 2
+  63:Src/task_cpu.c ****         "CPSID I"
+  64:Src/task_cpu.c ****     );
+  65:Src/task_cpu.c ****     return 0;
+  66:Src/task_cpu.c **** }
+ 207              		.loc 1 66 0
+ 208              		.thumb
+ 209              		.syntax unified
+ 210 0002 0020     		movs	r0, #0
+ 211 0004 7047     		bx	lr
+ 212              		.cfi_endproc
+ 213              	.LFE70:
+ 215              		.section	.text.exitCritical,"ax",%progbits
+ 216              		.align	1
+ 217              		.global	exitCritical
+ 218              		.syntax unified
+ 219              		.thumb
+ 220              		.thumb_func
+ 221              		.fpu softvfp
+ 223              	exitCritical:
+ 224              	.LFB71:
+  67:Src/task_cpu.c **** 
+  68:Src/task_cpu.c **** inline int exitCritical()
+  69:Src/task_cpu.c **** {
+ 225              		.loc 1 69 0
+ 226              		.cfi_startproc
+ 227              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccyvOl4f.s 			page 6
 
 
- 226              		.thumb
- 227              		.thumb_func
- 228              		.fpu softvfp
- 230              	exitCritical:
- 231              	.LFB71:
-  71:Src/task_cpu.c **** 
-  72:Src/task_cpu.c **** inline int exitCritical()
-  73:Src/task_cpu.c **** {
- 232              		.loc 1 73 0
- 233              		.cfi_startproc
- 234              		@ args = 0, pretend = 0, frame = 0
- 235              		@ frame_needed = 0, uses_anonymous_args = 0
- 236              		@ link register save eliminated.
-  74:Src/task_cpu.c ****     asm volatile (
- 237              		.loc 1 74 0
- 238              		.syntax unified
- 239              	@ 74 "Src/task_cpu.c" 1
- 240 0000 62B6     		CPSIE I
- 241              	@ 0 "" 2
-  75:Src/task_cpu.c ****         "CPSIE I"
-  76:Src/task_cpu.c ****     );
-  77:Src/task_cpu.c ****     return 0;
-  78:Src/task_cpu.c **** }...
- 242              		.loc 1 78 0
- 243              		.thumb
- 244              		.syntax unified
- 245 0002 0020     		movs	r0, #0
- 246 0004 7047     		bx	lr
- 247              		.cfi_endproc
- 248              	.LFE71:
- 250              		.section	.rodata.contextSwitcher.str1.4,"aMS",%progbits,1
- 251              		.align	2
- 252              	.LC2:
- 253 0000 436F6E74 		.ascii	"ContextSwitcher\012\000"
- 253      65787453 
- 253      77697463 
- 253      6865720A 
+ 228              		@ frame_needed = 0, uses_anonymous_args = 0
+ 229              		@ link register save eliminated.
+  70:Src/task_cpu.c ****     asm volatile (
+ 230              		.loc 1 70 0
+ 231              		.syntax unified
+ 232              	@ 70 "Src/task_cpu.c" 1
+ 233 0000 62B6     		CPSIE I
+ 234              	@ 0 "" 2
+  71:Src/task_cpu.c ****         "CPSIE I"
+  72:Src/task_cpu.c ****     );
+  73:Src/task_cpu.c ****     return 0;
+  74:Src/task_cpu.c **** }...
+ 235              		.loc 1 74 0
+ 236              		.thumb
+ 237              		.syntax unified
+ 238 0002 0020     		movs	r0, #0
+ 239 0004 7047     		bx	lr
+ 240              		.cfi_endproc
+ 241              	.LFE71:
+ 243              		.section	.rodata.contextSwitcher.str1.4,"aMS",%progbits,1
+ 244              		.align	2
+ 245              	.LC2:
+ 246 0000 436F6E74 		.ascii	"ContextSwitcher\012\000"
+ 246      65787453 
+ 246      77697463 
+ 246      6865720A 
+ 246      00
+ 247              		.section	.rodata.loadContext.str1.4,"aMS",%progbits,1
+ 248              		.align	2
+ 249              	.LC0:
+ 250 0000 4C6F6164 		.ascii	"LoadContext\012\000"
+ 250      436F6E74 
+ 250      6578740A 
+ 250      00
+ 251 000d 000000   		.space	3
+ 252              	.LC1:
+ 253 0010 4C6F6164 		.ascii	"LoadContext_end\012\000"
+ 253      436F6E74 
+ 253      6578745F 
+ 253      656E640A 
  253      00
- 254              		.section	.rodata.loadContext.str1.4,"aMS",%progbits,1
- 255              		.align	2
- 256              	.LC0:
- 257 0000 4C6F6164 		.ascii	"LoadContext\012\000"
- 257      436F6E74 
- 257      6578740A 
- 257      00
- 258 000d 000000   		.space	3
- 259              	.LC1:
- 260 0010 4C6F6164 		.ascii	"LoadContext_MoveSPFin\012\000"
- 260      436F6E74 
- 260      6578745F 
- 260      4D6F7665 
- 260      53504669 
- 261              		.text
- 262              	.Letext0:
- 263              		.file 2 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
- 264              		.file 3 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
- 265              		.file 4 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccyniPX3.s 			page 7
+ 254              		.text
+ 255              	.Letext0:
+ 256              		.file 2 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 257              		.file 3 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 258              		.file 4 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 259              		.file 5 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\lib\\gcc\\arm-none-eabi
+ 260              		.file 6 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 261              		.file 7 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 262              		.file 8 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 263              		.file 9 "Drivers/CMSIS/Include/core_cm3.h"
+ 264              		.file 10 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 265              		.file 11 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 266              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 267              		.file 13 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 268              		.file 14 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h"
+ 269              		.file 15 "Inc/debug.h"
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccyvOl4f.s 			page 7
 
 
- 266              		.file 5 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\lib\\gcc\\arm-none-eabi
- 267              		.file 6 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
- 268              		.file 7 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
- 269              		.file 8 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
- 270              		.file 9 "Drivers/CMSIS/Include/core_cm3.h"
- 271              		.file 10 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
- 272              		.file 11 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
- 273              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
- 274              		.file 13 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
- 275              		.file 14 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h"
- 276              		.file 15 "Inc/debug.h"
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccyniPX3.s 			page 8
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccyvOl4f.s 			page 8
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 task_cpu.c
-C:\Users\Qian\AppData\Local\Temp\ccyniPX3.s:16     .text.getCurrentStackPtr:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccyniPX3.s:23     .text.getCurrentStackPtr:00000000 getCurrentStackPtr
-C:\Users\Qian\AppData\Local\Temp\ccyniPX3.s:47     .text.saveContext:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccyniPX3.s:54     .text.saveContext:00000000 saveContext
-C:\Users\Qian\AppData\Local\Temp\ccyniPX3.s:83     .text.loadContext:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccyniPX3.s:90     .text.loadContext:00000000 loadContext
-C:\Users\Qian\AppData\Local\Temp\ccyniPX3.s:141    .text.loadContext:0000002c $d
-C:\Users\Qian\AppData\Local\Temp\ccyniPX3.s:148    .text.contextSwitcher:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccyniPX3.s:155    .text.contextSwitcher:00000000 contextSwitcher
-C:\Users\Qian\AppData\Local\Temp\ccyniPX3.s:189    .text.contextSwitcher:00000014 $d
-C:\Users\Qian\AppData\Local\Temp\ccyniPX3.s:195    .text.enterCritical:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccyniPX3.s:202    .text.enterCritical:00000000 enterCritical
-C:\Users\Qian\AppData\Local\Temp\ccyniPX3.s:223    .text.exitCritical:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccyniPX3.s:230    .text.exitCritical:00000000 exitCritical
-C:\Users\Qian\AppData\Local\Temp\ccyniPX3.s:251    .rodata.contextSwitcher.str1.4:00000000 $d
-C:\Users\Qian\AppData\Local\Temp\ccyniPX3.s:255    .rodata.loadContext.str1.4:00000000 $d
+C:\Users\Qian\AppData\Local\Temp\ccyvOl4f.s:16     .text.getCurrentStackPtr:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccyvOl4f.s:23     .text.getCurrentStackPtr:00000000 getCurrentStackPtr
+C:\Users\Qian\AppData\Local\Temp\ccyvOl4f.s:47     .text.saveContext:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccyvOl4f.s:54     .text.saveContext:00000000 saveContext
+C:\Users\Qian\AppData\Local\Temp\ccyvOl4f.s:83     .text.loadContext:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccyvOl4f.s:90     .text.loadContext:00000000 loadContext
+C:\Users\Qian\AppData\Local\Temp\ccyvOl4f.s:134    .text.loadContext:0000002c $d
+C:\Users\Qian\AppData\Local\Temp\ccyvOl4f.s:141    .text.contextSwitcher:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccyvOl4f.s:148    .text.contextSwitcher:00000000 contextSwitcher
+C:\Users\Qian\AppData\Local\Temp\ccyvOl4f.s:182    .text.contextSwitcher:00000014 $d
+C:\Users\Qian\AppData\Local\Temp\ccyvOl4f.s:188    .text.enterCritical:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccyvOl4f.s:195    .text.enterCritical:00000000 enterCritical
+C:\Users\Qian\AppData\Local\Temp\ccyvOl4f.s:216    .text.exitCritical:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccyvOl4f.s:223    .text.exitCritical:00000000 exitCritical
+C:\Users\Qian\AppData\Local\Temp\ccyvOl4f.s:244    .rodata.contextSwitcher.str1.4:00000000 $d
+C:\Users\Qian\AppData\Local\Temp\ccyvOl4f.s:248    .rodata.loadContext.str1.4:00000000 $d
 
 UNDEFINED SYMBOLS
 logger
