@@ -40,25 +40,29 @@ int osStart()
 {
     logger(&huart1, "OS_Started\n");
     os_started = 1;
-    initTask();
     //scheduler();
     halfScheduler();
     return 0;
 }
 
+int os_pre()
+{
+    logger(&huart1, "OS_Pre\n");
+    initTask();
+    return 0;
+}
+
 int os_sysTickHandler()
 {
-    enterCritical();
+    //logger(&huart1, "OS_Systick1\n");
     if (!os_started)
     {
-        exitCritical();
         return 0;
     }
     //TODO: Problem with the Interrupt
-    
-    
+        
     logger(&huart1, "OS_Systick\n");
-
+    enterCritical();
     if (task_sysTickHandler())
     {
         scheduler();
@@ -81,17 +85,19 @@ int os_setTaskDelay(uint32_t ms)
     return 0;
 }
 
-inline int os_createTask( void* (*foo)(void*))
+int os_createTask( void* (*foo)())
 {
     return createTask(foo);
 }
 
-inline int os_enterCritical()
+int os_enterCritical()
 {
     enterCritical();
+    return 0;
 }
 
-inline int os_exitCritical()
+int os_exitCritical()
 {
     exitCritical();
+    return 0;
 }

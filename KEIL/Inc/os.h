@@ -15,3 +15,5 @@ int os_createTask( void* (*foo)());
 int os_enterCritical();
 
 int os_exitCritical();
+
+int os_pre();

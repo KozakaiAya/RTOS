@@ -54,19 +54,15 @@ int os_pre()
 
 int os_sysTickHandler()
 {
-    logger(&huart1, "OS_Systick1\n");
-    enterCritical();
+    //logger(&huart1, "OS_Systick1\n");
     if (!os_started)
     {
-        logger(&huart1, "OS_Systick_notStarted\n");
-        exitCritical();
         return 0;
     }
     //TODO: Problem with the Interrupt
-    
-    
+        
     logger(&huart1, "OS_Systick\n");
-
+    enterCritical();
     if (task_sysTickHandler())
     {
         scheduler();

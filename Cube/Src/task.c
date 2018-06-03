@@ -6,7 +6,7 @@
 
 task_control_block_t tcb[MAX_TASK_COUNT];
 
-char stackFrame[MAX_TASK_COUNT * STACK_FRAME_SIZE];
+char stackFrame[TASK_STACK_SIZE];
 
 uint32_t currentTask = -1;
 
@@ -31,18 +31,20 @@ int createTask( void* (*foo)(void*))
     {
         if (tcb[i].state == TASK_FREE)
         {
-            tcb[i].sp = (char*)((stackFrame + (MAX_TASK_COUNT * STACK_FRAME_SIZE) - 1 - i * STACK_FRAME_SIZE) - sizeof(hw_stack_frame_t));
+            tcb[i].sp = (char*)((stackFrame + (TASK_STACK_SIZE) - 1 - i * STACK_FRAME_SIZE) - sizeof(hw_stack_frame_t));
+            printf("Task %d init, SP = %lx\n", i, tcb[i].sp);
             hw_process_frame = (hw_stack_frame_t*)tcb[i].sp;
             hw_process_frame->r0 = 0;
             hw_process_frame->r1 = 0;
             hw_process_frame->r2 = 0;
             hw_process_frame->r3 = 0;
             hw_process_frame->r12 = 0;
-            hw_process_frame->pc = (uint32_t)foo;
             hw_process_frame->lr = RETURN_THREAD_MODE_EXEC_PSP;
+            hw_process_frame->pc = (uint32_t)foo & TASK_PC_MASK;
             hw_process_frame->psr = PSR_INIT;
 
             tcb[i].sp = (char*)((uint32_t)tcb[i].sp - sizeof(sw_stack_frame_t));
+            printf("Task %d init, SP = %lx\n", i, tcb[i].sp);
             sw_process_frame = (sw_stack_frame_t*)tcb[i].sp;
             sw_process_frame->r4 = 0;
             sw_process_frame->r5 = 0;
@@ -105,7 +107,7 @@ inline int switchTaskTo(int nextTask)
     logger(&huart1, "ContextSwitcher\n");
     contextSwitcher(tcb[nextTask].sp);
     logger(&huart1, "LoadContext\n");
-    loadContext(&tcb[nextTask].sp);
+    loadContext();
     return 0;
 }
 
@@ -119,12 +121,13 @@ inline int runFirstTask(int nextTask)
     //itoa(tcb[nextTask].sp, 16);
     //logger(&huart1, buf);
     logger(&huart1, "ContextSwitcher\n");
-    printf("Run First Task %d\tSP: %lx\n", nextTask, (uint32_t)tcb[nextTask].sp);
-    printf("Current SP: %lx\n", getCurrentStackPtr());
+//    printf("Run First Task %d\tSP: %lx\n", nextTask, (uint32_t)tcb[nextTask].sp);
+//    printf("Current SP: %lx\n", getCurrentStackPtr());
     contextSwitcher(tcb[nextTask].sp);
     printf("Current SP: %lx\n", getCurrentStackPtr());
     logger(&huart1, "LoadContext\n");
-    loadContext(&tcb[nextTask].sp);
+    loadContext();
+    logger(&huart1, "Load Context Returned\n");
     return 0;
 }
 

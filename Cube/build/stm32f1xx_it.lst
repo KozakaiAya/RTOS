@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccyrQWSx.s 			page 1
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccHYYILs.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccyrQWSx.s 			page 1
   31:Src/stm32f1xx_it.c ****   ******************************************************************************
   32:Src/stm32f1xx_it.c ****   */
   33:Src/stm32f1xx_it.c **** /* Includes ------------------------------------------------------------------*/
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccyrQWSx.s 			page 2
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccHYYILs.s 			page 2
 
 
   34:Src/stm32f1xx_it.c **** #include "stm32f1xx_hal.h"
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccyrQWSx.s 			page 1
   50              		@ frame_needed = 0, uses_anonymous_args = 0
   51              		@ link register save eliminated.
   52              	.L3:
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccyrQWSx.s 			page 3
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccHYYILs.s 			page 3
 
 
   53 0000 FEE7     		b	.L3
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccyrQWSx.s 			page 1
   89:Src/stm32f1xx_it.c ****     /* USER CODE BEGIN W1_MemoryManagement_IRQn 0 */
   90:Src/stm32f1xx_it.c ****     /* USER CODE END W1_MemoryManagement_IRQn 0 */
   91:Src/stm32f1xx_it.c ****   }
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccyrQWSx.s 			page 4
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccHYYILs.s 			page 4
 
 
   92:Src/stm32f1xx_it.c ****   /* USER CODE BEGIN MemoryManagement_IRQn 1 */
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccyrQWSx.s 			page 1
  116 0000 FEE7     		b	.L9
  117              		.cfi_endproc
  118              	.LFE70:
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccyrQWSx.s 			page 5
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccHYYILs.s 			page 5
 
 
  120              		.section	.text.SVC_Handler,"ax",%progbits
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccyrQWSx.s 			page 1
  147:Src/stm32f1xx_it.c **** * @brief This function handles Debug monitor.
  148:Src/stm32f1xx_it.c **** */
  149:Src/stm32f1xx_it.c **** void DebugMon_Handler(void)
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccyrQWSx.s 			page 6
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccHYYILs.s 			page 6
 
 
  150:Src/stm32f1xx_it.c **** {
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccyrQWSx.s 			page 1
  186              		.fpu softvfp
  188              	SysTick_Handler:
  189              	.LFB74:
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccyrQWSx.s 			page 7
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccHYYILs.s 			page 7
 
 
  171:Src/stm32f1xx_it.c **** 
@@ -388,49 +388,54 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccyrQWSx.s 			page 1
  203 0006 FFF7FEFF 		bl	HAL_SYSTICK_IRQHandler
  204              	.LVL1:
  182:Src/stm32f1xx_it.c ****   /* USER CODE BEGIN SysTick_IRQn 1 */
- 183:Src/stm32f1xx_it.c ****   //os_sysTickHandler();
+ 183:Src/stm32f1xx_it.c ****   os_sysTickHandler();
+ 205              		.loc 1 183 0
+ 206 000a FFF7FEFF 		bl	os_sysTickHandler
+ 207              	.LVL2:
  184:Src/stm32f1xx_it.c ****   /* USER CODE END SysTick_IRQn 1 */
  185:Src/stm32f1xx_it.c **** }
- 205              		.loc 1 185 0
- 206 000a 08BD     		pop	{r3, pc}
- 207              		.cfi_endproc
- 208              	.LFE74:
- 210              		.text
- 211              	.Letext0:
- 212              		.file 2 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
- 213              		.file 3 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
- 214              		.file 4 "Drivers/CMSIS/Include/core_cm3.h"
- 215              		.file 5 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
- 216              		.file 6 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
- 217              		.file 7 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
- 218              		.file 8 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\lib\\gcc\\arm-none-eabi
- 219              		.file 9 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
- 220              		.file 10 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
- 221              		.file 11 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h"
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccyrQWSx.s 			page 8
+ 208              		.loc 1 185 0
+ 209 000e 08BD     		pop	{r3, pc}
+ 210              		.cfi_endproc
+ 211              	.LFE74:
+ 213              		.text
+ 214              	.Letext0:
+ 215              		.file 2 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 216              		.file 3 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 217              		.file 4 "Drivers/CMSIS/Include/core_cm3.h"
+ 218              		.file 5 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 219              		.file 6 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 220              		.file 7 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 221              		.file 8 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\lib\\gcc\\arm-none-eabi
+ 222              		.file 9 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 223              		.file 10 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 224              		.file 11 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h"
+ 225              		.file 12 "Inc/os.h"
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccHYYILs.s 			page 8
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 stm32f1xx_it.c
-C:\Users\Qian\AppData\Local\Temp\ccyrQWSx.s:16     .text.NMI_Handler:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccyrQWSx.s:23     .text.NMI_Handler:00000000 NMI_Handler
-C:\Users\Qian\AppData\Local\Temp\ccyrQWSx.s:37     .text.HardFault_Handler:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccyrQWSx.s:44     .text.HardFault_Handler:00000000 HardFault_Handler
-C:\Users\Qian\AppData\Local\Temp\ccyrQWSx.s:58     .text.MemManage_Handler:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccyrQWSx.s:65     .text.MemManage_Handler:00000000 MemManage_Handler
-C:\Users\Qian\AppData\Local\Temp\ccyrQWSx.s:79     .text.BusFault_Handler:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccyrQWSx.s:86     .text.BusFault_Handler:00000000 BusFault_Handler
-C:\Users\Qian\AppData\Local\Temp\ccyrQWSx.s:100    .text.UsageFault_Handler:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccyrQWSx.s:107    .text.UsageFault_Handler:00000000 UsageFault_Handler
-C:\Users\Qian\AppData\Local\Temp\ccyrQWSx.s:121    .text.SVC_Handler:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccyrQWSx.s:128    .text.SVC_Handler:00000000 SVC_Handler
-C:\Users\Qian\AppData\Local\Temp\ccyrQWSx.s:141    .text.DebugMon_Handler:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccyrQWSx.s:148    .text.DebugMon_Handler:00000000 DebugMon_Handler
-C:\Users\Qian\AppData\Local\Temp\ccyrQWSx.s:161    .text.PendSV_Handler:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccyrQWSx.s:168    .text.PendSV_Handler:00000000 PendSV_Handler
-C:\Users\Qian\AppData\Local\Temp\ccyrQWSx.s:181    .text.SysTick_Handler:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccyrQWSx.s:188    .text.SysTick_Handler:00000000 SysTick_Handler
+C:\Users\Qian\AppData\Local\Temp\ccHYYILs.s:16     .text.NMI_Handler:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccHYYILs.s:23     .text.NMI_Handler:00000000 NMI_Handler
+C:\Users\Qian\AppData\Local\Temp\ccHYYILs.s:37     .text.HardFault_Handler:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccHYYILs.s:44     .text.HardFault_Handler:00000000 HardFault_Handler
+C:\Users\Qian\AppData\Local\Temp\ccHYYILs.s:58     .text.MemManage_Handler:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccHYYILs.s:65     .text.MemManage_Handler:00000000 MemManage_Handler
+C:\Users\Qian\AppData\Local\Temp\ccHYYILs.s:79     .text.BusFault_Handler:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccHYYILs.s:86     .text.BusFault_Handler:00000000 BusFault_Handler
+C:\Users\Qian\AppData\Local\Temp\ccHYYILs.s:100    .text.UsageFault_Handler:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccHYYILs.s:107    .text.UsageFault_Handler:00000000 UsageFault_Handler
+C:\Users\Qian\AppData\Local\Temp\ccHYYILs.s:121    .text.SVC_Handler:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccHYYILs.s:128    .text.SVC_Handler:00000000 SVC_Handler
+C:\Users\Qian\AppData\Local\Temp\ccHYYILs.s:141    .text.DebugMon_Handler:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccHYYILs.s:148    .text.DebugMon_Handler:00000000 DebugMon_Handler
+C:\Users\Qian\AppData\Local\Temp\ccHYYILs.s:161    .text.PendSV_Handler:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccHYYILs.s:168    .text.PendSV_Handler:00000000 PendSV_Handler
+C:\Users\Qian\AppData\Local\Temp\ccHYYILs.s:181    .text.SysTick_Handler:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccHYYILs.s:188    .text.SysTick_Handler:00000000 SysTick_Handler
 
 UNDEFINED SYMBOLS
 HAL_IncTick
 HAL_SYSTICK_IRQHandler
+os_sysTickHandler

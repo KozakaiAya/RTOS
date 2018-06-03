@@ -4,11 +4,12 @@
 
 
 #include "debug.h"
+#include <stdio.h>
 
 
-inline void* getCurrentStackPtr()
+uint32_t getCurrentStackPtr()
 {
-    void* result = 0;
+    uint32_t result = 0;
     asm volatile (
         "MRS    %0, psp             \n\t"
         : "=r" (result)
@@ -16,7 +17,7 @@ inline void* getCurrentStackPtr()
     return result;
 }
 
-inline int saveContext(char** ptrToCurrentSP)
+__attribute__((naked)) void saveContext(char** ptrToCurrentSP)
 {
     uint32_t t;
     asm volatile (
@@ -26,48 +27,42 @@ inline int saveContext(char** ptrToCurrentSP)
         : "=r" (t)        
     );
     *(ptrToCurrentSP) = (char*)t;
-    return 0;
 }
 
-inline int loadContext(char** ptrToNextSP)
+__attribute__((naked)) void loadContext()
 {
     uint32_t t;
-    logger(&huart1, "LoadContext\n");
     asm volatile (
         "MRS    %0, psp             \n\t"
-        "LDMFD  %0!, {r4-r11}       \n\t"
+        "LDMIA  %0!, {r4-r11}       \n\t"
         "MSR    psp, %0             \n\t"
         "MOV    lr, #0xFFFFFFFD      \n\t"
         "CPSIE I                    \n\t"
         "BX     lr                  \n\t"
-        : "=r" (t)
+        :
+        : "r" (t)
     );
-    return 0;
 }
 
-inline int contextSwitcher(char* nextSP)
+__attribute__((naked)) void contextSwitcher(char* nextSP)
 {
-    logger(&huart1, "ContextSwitcher\n");
     asm volatile (
         "MSR    psp, %0             \n\t"
         :
         : "r" (nextSP)
     );
-    return 0;
 }
 
-inline int enterCritical()
+__attribute__((naked)) void enterCritical()
 {
     asm volatile (
         "CPSID I"
     );
-    return 0;
 }
 
-inline int exitCritical()
+__attribute__((naked)) void exitCritical()
 {
     asm volatile (
         "CPSIE I"
     );
-    return 0;
 }

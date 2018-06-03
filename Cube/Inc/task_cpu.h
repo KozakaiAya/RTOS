@@ -24,12 +24,12 @@ typedef struct {
 
 uint32_t getCurrentStackPtr();
 
-__attribute__((naked)) void saveContext(char** ptrToCurrentSP);
+void saveContext(char** ptrToCurrentSP);
 
-__attribute__((naked)) void loadContext(char** ptrToNextSP);
+__attribute__((naked)) void loadContext();
 
-__attribute__((naked)) void contextSwitcher(char* nextSP);
+void contextSwitcher(char* nextSP);
 
-__attribute__((naked)) void enterCritical();
+void enterCritical();
 
-__attribute__((naked)) void exitCritical();
+void exitCritical();

@@ -17,7 +17,7 @@ uint32_t getCurrentStackPtr()
     return result;
 }
 
-__attribute__((naked)) void saveContext(char** ptrToCurrentSP)
+void saveContext(char** ptrToCurrentSP)
 {
     uint32_t t;
     asm volatile (
@@ -29,20 +29,21 @@ __attribute__((naked)) void saveContext(char** ptrToCurrentSP)
     *(ptrToCurrentSP) = (char*)t;
 }
 
-__attribute__((naked)) void loadContext(char** ptrToNextSP)
+__attribute__((naked)) void loadContext()
 {
-//    uint32_t t;
+    uint32_t t;
     asm volatile (
-        "MRS    r12, psp             \n\t"
-        "LDMIA  r12!, {r4-r11}       \n\t"
-        "MSR    psp, r12             \n\t"
+        "MRS    %0, psp             \n\t"
+        "LDMIA  %0!, {r4-r11}       \n\t"
+        "MSR    psp, %0             \n\t"
         "MOV    lr, #0xFFFFFFFD      \n\t"
         "CPSIE I                    \n\t"
         "BX     lr                  \n\t"
+        : "=r" (t)
     );
 }
 
-__attribute__((naked)) void contextSwitcher(char* nextSP)
+void contextSwitcher(char* nextSP)
 {
     asm volatile (
         "MSR    psp, %0             \n\t"
@@ -51,14 +52,14 @@ __attribute__((naked)) void contextSwitcher(char* nextSP)
     );
 }
 
-__attribute__((naked)) void enterCritical()
+void enterCritical()
 {
     asm volatile (
         "CPSID I"
     );
 }
 
-__attribute__((naked)) void exitCritical()
+void exitCritical()
 {
     asm volatile (
         "CPSIE I"

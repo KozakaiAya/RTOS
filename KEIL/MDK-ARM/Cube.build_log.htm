@@ -22,7 +22,7 @@ Dialog DLL:      TCM.DLL V1.35.1.0
  
 <h2>Project:</h2>
 F:\文档\大学课程材料\嵌入式系统\HW\RTOS\KEIL\MDK-ARM\Cube.uvprojx
-Project File Date:  05/26/2018
+Project File Date:  06/03/2018
 
 <h2>Output:</h2>
 Rebuild target 'Cube'
@@ -38,34 +38,26 @@ compiling stm32f1xx_hal_cortex.c...
 compiling stm32f1xx_hal_pwr.c...
 compiling stm32f1xx_hal_uart.c...
 compiling stm32f1xx_hal_rcc.c...
+compiling stm32f1xx_hal_flash.c...
 compiling stm32f1xx_hal_dma.c...
 compiling system_stm32f1xx.c...
-compiling stm32f1xx_hal_flash.c...
 compiling stm32f1xx_hal_msp.c...
 compiling stm32f1xx_it.c...
 compiling main.c...
 compiling debug.c...
 compiling os.c...
-../Src/os.c: In function 'os_enterCritical':
-../Src/os.c(92): warning: control reaches end of non-void function [-Wreturn-type]
-../Src/os.c: In function 'os_exitCritical':
-../Src/os.c(97): warning: control reaches end of non-void function [-Wreturn-type]
 compiling task.c...
 ../Src/task.c: In function 'initTask':
-../Src/task.c(15): warning: statement with no effect [-Wunused-value]
+../Src/task.c(18): warning: statement with no effect [-Wunused-value]
 ../Src/task.c: In function 'createTask':
-../Src/task.c(23): warning: unused variable 'j' [-Wunused-variable]
-../Src/task.c: In function 'initTask':
-../Src/task.c(17): warning: control reaches end of non-void function [-Wreturn-type]
-../Src/task.c: In function 'taskDelay':
-../Src/task.c(74): warning: control reaches end of non-void function [-Wreturn-type]
-../Src/task.c: In function 'switchTaskTo':
-../Src/task.c(100): warning: control reaches end of non-void function [-Wreturn-type]
-../Src/task.c: In function 'runFirstTask':
-../Src/task.c(109): warning: control reaches end of non-void function [-Wreturn-type]
+../Src/task.c(35): warning: format '%lx' expects argument of type 'long unsigned int', but argument 3 has type 'char *' [-Wformat=]
+../Src/task.c(47): warning: format '%lx' expects argument of type 'long unsigned int', but argument 3 has type 'char *' [-Wformat=]
+../Src/task.c(27): warning: unused variable 'j' [-Wunused-variable]
 compiling task_cpu.c...
+../Src/task_cpu.c: In function 'loadContext':
+../Src/task_cpu.c(35): warning: 't' is used uninitialized in this function [-Wuninitialized]
 linking...
-".\Cube.elf" - 0 Error(s), 8 Warning(s).
+".\Cube.elf" - 0 Error(s), 5 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -88,7 +80,7 @@ Package Vendor: Keil
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.1.1
-Build Time Elapsed:  00:00:03
+Build Time Elapsed:  00:00:04
 </pre>
 </body>
 </html>

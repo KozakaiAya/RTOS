@@ -22,14 +22,14 @@ typedef struct {
     uint32_t r11;
 } sw_stack_frame_t;
 
-void* getCurrentStackPtr();
+uint32_t getCurrentStackPtr();
 
-int saveContext(char** ptrToCurrentSP);
+__attribute__((naked)) void saveContext(char** ptrToCurrentSP);
 
-int loadContext(char** ptrToNextSP);
+__attribute__((naked)) void loadContext();
 
-int contextSwitcher(char* nextSP);
+__attribute__((naked)) void contextSwitcher(char* nextSP);
 
-int enterCritical();
+__attribute__((naked)) void enterCritical();
 
-int exitCritical();
+__attribute__((naked)) void exitCritical();

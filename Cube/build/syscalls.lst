@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s 			page 1
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s 			page 1
   31:Src/syscalls.c **** #include <errno.h>
   32:Src/syscalls.c **** #include <stdio.h>
   33:Src/syscalls.c **** #include <signal.h>
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s 			page 2
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s 			page 2
 
 
   34:Src/syscalls.c **** #include <time.h>
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s 			page 1
   57              		.section	.text._kill,"ax",%progbits
   58              		.align	1
   59              		.global	_kill
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s 			page 3
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s 			page 3
 
 
   60              		.syntax unified
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s 			page 1
  108              		.cfi_offset 14, -4
   69:Src/syscalls.c **** 	_kill(status, -1);
  109              		.loc 1 69 0
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s 			page 4
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s 			page 4
 
 
  110 0002 4FF0FF31 		mov	r1, #-1
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s 			page 1
  155              		.loc 1 79 0 discriminator 3
  156 0012 0135     		adds	r5, r5, #1
  157              	.LVL9:
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s 			page 5
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s 			page 5
 
 
  158              	.L9:
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s 			page 1
  201 000c FFF7FEFF 		bl	__io_putchar
  202              	.LVL14:
   89:Src/syscalls.c **** 	{
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s 			page 6
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s 			page 6
 
 
  203              		.loc 1 89 0 discriminator 3
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s 			page 1
  105:Src/syscalls.c **** 	prev_heap_end = heap_end;
  245              		.loc 1 105 0
  246 000a 0A4A     		ldr	r2, .L23
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s 			page 7
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s 			page 7
 
 
  247 000c 1068     		ldr	r0, [r2]
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s 			page 1
  287              		.section	.text._close,"ax",%progbits
  288              		.align	1
  289              		.global	_close
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s 			page 8
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s 			page 8
 
 
  290              		.syntax unified
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s 			page 1
  336              		.section	.text._isatty,"ax",%progbits
  337              		.align	1
  338              		.global	_isatty
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s 			page 9
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s 			page 9
 
 
  339              		.syntax unified
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s 			page 1
  387              		.thumb_func
  388              		.fpu softvfp
  390              	_open:
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s 			page 10
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s 			page 10
 
 
  391              	.LFB30:
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s 			page 1
  437              		.loc 1 149 0
  438 0002 FFF7FEFF 		bl	__errno
  439              	.LVL35:
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s 			page 11
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s 			page 11
 
 
  440 0006 0A23     		movs	r3, #10
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s 			page 1
  159:Src/syscalls.c **** int _times(struct tms *buf)
  160:Src/syscalls.c **** {
  489              		.loc 1 160 0
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s 			page 12
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s 			page 12
 
 
  490              		.cfi_startproc
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s 			page 1
  171:Src/syscalls.c **** {
  538              		.loc 1 171 0
  539              		.cfi_startproc
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s 			page 13
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s 			page 13
 
 
  540              		@ args = 0, pretend = 0, frame = 0
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s 			page 1
  587              	.LFE36:
  589              		.section	.text._execve,"ax",%progbits
  590              		.align	1
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s 			page 14
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s 			page 14
 
 
  591              		.global	_execve
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s 			page 1
  647              		.file 4 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
  648              		.file 5 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\lib\\gcc\\arm-none-eabi
  649              		.file 6 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s 			page 15
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s 			page 15
 
 
  650              		.file 7 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
@@ -848,56 +848,56 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s 			page 1
  654              		.file 11 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
  655              		.file 12 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
  656              		.file 13 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s 			page 16
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s 			page 16
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 syscalls.c
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:16     .text.initialise_monitor_handles:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:23     .text.initialise_monitor_handles:00000000 initialise_monitor_handles
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:37     .text._getpid:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:44     .text._getpid:00000000 _getpid
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:58     .text._kill:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:65     .text._kill:00000000 _kill
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:89     .text._exit:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:96     .text._exit:00000000 _exit
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:119    .text._read:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:126    .text._read:00000000 _read
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:169    .text._write:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:176    .text._write:00000000 _write
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:220    .text._sbrk:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:227    .text._sbrk:00000000 _sbrk
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:282    .text._sbrk:00000034 $d
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:288    .text._close:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:295    .text._close:00000000 _close
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:311    .text._fstat:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:318    .text._fstat:00000000 _fstat
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:337    .text._isatty:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:344    .text._isatty:00000000 _isatty
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:360    .text._lseek:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:367    .text._lseek:00000000 _lseek
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:383    .text._open:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:390    .text._open:00000000 _open
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:418    .text._wait:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:425    .text._wait:00000000 _wait
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:449    .text._unlink:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:456    .text._unlink:00000000 _unlink
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:480    .text._times:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:487    .text._times:00000000 _times
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:503    .text._stat:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:510    .text._stat:00000000 _stat
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:529    .text._link:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:536    .text._link:00000000 _link
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:560    .text._fork:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:567    .text._fork:00000000 _fork
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:590    .text._execve:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:597    .text._execve:00000000 _execve
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:639    .data.environ:00000000 environ
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:626    .bss.__env:00000000 __env
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:623    .bss.__env:00000000 $d
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:629    .bss.heap_end.5959:00000000 $d
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:633    .bss.heap_end.5959:00000000 heap_end.5959
-C:\Users\Qian\AppData\Local\Temp\ccjdF9gV.s:636    .data.environ:00000000 $d
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:16     .text.initialise_monitor_handles:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:23     .text.initialise_monitor_handles:00000000 initialise_monitor_handles
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:37     .text._getpid:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:44     .text._getpid:00000000 _getpid
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:58     .text._kill:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:65     .text._kill:00000000 _kill
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:89     .text._exit:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:96     .text._exit:00000000 _exit
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:119    .text._read:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:126    .text._read:00000000 _read
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:169    .text._write:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:176    .text._write:00000000 _write
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:220    .text._sbrk:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:227    .text._sbrk:00000000 _sbrk
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:282    .text._sbrk:00000034 $d
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:288    .text._close:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:295    .text._close:00000000 _close
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:311    .text._fstat:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:318    .text._fstat:00000000 _fstat
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:337    .text._isatty:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:344    .text._isatty:00000000 _isatty
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:360    .text._lseek:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:367    .text._lseek:00000000 _lseek
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:383    .text._open:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:390    .text._open:00000000 _open
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:418    .text._wait:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:425    .text._wait:00000000 _wait
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:449    .text._unlink:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:456    .text._unlink:00000000 _unlink
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:480    .text._times:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:487    .text._times:00000000 _times
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:503    .text._stat:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:510    .text._stat:00000000 _stat
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:529    .text._link:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:536    .text._link:00000000 _link
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:560    .text._fork:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:567    .text._fork:00000000 _fork
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:590    .text._execve:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:597    .text._execve:00000000 _execve
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:639    .data.environ:00000000 environ
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:626    .bss.__env:00000000 __env
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:623    .bss.__env:00000000 $d
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:629    .bss.heap_end.5959:00000000 $d
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:633    .bss.heap_end.5959:00000000 heap_end.5959
+C:\Users\Qian\AppData\Local\Temp\ccYkDDO6.s:636    .data.environ:00000000 $d
 
 UNDEFINED SYMBOLS
 __errno

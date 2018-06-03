@@ -2,13 +2,17 @@
 
 #include "task_cpu.h"
 
-#define MAX_TASK_COUNT 10
+#define MAX_TASK_COUNT 16
 
 #define STACK_FRAME_SIZE 256
+
+#define TASK_STACK_SIZE (MAX_TASK_COUNT * STACK_FRAME_SIZE + 1)
 
 #define PSR_INIT 0x21000000
 
 #define SRAM_TOP_ADDRESS 0x20001000
+
+#define TASK_PC_MASK 0xfffffffe
 
 #define PROC_STACK_TOP (SRAM_TOP_ADDRESS - STACK_FRAME_SIZE)
 

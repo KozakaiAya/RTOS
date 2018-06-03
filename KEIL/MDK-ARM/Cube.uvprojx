@@ -228,10 +228,10 @@
             </OnChipMemories>
           </ArmMisc>
           <Carm>
-            <arpcs>1</arpcs>
+            <arpcs>0</arpcs>
             <stkchk>0</stkchk>
             <reentr>0</reentr>
-            <interw>1</interw>
+            <interw>0</interw>
             <bigend>0</bigend>
             <Strict>0</Strict>
             <Optim>0</Optim>
@@ -246,7 +246,7 @@
           </Carm>
           <Aarm>
             <bBE>0</bBE>
-            <interw>1</interw>
+            <interw>0</interw>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define></Define>
@@ -352,9 +352,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>::CMSIS</GroupName>
-        </Group>
-        <Group>
           <GroupName>Drivers/CMSIS</GroupName>
           <Files>
             <File>
@@ -403,6 +400,9 @@
               <FilePath>..\Src\task_cpu.c</FilePath>
             </File>
           </Files>
+        </Group>
+        <Group>
+          <GroupName>::CMSIS</GroupName>
         </Group>
       </Groups>
     </Target>
