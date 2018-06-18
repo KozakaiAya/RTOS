@@ -1,0 +1,407 @@
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\cca4qcNh.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"os_core.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.osIdleTask,"ax",%progbits
+  16              		.align	1
+  17              		.global	osIdleTask
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu softvfp
+  23              	osIdleTask:
+  24              	.LFB66:
+  25              		.file 1 "Src/os_core.c"
+   1:Src/os_core.c **** #include <stdint.h>
+   2:Src/os_core.c **** #include "os.h"
+   3:Src/os_core.c **** #include "os_task.h"
+   4:Src/os_core.c **** 
+   5:Src/os_core.c **** #include "stm32f1xx_hal.h"
+   6:Src/os_core.c **** 
+   7:Src/os_core.c **** int os_started;
+   8:Src/os_core.c **** int os_IntNestCount;
+   9:Src/os_core.c **** int currentTask;
+  10:Src/os_core.c **** int nextTask;
+  11:Src/os_core.c **** int needTaskSwitch;
+  12:Src/os_core.c **** int firstStarted;
+  13:Src/os_core.c **** int needResched;
+  14:Src/os_core.c **** int lastTaskDelay;
+  15:Src/os_core.c **** 
+  16:Src/os_core.c **** extern task_control_block_t tcb[MAX_TASK_COUNT];
+  17:Src/os_core.c **** 
+  18:Src/os_core.c **** extern UART_HandleTypeDef huart1;
+  19:Src/os_core.c **** 
+  20:Src/os_core.c **** uint32_t idleTaskStack[256];
+  21:Src/os_core.c **** 
+  22:Src/os_core.c **** void osIdleTask(void *args)
+  23:Src/os_core.c **** {
+  26              		.loc 1 23 0
+  27              		.cfi_startproc
+  28              		@ Volatile: function does not return.
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  32              	.LVL0:
+  33              	.L2:
+  34 0000 FEE7     		b	.L2
+  35              		.cfi_endproc
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\cca4qcNh.s 			page 2
+
+
+  36              	.LFE66:
+  38              		.section	.text.osStart,"ax",%progbits
+  39              		.align	1
+  40              		.global	osStart
+  41              		.syntax unified
+  42              		.thumb
+  43              		.thumb_func
+  44              		.fpu softvfp
+  46              	osStart:
+  47              	.LFB68:
+  24:Src/os_core.c ****     //HAL_UART_Transmit(&huart1, "TSKIDLR\n", 8, 0xFF);
+  25:Src/os_core.c ****     while (1)
+  26:Src/os_core.c ****     {
+  27:Src/os_core.c ****         //HAL_UART_Transmit(&huart1, "TSKIDLR\n", 8, 0xFF);
+  28:Src/os_core.c ****     }
+  29:Src/os_core.c ****     return;
+  30:Src/os_core.c **** }
+  31:Src/os_core.c **** 
+  32:Src/os_core.c **** void osInit()
+  33:Src/os_core.c **** {
+  34:Src/os_core.c ****     OS_Enter_Critical;
+  35:Src/os_core.c ****     task_InitTCB();
+  36:Src/os_core.c ****     osTaskCreate(osIdleTask, (void *)0, 1, (uint32_t *)&idleTaskStack[255]);
+  37:Src/os_core.c ****     currentTask = -1;
+  38:Src/os_core.c ****     nextTask = -1;
+  39:Src/os_core.c ****     needTaskSwitch = 0;
+  40:Src/os_core.c ****     os_started = 0;
+  41:Src/os_core.c ****     os_IntNestCount = 0;
+  42:Src/os_core.c ****     firstStarted = 0;
+  43:Src/os_core.c ****     needResched = 0;
+  44:Src/os_core.c ****     lastTaskDelay = 0;
+  45:Src/os_core.c ****     asm volatile(
+  46:Src/os_core.c ****         "MOV R0, #0 \n\t"
+  47:Src/os_core.c ****         "MSR PSP, R0");
+  48:Src/os_core.c ****     OS_Exit_Critical;
+  49:Src/os_core.c ****     return;
+  50:Src/os_core.c **** }
+  51:Src/os_core.c **** 
+  52:Src/os_core.c **** void osStart()
+  53:Src/os_core.c **** {
+  48              		.loc 1 53 0
+  49              		.cfi_startproc
+  50              		@ args = 0, pretend = 0, frame = 0
+  51              		@ frame_needed = 0, uses_anonymous_args = 0
+  52              		@ link register save eliminated.
+  54:Src/os_core.c ****     os_started = 1;
+  53              		.loc 1 54 0
+  54 0000 024B     		ldr	r3, .L4
+  55 0002 0122     		movs	r2, #1
+  56 0004 1A60     		str	r2, [r3]
+  55:Src/os_core.c ****     //HAL_UART_Transmit(&huart1, "OSS\n", 4, 0xFF);
+  56:Src/os_core.c ****     OS_Exit_Critical;
+  57              		.loc 1 56 0
+  58              		.syntax unified
+  59              	@ 56 "Src/os_core.c" 1
+  60 0006 62B6     		CPSIE I
+  61              	@ 0 "" 2
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\cca4qcNh.s 			page 3
+
+
+  57:Src/os_core.c **** }
+  62              		.loc 1 57 0
+  63              		.thumb
+  64              		.syntax unified
+  65 0008 7047     		bx	lr
+  66              	.L5:
+  67 000a 00BF     		.align	2
+  68              	.L4:
+  69 000c 00000000 		.word	os_started
+  70              		.cfi_endproc
+  71              	.LFE68:
+  73              		.section	.text.osTaskCreate,"ax",%progbits
+  74              		.align	1
+  75              		.global	osTaskCreate
+  76              		.syntax unified
+  77              		.thumb
+  78              		.thumb_func
+  79              		.fpu softvfp
+  81              	osTaskCreate:
+  82              	.LFB69:
+  58:Src/os_core.c **** 
+  59:Src/os_core.c **** void osTaskCreate(void (*task)(void *), void *args, uint32_t prio, uint32_t *stk)
+  60:Src/os_core.c **** {
+  83              		.loc 1 60 0
+  84              		.cfi_startproc
+  85              		@ args = 0, pretend = 0, frame = 0
+  86              		@ frame_needed = 0, uses_anonymous_args = 0
+  87              	.LVL1:
+  88 0000 38B5     		push	{r3, r4, r5, lr}
+  89              	.LCFI0:
+  90              		.cfi_def_cfa_offset 16
+  91              		.cfi_offset 3, -16
+  92              		.cfi_offset 4, -12
+  93              		.cfi_offset 5, -8
+  94              		.cfi_offset 14, -4
+  61:Src/os_core.c ****     int i;
+  62:Src/os_core.c ****     OS_Enter_Critical;
+  95              		.loc 1 62 0
+  96              		.syntax unified
+  97              	@ 62 "Src/os_core.c" 1
+  98 0002 72B6     		CPSID I
+  99              	@ 0 "" 2
+ 100              	.LVL2:
+  63:Src/os_core.c ****     for (i = 0; i < MAX_TASK_COUNT; i++)
+ 101              		.loc 1 63 0
+ 102              		.thumb
+ 103              		.syntax unified
+ 104 0004 0024     		movs	r4, #0
+ 105              	.LVL3:
+ 106              	.L7:
+ 107              		.loc 1 63 0 is_stmt 0 discriminator 1
+ 108 0006 032C     		cmp	r4, #3
+ 109 0008 13DC     		bgt	.L9
+  64:Src/os_core.c ****     {
+  65:Src/os_core.c ****         if (tcb[i].state == TASK_FREE)
+ 110              		.loc 1 65 0 is_stmt 1
+ 111 000a 0B4D     		ldr	r5, .L13
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\cca4qcNh.s 			page 4
+
+
+ 112 000c 05EB0415 		add	r5, r5, r4, lsl #4
+ 113 0010 2D7A     		ldrb	r5, [r5, #8]	@ zero_extendqisi2
+ 114 0012 0DB1     		cbz	r5, .L12
+  63:Src/os_core.c ****     for (i = 0; i < MAX_TASK_COUNT; i++)
+ 115              		.loc 1 63 0 discriminator 2
+ 116 0014 0134     		adds	r4, r4, #1
+ 117              	.LVL4:
+ 118 0016 F6E7     		b	.L7
+ 119              	.L12:
+ 120 0018 1546     		mov	r5, r2
+  66:Src/os_core.c ****         {
+  67:Src/os_core.c ****             tcb[i].sp = task_createTSK(task, args, stk);
+ 121              		.loc 1 67 0
+ 122 001a 1A46     		mov	r2, r3
+ 123              	.LVL5:
+ 124 001c FFF7FEFF 		bl	task_createTSK
+ 125              	.LVL6:
+ 126 0020 054A     		ldr	r2, .L13
+ 127 0022 2401     		lsls	r4, r4, #4
+ 128              	.LVL7:
+ 129 0024 1319     		adds	r3, r2, r4
+ 130 0026 1051     		str	r0, [r2, r4]
+  68:Src/os_core.c ****             tcb[i].prio = prio;
+ 131              		.loc 1 68 0
+ 132 0028 5D60     		str	r5, [r3, #4]
+  69:Src/os_core.c ****             tcb[i].state = TASK_READY;
+ 133              		.loc 1 69 0
+ 134 002a 0122     		movs	r2, #1
+ 135 002c 1A72     		strb	r2, [r3, #8]
+  70:Src/os_core.c ****             tcb[i].delay = 0;
+ 136              		.loc 1 70 0
+ 137 002e 0022     		movs	r2, #0
+ 138 0030 DA60     		str	r2, [r3, #12]
+ 139              	.LVL8:
+ 140              	.L9:
+  71:Src/os_core.c ****             //printf("Task %d; SP: %lx\n", i, tcb[i].sp);
+  72:Src/os_core.c ****             break;
+  73:Src/os_core.c ****         }
+  74:Src/os_core.c ****     }
+  75:Src/os_core.c ****     OS_Exit_Critical;
+ 141              		.loc 1 75 0
+ 142              		.syntax unified
+ 143              	@ 75 "Src/os_core.c" 1
+ 144 0032 62B6     		CPSIE I
+ 145              	@ 0 "" 2
+  76:Src/os_core.c **** }
+ 146              		.loc 1 76 0
+ 147              		.thumb
+ 148              		.syntax unified
+ 149 0034 38BD     		pop	{r3, r4, r5, pc}
+ 150              	.L14:
+ 151 0036 00BF     		.align	2
+ 152              	.L13:
+ 153 0038 00000000 		.word	tcb
+ 154              		.cfi_endproc
+ 155              	.LFE69:
+ 157              		.section	.text.osInit,"ax",%progbits
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\cca4qcNh.s 			page 5
+
+
+ 158              		.align	1
+ 159              		.global	osInit
+ 160              		.syntax unified
+ 161              		.thumb
+ 162              		.thumb_func
+ 163              		.fpu softvfp
+ 165              	osInit:
+ 166              	.LFB67:
+  33:Src/os_core.c ****     OS_Enter_Critical;
+ 167              		.loc 1 33 0
+ 168              		.cfi_startproc
+ 169              		@ args = 0, pretend = 0, frame = 0
+ 170              		@ frame_needed = 0, uses_anonymous_args = 0
+ 171 0000 08B5     		push	{r3, lr}
+ 172              	.LCFI1:
+ 173              		.cfi_def_cfa_offset 8
+ 174              		.cfi_offset 3, -8
+ 175              		.cfi_offset 14, -4
+  34:Src/os_core.c ****     task_InitTCB();
+ 176              		.loc 1 34 0
+ 177              		.syntax unified
+ 178              	@ 34 "Src/os_core.c" 1
+ 179 0002 72B6     		CPSID I
+ 180              	@ 0 "" 2
+  35:Src/os_core.c ****     osTaskCreate(osIdleTask, (void *)0, 1, (uint32_t *)&idleTaskStack[255]);
+ 181              		.loc 1 35 0
+ 182              		.thumb
+ 183              		.syntax unified
+ 184 0004 FFF7FEFF 		bl	task_InitTCB
+ 185              	.LVL9:
+  36:Src/os_core.c ****     currentTask = -1;
+ 186              		.loc 1 36 0
+ 187 0008 0F4B     		ldr	r3, .L17
+ 188 000a 0122     		movs	r2, #1
+ 189 000c 0021     		movs	r1, #0
+ 190 000e 0F48     		ldr	r0, .L17+4
+ 191 0010 FFF7FEFF 		bl	osTaskCreate
+ 192              	.LVL10:
+  37:Src/os_core.c ****     nextTask = -1;
+ 193              		.loc 1 37 0
+ 194 0014 4FF0FF33 		mov	r3, #-1
+ 195 0018 0D4A     		ldr	r2, .L17+8
+ 196 001a 1360     		str	r3, [r2]
+  38:Src/os_core.c ****     needTaskSwitch = 0;
+ 197              		.loc 1 38 0
+ 198 001c 0D4A     		ldr	r2, .L17+12
+ 199 001e 1360     		str	r3, [r2]
+  39:Src/os_core.c ****     os_started = 0;
+ 200              		.loc 1 39 0
+ 201 0020 0023     		movs	r3, #0
+ 202 0022 0D4A     		ldr	r2, .L17+16
+ 203 0024 1360     		str	r3, [r2]
+  40:Src/os_core.c ****     os_IntNestCount = 0;
+ 204              		.loc 1 40 0
+ 205 0026 0D4A     		ldr	r2, .L17+20
+ 206 0028 1360     		str	r3, [r2]
+  41:Src/os_core.c ****     firstStarted = 0;
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\cca4qcNh.s 			page 6
+
+
+ 207              		.loc 1 41 0
+ 208 002a 0D4A     		ldr	r2, .L17+24
+ 209 002c 1360     		str	r3, [r2]
+  42:Src/os_core.c ****     needResched = 0;
+ 210              		.loc 1 42 0
+ 211 002e 0D4A     		ldr	r2, .L17+28
+ 212 0030 1360     		str	r3, [r2]
+  43:Src/os_core.c ****     lastTaskDelay = 0;
+ 213              		.loc 1 43 0
+ 214 0032 0D4A     		ldr	r2, .L17+32
+ 215 0034 1360     		str	r3, [r2]
+  44:Src/os_core.c ****     asm volatile(
+ 216              		.loc 1 44 0
+ 217 0036 0D4A     		ldr	r2, .L17+36
+ 218 0038 1360     		str	r3, [r2]
+  45:Src/os_core.c ****         "MOV R0, #0 \n\t"
+ 219              		.loc 1 45 0
+ 220              		.syntax unified
+ 221              	@ 45 "Src/os_core.c" 1
+ 222 003a 4FF00000 		MOV R0, #0 
+ 223 003e 80F30988 		MSR PSP, R0
+ 224              	@ 0 "" 2
+  48:Src/os_core.c ****     return;
+ 225              		.loc 1 48 0
+ 226              	@ 48 "Src/os_core.c" 1
+ 227 0042 62B6     		CPSIE I
+ 228              	@ 0 "" 2
+  50:Src/os_core.c **** 
+ 229              		.loc 1 50 0
+ 230              		.thumb
+ 231              		.syntax unified
+ 232 0044 08BD     		pop	{r3, pc}
+ 233              	.L18:
+ 234 0046 00BF     		.align	2
+ 235              	.L17:
+ 236 0048 FC030000 		.word	idleTaskStack+1020
+ 237 004c 00000000 		.word	osIdleTask
+ 238 0050 00000000 		.word	currentTask
+ 239 0054 00000000 		.word	nextTask
+ 240 0058 00000000 		.word	needTaskSwitch
+ 241 005c 00000000 		.word	os_started
+ 242 0060 00000000 		.word	os_IntNestCount
+ 243 0064 00000000 		.word	firstStarted
+ 244 0068 00000000 		.word	needResched
+ 245 006c 00000000 		.word	lastTaskDelay
+ 246              		.cfi_endproc
+ 247              	.LFE67:
+ 249              		.comm	idleTaskStack,1024,4
+ 250              		.comm	lastTaskDelay,4,4
+ 251              		.comm	needResched,4,4
+ 252              		.comm	firstStarted,4,4
+ 253              		.comm	needTaskSwitch,4,4
+ 254              		.comm	nextTask,4,4
+ 255              		.comm	currentTask,4,4
+ 256              		.comm	os_IntNestCount,4,4
+ 257              		.comm	os_started,4,4
+ 258              		.text
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\cca4qcNh.s 			page 7
+
+
+ 259              	.Letext0:
+ 260              		.file 2 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 261              		.file 3 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 262              		.file 4 "Inc/os_task.h"
+ 263              		.file 5 "Drivers/CMSIS/Include/core_cm3.h"
+ 264              		.file 6 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 265              		.file 7 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 266              		.file 8 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 267              		.file 9 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 268              		.file 10 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\lib\\gcc\\arm-none-eab
+ 269              		.file 11 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+ 270              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 271              		.file 13 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 272              		.file 14 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h"
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\cca4qcNh.s 			page 8
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 os_core.c
+C:\Users\Qian\AppData\Local\Temp\cca4qcNh.s:16     .text.osIdleTask:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\cca4qcNh.s:23     .text.osIdleTask:00000000 osIdleTask
+C:\Users\Qian\AppData\Local\Temp\cca4qcNh.s:39     .text.osStart:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\cca4qcNh.s:46     .text.osStart:00000000 osStart
+C:\Users\Qian\AppData\Local\Temp\cca4qcNh.s:69     .text.osStart:0000000c $d
+                            *COM*:00000004 os_started
+C:\Users\Qian\AppData\Local\Temp\cca4qcNh.s:74     .text.osTaskCreate:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\cca4qcNh.s:81     .text.osTaskCreate:00000000 osTaskCreate
+C:\Users\Qian\AppData\Local\Temp\cca4qcNh.s:153    .text.osTaskCreate:00000038 $d
+C:\Users\Qian\AppData\Local\Temp\cca4qcNh.s:158    .text.osInit:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\cca4qcNh.s:165    .text.osInit:00000000 osInit
+C:\Users\Qian\AppData\Local\Temp\cca4qcNh.s:236    .text.osInit:00000048 $d
+                            *COM*:00000400 idleTaskStack
+                            *COM*:00000004 currentTask
+                            *COM*:00000004 nextTask
+                            *COM*:00000004 needTaskSwitch
+                            *COM*:00000004 os_IntNestCount
+                            *COM*:00000004 firstStarted
+                            *COM*:00000004 needResched
+                            *COM*:00000004 lastTaskDelay
+
+UNDEFINED SYMBOLS
+task_createTSK
+tcb
+task_InitTCB

@@ -37,6 +37,7 @@
 
 /* USER CODE BEGIN 0 */
 #include "os.h"
+#include "debug.h"
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/

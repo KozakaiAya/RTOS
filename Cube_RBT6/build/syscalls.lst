@@ -1,0 +1,906 @@
+ARM GAS  /tmp/ccUJasBr.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"syscalls.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.initialise_monitor_handles,"ax",%progbits
+  16              		.align	1
+  17              		.global	initialise_monitor_handles
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu softvfp
+  23              	initialise_monitor_handles:
+  24              	.LFB19:
+  25              		.file 1 "Src/syscalls.c"
+   1:Src/syscalls.c **** /**
+   2:Src/syscalls.c **** *****************************************************************************
+   3:Src/syscalls.c **** **
+   4:Src/syscalls.c **** **  File        : syscalls.c
+   5:Src/syscalls.c **** **
+   6:Src/syscalls.c **** **  Abstract    : System Workbench Minimal System calls file
+   7:Src/syscalls.c **** **
+   8:Src/syscalls.c **** ** 		          For more information about which c-functions
+   9:Src/syscalls.c **** **                need which of these lowlevel functions
+  10:Src/syscalls.c **** **                please consult the Newlib libc-manual
+  11:Src/syscalls.c **** **
+  12:Src/syscalls.c **** **  Environment : System Workbench for MCU
+  13:Src/syscalls.c **** **
+  14:Src/syscalls.c **** **  Distribution: The file is distributed “as is,” without any warranty
+  15:Src/syscalls.c **** **                of any kind.
+  16:Src/syscalls.c **** **
+  17:Src/syscalls.c **** **  (c)Copyright System Workbench for MCU.
+  18:Src/syscalls.c **** **  You may use this file as-is or modify it according to the needs of your
+  19:Src/syscalls.c **** **  project. Distribution of this file (unmodified or modified) is not
+  20:Src/syscalls.c **** **  permitted. System Workbench for MCU permit registered System Workbench(R) users the
+  21:Src/syscalls.c **** **  rights to distribute the assembled, compiled & linked contents of this
+  22:Src/syscalls.c **** **  file as part of an application binary file, provided that it is built
+  23:Src/syscalls.c **** **  using the System Workbench for MCU toolchain.
+  24:Src/syscalls.c **** **
+  25:Src/syscalls.c **** *****************************************************************************
+  26:Src/syscalls.c **** */
+  27:Src/syscalls.c **** 
+  28:Src/syscalls.c **** /* Includes */
+  29:Src/syscalls.c **** #include <sys/stat.h>
+  30:Src/syscalls.c **** #include <stdlib.h>
+  31:Src/syscalls.c **** #include <errno.h>
+  32:Src/syscalls.c **** #include <stdio.h>
+  33:Src/syscalls.c **** #include <signal.h>
+ARM GAS  /tmp/ccUJasBr.s 			page 2
+
+
+  34:Src/syscalls.c **** #include <time.h>
+  35:Src/syscalls.c **** #include <sys/time.h>
+  36:Src/syscalls.c **** #include <sys/times.h>
+  37:Src/syscalls.c **** 
+  38:Src/syscalls.c **** 
+  39:Src/syscalls.c **** /* Variables */
+  40:Src/syscalls.c **** //#undef errno
+  41:Src/syscalls.c **** extern int errno;
+  42:Src/syscalls.c **** extern int __io_putchar(int ch) __attribute__((weak));
+  43:Src/syscalls.c **** extern int __io_getchar(void) __attribute__((weak));
+  44:Src/syscalls.c **** 
+  45:Src/syscalls.c **** register char * stack_ptr asm("sp");
+  46:Src/syscalls.c **** 
+  47:Src/syscalls.c **** char *__env[1] = { 0 };
+  48:Src/syscalls.c **** char **environ = __env;
+  49:Src/syscalls.c **** 
+  50:Src/syscalls.c **** 
+  51:Src/syscalls.c **** /* Functions */
+  52:Src/syscalls.c **** void initialise_monitor_handles()
+  53:Src/syscalls.c **** {
+  26              		.loc 1 53 0
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 0
+  29              		@ frame_needed = 0, uses_anonymous_args = 0
+  30              		@ link register save eliminated.
+  54:Src/syscalls.c **** }
+  31              		.loc 1 54 0
+  32 0000 7047     		bx	lr
+  33              		.cfi_endproc
+  34              	.LFE19:
+  36              		.section	.text._getpid,"ax",%progbits
+  37              		.align	1
+  38              		.global	_getpid
+  39              		.syntax unified
+  40              		.thumb
+  41              		.thumb_func
+  42              		.fpu softvfp
+  44              	_getpid:
+  45              	.LFB20:
+  55:Src/syscalls.c **** 
+  56:Src/syscalls.c **** int _getpid(void)
+  57:Src/syscalls.c **** {
+  46              		.loc 1 57 0
+  47              		.cfi_startproc
+  48              		@ args = 0, pretend = 0, frame = 0
+  49              		@ frame_needed = 0, uses_anonymous_args = 0
+  50              		@ link register save eliminated.
+  58:Src/syscalls.c **** 	return 1;
+  59:Src/syscalls.c **** }
+  51              		.loc 1 59 0
+  52 0000 0120     		movs	r0, #1
+  53 0002 7047     		bx	lr
+  54              		.cfi_endproc
+  55              	.LFE20:
+  57              		.section	.text._kill,"ax",%progbits
+  58              		.align	1
+  59              		.global	_kill
+ARM GAS  /tmp/ccUJasBr.s 			page 3
+
+
+  60              		.syntax unified
+  61              		.thumb
+  62              		.thumb_func
+  63              		.fpu softvfp
+  65              	_kill:
+  66              	.LFB21:
+  60:Src/syscalls.c **** 
+  61:Src/syscalls.c **** int _kill(int pid, int sig)
+  62:Src/syscalls.c **** {
+  67              		.loc 1 62 0
+  68              		.cfi_startproc
+  69              		@ args = 0, pretend = 0, frame = 0
+  70              		@ frame_needed = 0, uses_anonymous_args = 0
+  71              	.LVL0:
+  72 0000 08B5     		push	{r3, lr}
+  73              	.LCFI0:
+  74              		.cfi_def_cfa_offset 8
+  75              		.cfi_offset 3, -8
+  76              		.cfi_offset 14, -4
+  63:Src/syscalls.c **** 	errno = EINVAL;
+  77              		.loc 1 63 0
+  78 0002 FFF7FEFF 		bl	__errno
+  79              	.LVL1:
+  80 0006 1623     		movs	r3, #22
+  81 0008 0360     		str	r3, [r0]
+  64:Src/syscalls.c **** 	return -1;
+  65:Src/syscalls.c **** }
+  82              		.loc 1 65 0
+  83 000a 4FF0FF30 		mov	r0, #-1
+  84 000e 08BD     		pop	{r3, pc}
+  85              		.cfi_endproc
+  86              	.LFE21:
+  88              		.section	.text._exit,"ax",%progbits
+  89              		.align	1
+  90              		.global	_exit
+  91              		.syntax unified
+  92              		.thumb
+  93              		.thumb_func
+  94              		.fpu softvfp
+  96              	_exit:
+  97              	.LFB22:
+  66:Src/syscalls.c **** 
+  67:Src/syscalls.c **** void _exit (int status)
+  68:Src/syscalls.c **** {
+  98              		.loc 1 68 0
+  99              		.cfi_startproc
+ 100              		@ Volatile: function does not return.
+ 101              		@ args = 0, pretend = 0, frame = 0
+ 102              		@ frame_needed = 0, uses_anonymous_args = 0
+ 103              	.LVL2:
+ 104 0000 08B5     		push	{r3, lr}
+ 105              	.LCFI1:
+ 106              		.cfi_def_cfa_offset 8
+ 107              		.cfi_offset 3, -8
+ 108              		.cfi_offset 14, -4
+  69:Src/syscalls.c **** 	_kill(status, -1);
+ 109              		.loc 1 69 0
+ARM GAS  /tmp/ccUJasBr.s 			page 4
+
+
+ 110 0002 4FF0FF31 		mov	r1, #-1
+ 111 0006 FFF7FEFF 		bl	_kill
+ 112              	.LVL3:
+ 113              	.L6:
+ 114 000a FEE7     		b	.L6
+ 115              		.cfi_endproc
+ 116              	.LFE22:
+ 118              		.section	.text._read,"ax",%progbits
+ 119              		.align	1
+ 120              		.global	_read
+ 121              		.syntax unified
+ 122              		.thumb
+ 123              		.thumb_func
+ 124              		.fpu softvfp
+ 126              	_read:
+ 127              	.LFB23:
+  70:Src/syscalls.c **** 	while (1) {}		/* Make sure we hang here */
+  71:Src/syscalls.c **** }
+  72:Src/syscalls.c **** 
+  73:Src/syscalls.c **** int _read (int file, char *ptr, int len)
+  74:Src/syscalls.c **** {
+ 128              		.loc 1 74 0
+ 129              		.cfi_startproc
+ 130              		@ args = 0, pretend = 0, frame = 0
+ 131              		@ frame_needed = 0, uses_anonymous_args = 0
+ 132              	.LVL4:
+ 133 0000 70B5     		push	{r4, r5, r6, lr}
+ 134              	.LCFI2:
+ 135              		.cfi_def_cfa_offset 16
+ 136              		.cfi_offset 4, -16
+ 137              		.cfi_offset 5, -12
+ 138              		.cfi_offset 6, -8
+ 139              		.cfi_offset 14, -4
+ 140 0002 0D46     		mov	r5, r1
+ 141 0004 1646     		mov	r6, r2
+ 142              	.LVL5:
+  75:Src/syscalls.c **** 	int DataIdx;
+  76:Src/syscalls.c **** 
+  77:Src/syscalls.c **** 	for (DataIdx = 0; DataIdx < len; DataIdx++)
+ 143              		.loc 1 77 0
+ 144 0006 0024     		movs	r4, #0
+ 145 0008 04E0     		b	.L9
+ 146              	.LVL6:
+ 147              	.L10:
+  78:Src/syscalls.c **** 	{
+  79:Src/syscalls.c **** 		*ptr++ = __io_getchar();
+ 148              		.loc 1 79 0 discriminator 3
+ 149 000a FFF7FEFF 		bl	__io_getchar
+ 150              	.LVL7:
+ 151 000e 2870     		strb	r0, [r5]
+  77:Src/syscalls.c **** 	{
+ 152              		.loc 1 77 0 discriminator 3
+ 153 0010 0134     		adds	r4, r4, #1
+ 154              	.LVL8:
+ 155              		.loc 1 79 0 discriminator 3
+ 156 0012 0135     		adds	r5, r5, #1
+ 157              	.LVL9:
+ARM GAS  /tmp/ccUJasBr.s 			page 5
+
+
+ 158              	.L9:
+  77:Src/syscalls.c **** 	{
+ 159              		.loc 1 77 0 discriminator 1
+ 160 0014 B442     		cmp	r4, r6
+ 161 0016 F8DB     		blt	.L10
+  80:Src/syscalls.c **** 	}
+  81:Src/syscalls.c **** 
+  82:Src/syscalls.c **** return len;
+  83:Src/syscalls.c **** }
+ 162              		.loc 1 83 0
+ 163 0018 3046     		mov	r0, r6
+ 164 001a 70BD     		pop	{r4, r5, r6, pc}
+ 165              		.cfi_endproc
+ 166              	.LFE23:
+ 168              		.section	.text._write,"ax",%progbits
+ 169              		.align	1
+ 170              		.global	_write
+ 171              		.syntax unified
+ 172              		.thumb
+ 173              		.thumb_func
+ 174              		.fpu softvfp
+ 176              	_write:
+ 177              	.LFB24:
+  84:Src/syscalls.c **** 
+  85:Src/syscalls.c **** int _write(int file, char *ptr, int len)
+  86:Src/syscalls.c **** {
+ 178              		.loc 1 86 0
+ 179              		.cfi_startproc
+ 180              		@ args = 0, pretend = 0, frame = 0
+ 181              		@ frame_needed = 0, uses_anonymous_args = 0
+ 182              	.LVL10:
+ 183 0000 70B5     		push	{r4, r5, r6, lr}
+ 184              	.LCFI3:
+ 185              		.cfi_def_cfa_offset 16
+ 186              		.cfi_offset 4, -16
+ 187              		.cfi_offset 5, -12
+ 188              		.cfi_offset 6, -8
+ 189              		.cfi_offset 14, -4
+ 190 0002 1646     		mov	r6, r2
+ 191              	.LVL11:
+  87:Src/syscalls.c **** 	int DataIdx;
+  88:Src/syscalls.c **** 
+  89:Src/syscalls.c **** 	for (DataIdx = 0; DataIdx < len; DataIdx++)
+ 192              		.loc 1 89 0
+ 193 0004 0024     		movs	r4, #0
+ 194 0006 05E0     		b	.L13
+ 195              	.LVL12:
+ 196              	.L14:
+  90:Src/syscalls.c **** 	{
+  91:Src/syscalls.c **** 		__io_putchar(*ptr++);
+ 197              		.loc 1 91 0 discriminator 3
+ 198 0008 4D1C     		adds	r5, r1, #1
+ 199              	.LVL13:
+ 200 000a 0878     		ldrb	r0, [r1]	@ zero_extendqisi2
+ 201 000c FFF7FEFF 		bl	__io_putchar
+ 202              	.LVL14:
+  89:Src/syscalls.c **** 	{
+ARM GAS  /tmp/ccUJasBr.s 			page 6
+
+
+ 203              		.loc 1 89 0 discriminator 3
+ 204 0010 0134     		adds	r4, r4, #1
+ 205              	.LVL15:
+ 206              		.loc 1 91 0 discriminator 3
+ 207 0012 2946     		mov	r1, r5
+ 208              	.LVL16:
+ 209              	.L13:
+  89:Src/syscalls.c **** 	{
+ 210              		.loc 1 89 0 discriminator 1
+ 211 0014 B442     		cmp	r4, r6
+ 212 0016 F7DB     		blt	.L14
+  92:Src/syscalls.c **** 	}
+  93:Src/syscalls.c **** 	return len;
+  94:Src/syscalls.c **** }
+ 213              		.loc 1 94 0
+ 214 0018 3046     		mov	r0, r6
+ 215 001a 70BD     		pop	{r4, r5, r6, pc}
+ 216              		.cfi_endproc
+ 217              	.LFE24:
+ 219              		.section	.text._sbrk,"ax",%progbits
+ 220              		.align	1
+ 221              		.global	_sbrk
+ 222              		.syntax unified
+ 223              		.thumb
+ 224              		.thumb_func
+ 225              		.fpu softvfp
+ 227              	_sbrk:
+ 228              	.LFB25:
+  95:Src/syscalls.c **** 
+  96:Src/syscalls.c **** caddr_t _sbrk(int incr)
+  97:Src/syscalls.c **** {
+ 229              		.loc 1 97 0
+ 230              		.cfi_startproc
+ 231              		@ args = 0, pretend = 0, frame = 0
+ 232              		@ frame_needed = 0, uses_anonymous_args = 0
+ 233              	.LVL17:
+ 234 0000 08B5     		push	{r3, lr}
+ 235              	.LCFI4:
+ 236              		.cfi_def_cfa_offset 8
+ 237              		.cfi_offset 3, -8
+ 238              		.cfi_offset 14, -4
+ 239 0002 0346     		mov	r3, r0
+  98:Src/syscalls.c **** 	extern char end asm("end");
+  99:Src/syscalls.c **** 	static char *heap_end;
+ 100:Src/syscalls.c **** 	char *prev_heap_end;
+ 101:Src/syscalls.c **** 
+ 102:Src/syscalls.c **** 	if (heap_end == 0)
+ 240              		.loc 1 102 0
+ 241 0004 0B4A     		ldr	r2, .L23
+ 242 0006 1268     		ldr	r2, [r2]
+ 243 0008 42B1     		cbz	r2, .L21
+ 244              	.L17:
+ 103:Src/syscalls.c **** 		heap_end = &end;
+ 104:Src/syscalls.c **** 
+ 105:Src/syscalls.c **** 	prev_heap_end = heap_end;
+ 245              		.loc 1 105 0
+ 246 000a 0A4A     		ldr	r2, .L23
+ARM GAS  /tmp/ccUJasBr.s 			page 7
+
+
+ 247 000c 1068     		ldr	r0, [r2]
+ 248              	.LVL18:
+ 106:Src/syscalls.c **** 	if (heap_end + incr > stack_ptr)
+ 249              		.loc 1 106 0
+ 250 000e 0344     		add	r3, r3, r0
+ 251              	.LVL19:
+ 252 0010 6A46     		mov	r2, sp
+ 253 0012 9342     		cmp	r3, r2
+ 254 0014 06D8     		bhi	.L22
+ 107:Src/syscalls.c **** 	{
+ 108:Src/syscalls.c **** //		write(1, "Heap and stack collision\n", 25);
+ 109:Src/syscalls.c **** //		abort();
+ 110:Src/syscalls.c **** 		errno = ENOMEM;
+ 111:Src/syscalls.c **** 		return (caddr_t) -1;
+ 112:Src/syscalls.c **** 	}
+ 113:Src/syscalls.c **** 
+ 114:Src/syscalls.c **** 	heap_end += incr;
+ 255              		.loc 1 114 0
+ 256 0016 074A     		ldr	r2, .L23
+ 257 0018 1360     		str	r3, [r2]
+ 258              	.LVL20:
+ 259              	.L16:
+ 115:Src/syscalls.c **** 
+ 116:Src/syscalls.c **** 	return (caddr_t) prev_heap_end;
+ 117:Src/syscalls.c **** }
+ 260              		.loc 1 117 0
+ 261 001a 08BD     		pop	{r3, pc}
+ 262              	.LVL21:
+ 263              	.L21:
+ 103:Src/syscalls.c **** 
+ 264              		.loc 1 103 0
+ 265 001c 054A     		ldr	r2, .L23
+ 266 001e 0649     		ldr	r1, .L23+4
+ 267 0020 1160     		str	r1, [r2]
+ 268 0022 F2E7     		b	.L17
+ 269              	.LVL22:
+ 270              	.L22:
+ 110:Src/syscalls.c **** 		return (caddr_t) -1;
+ 271              		.loc 1 110 0
+ 272 0024 FFF7FEFF 		bl	__errno
+ 273              	.LVL23:
+ 274 0028 0C23     		movs	r3, #12
+ 275 002a 0360     		str	r3, [r0]
+ 111:Src/syscalls.c **** 	}
+ 276              		.loc 1 111 0
+ 277 002c 4FF0FF30 		mov	r0, #-1
+ 278 0030 F3E7     		b	.L16
+ 279              	.L24:
+ 280 0032 00BF     		.align	2
+ 281              	.L23:
+ 282 0034 00000000 		.word	.LANCHOR0
+ 283 0038 00000000 		.word	end
+ 284              		.cfi_endproc
+ 285              	.LFE25:
+ 287              		.section	.text._close,"ax",%progbits
+ 288              		.align	1
+ 289              		.global	_close
+ARM GAS  /tmp/ccUJasBr.s 			page 8
+
+
+ 290              		.syntax unified
+ 291              		.thumb
+ 292              		.thumb_func
+ 293              		.fpu softvfp
+ 295              	_close:
+ 296              	.LFB26:
+ 118:Src/syscalls.c **** 
+ 119:Src/syscalls.c **** int _close(int file)
+ 120:Src/syscalls.c **** {
+ 297              		.loc 1 120 0
+ 298              		.cfi_startproc
+ 299              		@ args = 0, pretend = 0, frame = 0
+ 300              		@ frame_needed = 0, uses_anonymous_args = 0
+ 301              		@ link register save eliminated.
+ 302              	.LVL24:
+ 121:Src/syscalls.c **** 	return -1;
+ 122:Src/syscalls.c **** }
+ 303              		.loc 1 122 0
+ 304 0000 4FF0FF30 		mov	r0, #-1
+ 305              	.LVL25:
+ 306 0004 7047     		bx	lr
+ 307              		.cfi_endproc
+ 308              	.LFE26:
+ 310              		.section	.text._fstat,"ax",%progbits
+ 311              		.align	1
+ 312              		.global	_fstat
+ 313              		.syntax unified
+ 314              		.thumb
+ 315              		.thumb_func
+ 316              		.fpu softvfp
+ 318              	_fstat:
+ 319              	.LFB27:
+ 123:Src/syscalls.c **** 
+ 124:Src/syscalls.c **** 
+ 125:Src/syscalls.c **** int _fstat(int file, struct stat *st)
+ 126:Src/syscalls.c **** {
+ 320              		.loc 1 126 0
+ 321              		.cfi_startproc
+ 322              		@ args = 0, pretend = 0, frame = 0
+ 323              		@ frame_needed = 0, uses_anonymous_args = 0
+ 324              		@ link register save eliminated.
+ 325              	.LVL26:
+ 127:Src/syscalls.c **** 	st->st_mode = S_IFCHR;
+ 326              		.loc 1 127 0
+ 327 0000 4FF40053 		mov	r3, #8192
+ 328 0004 4B60     		str	r3, [r1, #4]
+ 128:Src/syscalls.c **** 	return 0;
+ 129:Src/syscalls.c **** }
+ 329              		.loc 1 129 0
+ 330 0006 0020     		movs	r0, #0
+ 331              	.LVL27:
+ 332 0008 7047     		bx	lr
+ 333              		.cfi_endproc
+ 334              	.LFE27:
+ 336              		.section	.text._isatty,"ax",%progbits
+ 337              		.align	1
+ 338              		.global	_isatty
+ARM GAS  /tmp/ccUJasBr.s 			page 9
+
+
+ 339              		.syntax unified
+ 340              		.thumb
+ 341              		.thumb_func
+ 342              		.fpu softvfp
+ 344              	_isatty:
+ 345              	.LFB28:
+ 130:Src/syscalls.c **** 
+ 131:Src/syscalls.c **** int _isatty(int file)
+ 132:Src/syscalls.c **** {
+ 346              		.loc 1 132 0
+ 347              		.cfi_startproc
+ 348              		@ args = 0, pretend = 0, frame = 0
+ 349              		@ frame_needed = 0, uses_anonymous_args = 0
+ 350              		@ link register save eliminated.
+ 351              	.LVL28:
+ 133:Src/syscalls.c **** 	return 1;
+ 134:Src/syscalls.c **** }
+ 352              		.loc 1 134 0
+ 353 0000 0120     		movs	r0, #1
+ 354              	.LVL29:
+ 355 0002 7047     		bx	lr
+ 356              		.cfi_endproc
+ 357              	.LFE28:
+ 359              		.section	.text._lseek,"ax",%progbits
+ 360              		.align	1
+ 361              		.global	_lseek
+ 362              		.syntax unified
+ 363              		.thumb
+ 364              		.thumb_func
+ 365              		.fpu softvfp
+ 367              	_lseek:
+ 368              	.LFB29:
+ 135:Src/syscalls.c **** 
+ 136:Src/syscalls.c **** int _lseek(int file, int ptr, int dir)
+ 137:Src/syscalls.c **** {
+ 369              		.loc 1 137 0
+ 370              		.cfi_startproc
+ 371              		@ args = 0, pretend = 0, frame = 0
+ 372              		@ frame_needed = 0, uses_anonymous_args = 0
+ 373              		@ link register save eliminated.
+ 374              	.LVL30:
+ 138:Src/syscalls.c **** 	return 0;
+ 139:Src/syscalls.c **** }
+ 375              		.loc 1 139 0
+ 376 0000 0020     		movs	r0, #0
+ 377              	.LVL31:
+ 378 0002 7047     		bx	lr
+ 379              		.cfi_endproc
+ 380              	.LFE29:
+ 382              		.section	.text._open,"ax",%progbits
+ 383              		.align	1
+ 384              		.global	_open
+ 385              		.syntax unified
+ 386              		.thumb
+ 387              		.thumb_func
+ 388              		.fpu softvfp
+ 390              	_open:
+ARM GAS  /tmp/ccUJasBr.s 			page 10
+
+
+ 391              	.LFB30:
+ 140:Src/syscalls.c **** 
+ 141:Src/syscalls.c **** int _open(char *path, int flags, ...)
+ 142:Src/syscalls.c **** {
+ 392              		.loc 1 142 0
+ 393              		.cfi_startproc
+ 394              		@ args = 4, pretend = 12, frame = 0
+ 395              		@ frame_needed = 0, uses_anonymous_args = 1
+ 396              		@ link register save eliminated.
+ 397              	.LVL32:
+ 398 0000 0EB4     		push	{r1, r2, r3}
+ 399              	.LCFI5:
+ 400              		.cfi_def_cfa_offset 12
+ 401              		.cfi_offset 1, -12
+ 402              		.cfi_offset 2, -8
+ 403              		.cfi_offset 3, -4
+ 143:Src/syscalls.c **** 	/* Pretend like we always fail */
+ 144:Src/syscalls.c **** 	return -1;
+ 145:Src/syscalls.c **** }
+ 404              		.loc 1 145 0
+ 405 0002 4FF0FF30 		mov	r0, #-1
+ 406              	.LVL33:
+ 407 0006 03B0     		add	sp, sp, #12
+ 408              	.LCFI6:
+ 409              		.cfi_restore 3
+ 410              		.cfi_restore 2
+ 411              		.cfi_restore 1
+ 412              		.cfi_def_cfa_offset 0
+ 413 0008 7047     		bx	lr
+ 414              		.cfi_endproc
+ 415              	.LFE30:
+ 417              		.section	.text._wait,"ax",%progbits
+ 418              		.align	1
+ 419              		.global	_wait
+ 420              		.syntax unified
+ 421              		.thumb
+ 422              		.thumb_func
+ 423              		.fpu softvfp
+ 425              	_wait:
+ 426              	.LFB31:
+ 146:Src/syscalls.c **** 
+ 147:Src/syscalls.c **** int _wait(int *status)
+ 148:Src/syscalls.c **** {
+ 427              		.loc 1 148 0
+ 428              		.cfi_startproc
+ 429              		@ args = 0, pretend = 0, frame = 0
+ 430              		@ frame_needed = 0, uses_anonymous_args = 0
+ 431              	.LVL34:
+ 432 0000 08B5     		push	{r3, lr}
+ 433              	.LCFI7:
+ 434              		.cfi_def_cfa_offset 8
+ 435              		.cfi_offset 3, -8
+ 436              		.cfi_offset 14, -4
+ 149:Src/syscalls.c **** 	errno = ECHILD;
+ 437              		.loc 1 149 0
+ 438 0002 FFF7FEFF 		bl	__errno
+ 439              	.LVL35:
+ARM GAS  /tmp/ccUJasBr.s 			page 11
+
+
+ 440 0006 0A23     		movs	r3, #10
+ 441 0008 0360     		str	r3, [r0]
+ 150:Src/syscalls.c **** 	return -1;
+ 151:Src/syscalls.c **** }
+ 442              		.loc 1 151 0
+ 443 000a 4FF0FF30 		mov	r0, #-1
+ 444 000e 08BD     		pop	{r3, pc}
+ 445              		.cfi_endproc
+ 446              	.LFE31:
+ 448              		.section	.text._unlink,"ax",%progbits
+ 449              		.align	1
+ 450              		.global	_unlink
+ 451              		.syntax unified
+ 452              		.thumb
+ 453              		.thumb_func
+ 454              		.fpu softvfp
+ 456              	_unlink:
+ 457              	.LFB32:
+ 152:Src/syscalls.c **** 
+ 153:Src/syscalls.c **** int _unlink(char *name)
+ 154:Src/syscalls.c **** {
+ 458              		.loc 1 154 0
+ 459              		.cfi_startproc
+ 460              		@ args = 0, pretend = 0, frame = 0
+ 461              		@ frame_needed = 0, uses_anonymous_args = 0
+ 462              	.LVL36:
+ 463 0000 08B5     		push	{r3, lr}
+ 464              	.LCFI8:
+ 465              		.cfi_def_cfa_offset 8
+ 466              		.cfi_offset 3, -8
+ 467              		.cfi_offset 14, -4
+ 155:Src/syscalls.c **** 	errno = ENOENT;
+ 468              		.loc 1 155 0
+ 469 0002 FFF7FEFF 		bl	__errno
+ 470              	.LVL37:
+ 471 0006 0223     		movs	r3, #2
+ 472 0008 0360     		str	r3, [r0]
+ 156:Src/syscalls.c **** 	return -1;
+ 157:Src/syscalls.c **** }
+ 473              		.loc 1 157 0
+ 474 000a 4FF0FF30 		mov	r0, #-1
+ 475 000e 08BD     		pop	{r3, pc}
+ 476              		.cfi_endproc
+ 477              	.LFE32:
+ 479              		.section	.text._times,"ax",%progbits
+ 480              		.align	1
+ 481              		.global	_times
+ 482              		.syntax unified
+ 483              		.thumb
+ 484              		.thumb_func
+ 485              		.fpu softvfp
+ 487              	_times:
+ 488              	.LFB33:
+ 158:Src/syscalls.c **** 
+ 159:Src/syscalls.c **** int _times(struct tms *buf)
+ 160:Src/syscalls.c **** {
+ 489              		.loc 1 160 0
+ARM GAS  /tmp/ccUJasBr.s 			page 12
+
+
+ 490              		.cfi_startproc
+ 491              		@ args = 0, pretend = 0, frame = 0
+ 492              		@ frame_needed = 0, uses_anonymous_args = 0
+ 493              		@ link register save eliminated.
+ 494              	.LVL38:
+ 161:Src/syscalls.c **** 	return -1;
+ 162:Src/syscalls.c **** }
+ 495              		.loc 1 162 0
+ 496 0000 4FF0FF30 		mov	r0, #-1
+ 497              	.LVL39:
+ 498 0004 7047     		bx	lr
+ 499              		.cfi_endproc
+ 500              	.LFE33:
+ 502              		.section	.text._stat,"ax",%progbits
+ 503              		.align	1
+ 504              		.global	_stat
+ 505              		.syntax unified
+ 506              		.thumb
+ 507              		.thumb_func
+ 508              		.fpu softvfp
+ 510              	_stat:
+ 511              	.LFB34:
+ 163:Src/syscalls.c **** 
+ 164:Src/syscalls.c **** int _stat(char *file, struct stat *st)
+ 165:Src/syscalls.c **** {
+ 512              		.loc 1 165 0
+ 513              		.cfi_startproc
+ 514              		@ args = 0, pretend = 0, frame = 0
+ 515              		@ frame_needed = 0, uses_anonymous_args = 0
+ 516              		@ link register save eliminated.
+ 517              	.LVL40:
+ 166:Src/syscalls.c **** 	st->st_mode = S_IFCHR;
+ 518              		.loc 1 166 0
+ 519 0000 4FF40053 		mov	r3, #8192
+ 520 0004 4B60     		str	r3, [r1, #4]
+ 167:Src/syscalls.c **** 	return 0;
+ 168:Src/syscalls.c **** }
+ 521              		.loc 1 168 0
+ 522 0006 0020     		movs	r0, #0
+ 523              	.LVL41:
+ 524 0008 7047     		bx	lr
+ 525              		.cfi_endproc
+ 526              	.LFE34:
+ 528              		.section	.text._link,"ax",%progbits
+ 529              		.align	1
+ 530              		.global	_link
+ 531              		.syntax unified
+ 532              		.thumb
+ 533              		.thumb_func
+ 534              		.fpu softvfp
+ 536              	_link:
+ 537              	.LFB35:
+ 169:Src/syscalls.c **** 
+ 170:Src/syscalls.c **** int _link(char *old, char *new)
+ 171:Src/syscalls.c **** {
+ 538              		.loc 1 171 0
+ 539              		.cfi_startproc
+ARM GAS  /tmp/ccUJasBr.s 			page 13
+
+
+ 540              		@ args = 0, pretend = 0, frame = 0
+ 541              		@ frame_needed = 0, uses_anonymous_args = 0
+ 542              	.LVL42:
+ 543 0000 08B5     		push	{r3, lr}
+ 544              	.LCFI9:
+ 545              		.cfi_def_cfa_offset 8
+ 546              		.cfi_offset 3, -8
+ 547              		.cfi_offset 14, -4
+ 172:Src/syscalls.c **** 	errno = EMLINK;
+ 548              		.loc 1 172 0
+ 549 0002 FFF7FEFF 		bl	__errno
+ 550              	.LVL43:
+ 551 0006 1F23     		movs	r3, #31
+ 552 0008 0360     		str	r3, [r0]
+ 173:Src/syscalls.c **** 	return -1;
+ 174:Src/syscalls.c **** }
+ 553              		.loc 1 174 0
+ 554 000a 4FF0FF30 		mov	r0, #-1
+ 555 000e 08BD     		pop	{r3, pc}
+ 556              		.cfi_endproc
+ 557              	.LFE35:
+ 559              		.section	.text._fork,"ax",%progbits
+ 560              		.align	1
+ 561              		.global	_fork
+ 562              		.syntax unified
+ 563              		.thumb
+ 564              		.thumb_func
+ 565              		.fpu softvfp
+ 567              	_fork:
+ 568              	.LFB36:
+ 175:Src/syscalls.c **** 
+ 176:Src/syscalls.c **** int _fork(void)
+ 177:Src/syscalls.c **** {
+ 569              		.loc 1 177 0
+ 570              		.cfi_startproc
+ 571              		@ args = 0, pretend = 0, frame = 0
+ 572              		@ frame_needed = 0, uses_anonymous_args = 0
+ 573 0000 08B5     		push	{r3, lr}
+ 574              	.LCFI10:
+ 575              		.cfi_def_cfa_offset 8
+ 576              		.cfi_offset 3, -8
+ 577              		.cfi_offset 14, -4
+ 178:Src/syscalls.c **** 	errno = EAGAIN;
+ 578              		.loc 1 178 0
+ 579 0002 FFF7FEFF 		bl	__errno
+ 580              	.LVL44:
+ 581 0006 0B23     		movs	r3, #11
+ 582 0008 0360     		str	r3, [r0]
+ 179:Src/syscalls.c **** 	return -1;
+ 180:Src/syscalls.c **** }
+ 583              		.loc 1 180 0
+ 584 000a 4FF0FF30 		mov	r0, #-1
+ 585 000e 08BD     		pop	{r3, pc}
+ 586              		.cfi_endproc
+ 587              	.LFE36:
+ 589              		.section	.text._execve,"ax",%progbits
+ 590              		.align	1
+ARM GAS  /tmp/ccUJasBr.s 			page 14
+
+
+ 591              		.global	_execve
+ 592              		.syntax unified
+ 593              		.thumb
+ 594              		.thumb_func
+ 595              		.fpu softvfp
+ 597              	_execve:
+ 598              	.LFB37:
+ 181:Src/syscalls.c **** 
+ 182:Src/syscalls.c **** int _execve(char *name, char **argv, char **env)
+ 183:Src/syscalls.c **** {
+ 599              		.loc 1 183 0
+ 600              		.cfi_startproc
+ 601              		@ args = 0, pretend = 0, frame = 0
+ 602              		@ frame_needed = 0, uses_anonymous_args = 0
+ 603              	.LVL45:
+ 604 0000 08B5     		push	{r3, lr}
+ 605              	.LCFI11:
+ 606              		.cfi_def_cfa_offset 8
+ 607              		.cfi_offset 3, -8
+ 608              		.cfi_offset 14, -4
+ 184:Src/syscalls.c **** 	errno = ENOMEM;
+ 609              		.loc 1 184 0
+ 610 0002 FFF7FEFF 		bl	__errno
+ 611              	.LVL46:
+ 612 0006 0C23     		movs	r3, #12
+ 613 0008 0360     		str	r3, [r0]
+ 185:Src/syscalls.c **** 	return -1;
+ 186:Src/syscalls.c **** }
+ 614              		.loc 1 186 0
+ 615 000a 4FF0FF30 		mov	r0, #-1
+ 616 000e 08BD     		pop	{r3, pc}
+ 617              		.cfi_endproc
+ 618              	.LFE37:
+ 620              		.global	environ
+ 621              		.global	__env
+ 622              		.section	.bss.__env,"aw",%nobits
+ 623              		.align	2
+ 626              	__env:
+ 627 0000 00000000 		.space	4
+ 628              		.section	.bss.heap_end.5959,"aw",%nobits
+ 629              		.align	2
+ 630              		.set	.LANCHOR0,. + 0
+ 633              	heap_end.5959:
+ 634 0000 00000000 		.space	4
+ 635              		.section	.data.environ,"aw",%progbits
+ 636              		.align	2
+ 639              	environ:
+ 640 0000 00000000 		.word	__env
+ 641              		.weak	__io_putchar
+ 642              		.weak	__io_getchar
+ 643              		.text
+ 644              	.Letext0:
+ 645              		.file 2 "/opt/gcc-arm-none-eabi-7-2017-q4-major/arm-none-eabi/include/machine/_default_types.h"
+ 646              		.file 3 "/opt/gcc-arm-none-eabi-7-2017-q4-major/arm-none-eabi/include/sys/lock.h"
+ 647              		.file 4 "/opt/gcc-arm-none-eabi-7-2017-q4-major/arm-none-eabi/include/sys/_types.h"
+ 648              		.file 5 "/opt/gcc-arm-none-eabi-7-2017-q4-major/lib/gcc/arm-none-eabi/7.2.1/include/stddef.h"
+ 649              		.file 6 "/opt/gcc-arm-none-eabi-7-2017-q4-major/arm-none-eabi/include/sys/reent.h"
+ARM GAS  /tmp/ccUJasBr.s 			page 15
+
+
+ 650              		.file 7 "/opt/gcc-arm-none-eabi-7-2017-q4-major/arm-none-eabi/include/sys/_timeval.h"
+ 651              		.file 8 "/opt/gcc-arm-none-eabi-7-2017-q4-major/arm-none-eabi/include/sys/types.h"
+ 652              		.file 9 "/opt/gcc-arm-none-eabi-7-2017-q4-major/arm-none-eabi/include/time.h"
+ 653              		.file 10 "/opt/gcc-arm-none-eabi-7-2017-q4-major/arm-none-eabi/include/sys/stat.h"
+ 654              		.file 11 "/opt/gcc-arm-none-eabi-7-2017-q4-major/arm-none-eabi/include/stdlib.h"
+ 655              		.file 12 "/opt/gcc-arm-none-eabi-7-2017-q4-major/arm-none-eabi/include/sys/errno.h"
+ 656              		.file 13 "/opt/gcc-arm-none-eabi-7-2017-q4-major/arm-none-eabi/include/sys/times.h"
+ARM GAS  /tmp/ccUJasBr.s 			page 16
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 syscalls.c
+     /tmp/ccUJasBr.s:16     .text.initialise_monitor_handles:0000000000000000 $t
+     /tmp/ccUJasBr.s:23     .text.initialise_monitor_handles:0000000000000000 initialise_monitor_handles
+     /tmp/ccUJasBr.s:37     .text._getpid:0000000000000000 $t
+     /tmp/ccUJasBr.s:44     .text._getpid:0000000000000000 _getpid
+     /tmp/ccUJasBr.s:58     .text._kill:0000000000000000 $t
+     /tmp/ccUJasBr.s:65     .text._kill:0000000000000000 _kill
+     /tmp/ccUJasBr.s:89     .text._exit:0000000000000000 $t
+     /tmp/ccUJasBr.s:96     .text._exit:0000000000000000 _exit
+     /tmp/ccUJasBr.s:119    .text._read:0000000000000000 $t
+     /tmp/ccUJasBr.s:126    .text._read:0000000000000000 _read
+     /tmp/ccUJasBr.s:169    .text._write:0000000000000000 $t
+     /tmp/ccUJasBr.s:176    .text._write:0000000000000000 _write
+     /tmp/ccUJasBr.s:220    .text._sbrk:0000000000000000 $t
+     /tmp/ccUJasBr.s:227    .text._sbrk:0000000000000000 _sbrk
+     /tmp/ccUJasBr.s:282    .text._sbrk:0000000000000034 $d
+     /tmp/ccUJasBr.s:288    .text._close:0000000000000000 $t
+     /tmp/ccUJasBr.s:295    .text._close:0000000000000000 _close
+     /tmp/ccUJasBr.s:311    .text._fstat:0000000000000000 $t
+     /tmp/ccUJasBr.s:318    .text._fstat:0000000000000000 _fstat
+     /tmp/ccUJasBr.s:337    .text._isatty:0000000000000000 $t
+     /tmp/ccUJasBr.s:344    .text._isatty:0000000000000000 _isatty
+     /tmp/ccUJasBr.s:360    .text._lseek:0000000000000000 $t
+     /tmp/ccUJasBr.s:367    .text._lseek:0000000000000000 _lseek
+     /tmp/ccUJasBr.s:383    .text._open:0000000000000000 $t
+     /tmp/ccUJasBr.s:390    .text._open:0000000000000000 _open
+     /tmp/ccUJasBr.s:418    .text._wait:0000000000000000 $t
+     /tmp/ccUJasBr.s:425    .text._wait:0000000000000000 _wait
+     /tmp/ccUJasBr.s:449    .text._unlink:0000000000000000 $t
+     /tmp/ccUJasBr.s:456    .text._unlink:0000000000000000 _unlink
+     /tmp/ccUJasBr.s:480    .text._times:0000000000000000 $t
+     /tmp/ccUJasBr.s:487    .text._times:0000000000000000 _times
+     /tmp/ccUJasBr.s:503    .text._stat:0000000000000000 $t
+     /tmp/ccUJasBr.s:510    .text._stat:0000000000000000 _stat
+     /tmp/ccUJasBr.s:529    .text._link:0000000000000000 $t
+     /tmp/ccUJasBr.s:536    .text._link:0000000000000000 _link
+     /tmp/ccUJasBr.s:560    .text._fork:0000000000000000 $t
+     /tmp/ccUJasBr.s:567    .text._fork:0000000000000000 _fork
+     /tmp/ccUJasBr.s:590    .text._execve:0000000000000000 $t
+     /tmp/ccUJasBr.s:597    .text._execve:0000000000000000 _execve
+     /tmp/ccUJasBr.s:639    .data.environ:0000000000000000 environ
+     /tmp/ccUJasBr.s:626    .bss.__env:0000000000000000 __env
+     /tmp/ccUJasBr.s:623    .bss.__env:0000000000000000 $d
+     /tmp/ccUJasBr.s:629    .bss.heap_end.5959:0000000000000000 $d
+     /tmp/ccUJasBr.s:633    .bss.heap_end.5959:0000000000000000 heap_end.5959
+     /tmp/ccUJasBr.s:636    .data.environ:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+__errno
+__io_getchar
+__io_putchar
+end

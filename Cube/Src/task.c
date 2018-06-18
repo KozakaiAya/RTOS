@@ -46,6 +46,8 @@ int createTask( void* (*foo)(void*))
             tcb[i].sp = (char*)((uint32_t)tcb[i].sp - sizeof(sw_stack_frame_t));
             printf("Task %d init, SP = %lx\n", i, tcb[i].sp);
             sw_process_frame = (sw_stack_frame_t*)tcb[i].sp;
+            sw_process_frame->lr = hw_process_frame->pc;
+            sw_process_frame->control = 0x3;
             sw_process_frame->r4 = 0;
             sw_process_frame->r5 = 0;
             sw_process_frame->r6 = 0;
@@ -133,9 +135,16 @@ inline int runFirstTask(int nextTask)
 
 int task_sysTickHandler()
 {
-    logger(&huart1, "Task_Systick\n");
-
     int i, f;
+
+    uint32_t temp;
+    logger(&huart1, "Task_Systick\n");
+    asm volatile (
+        "MOV %0, lr"
+        : "=r" (temp)
+    );
+    printf("Current LR: %lx\n", temp);
+
     f = 0;
     for (i = 0; i < MAX_TASK_COUNT; i++)
     {

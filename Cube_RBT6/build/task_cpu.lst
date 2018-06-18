@@ -1,0 +1,332 @@
+ARM GAS  /tmp/ccagWtT1.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"task_cpu.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.getCurrentStackPtr,"ax",%progbits
+  16              		.align	1
+  17              		.global	getCurrentStackPtr
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu softvfp
+  23              	getCurrentStackPtr:
+  24              	.LFB66:
+  25              		.file 1 "Src/task_cpu.c"
+   1:Src/task_cpu.c **** #include <stdlib.h>
+   2:Src/task_cpu.c **** 
+   3:Src/task_cpu.c **** #include "task_cpu.h"
+   4:Src/task_cpu.c **** 
+   5:Src/task_cpu.c **** 
+   6:Src/task_cpu.c **** #include "debug.h"
+   7:Src/task_cpu.c **** #include <stdio.h>
+   8:Src/task_cpu.c **** 
+   9:Src/task_cpu.c **** 
+  10:Src/task_cpu.c **** uint32_t getCurrentStackPtr()
+  11:Src/task_cpu.c **** {
+  26              		.loc 1 11 0
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 0
+  29              		@ frame_needed = 0, uses_anonymous_args = 0
+  30              		@ link register save eliminated.
+  31              	.LVL0:
+  12:Src/task_cpu.c ****     uint32_t result = 0;
+  13:Src/task_cpu.c ****     asm volatile (
+  32              		.loc 1 13 0
+  33              		.syntax unified
+  34              	@ 13 "Src/task_cpu.c" 1
+  35 0000 EFF30980 		MRS    r0, psp             
+  36              		
+  37              	@ 0 "" 2
+  38              	.LVL1:
+  14:Src/task_cpu.c ****         "MRS    %0, psp             \n\t"
+  15:Src/task_cpu.c ****         : "=r" (result)
+  16:Src/task_cpu.c ****     );
+  17:Src/task_cpu.c ****     return result;
+  18:Src/task_cpu.c **** }
+  39              		.loc 1 18 0
+  40              		.thumb
+ARM GAS  /tmp/ccagWtT1.s 			page 2
+
+
+  41              		.syntax unified
+  42 0004 7047     		bx	lr
+  43              		.cfi_endproc
+  44              	.LFE66:
+  46              		.section	.text.saveContext,"ax",%progbits
+  47              		.align	1
+  48              		.global	saveContext
+  49              		.syntax unified
+  50              		.thumb
+  51              		.thumb_func
+  52              		.fpu softvfp
+  54              	saveContext:
+  55              	.LFB67:
+  19:Src/task_cpu.c **** 
+  20:Src/task_cpu.c **** void saveContext(char** ptrToCurrentSP)
+  21:Src/task_cpu.c **** {
+  56              		.loc 1 21 0
+  57              		.cfi_startproc
+  58              		@ args = 0, pretend = 0, frame = 0
+  59              		@ frame_needed = 0, uses_anonymous_args = 0
+  60              		@ link register save eliminated.
+  61              	.LVL2:
+  22:Src/task_cpu.c ****     uint32_t t = 0;
+  23:Src/task_cpu.c **** /*    asm volatile (
+  24:Src/task_cpu.c ****         "MRS    r0, psp             \n\t"
+  25:Src/task_cpu.c ****         "MOV    r2, lr              \n\t"
+  26:Src/task_cpu.c ****         "MRS    r3, CONTROL         \n\t"
+  27:Src/task_cpu.c ****         "STMDB  r0!, {r2-r11}       \n\t"
+  28:Src/task_cpu.c ****         "MOV    %0, r0              \n\t"
+  29:Src/task_cpu.c ****         "ISB                        \n\t"
+  30:Src/task_cpu.c ****         : "=r" (t)
+  31:Src/task_cpu.c ****     );*/
+  32:Src/task_cpu.c ****     asm volatile("MRS   r0, psp");
+  62              		.loc 1 32 0
+  63              		.syntax unified
+  64              	@ 32 "Src/task_cpu.c" 1
+  65 0000 EFF30980 		MRS   r0, psp
+  66              	@ 0 "" 2
+  33:Src/task_cpu.c ****     asm volatile("LDR   r2, [r0, #0x18]");
+  67              		.loc 1 33 0
+  68              	@ 33 "Src/task_cpu.c" 1
+  69 0004 8269     		LDR   r2, [r0, #0x18]
+  70              	@ 0 "" 2
+  34:Src/task_cpu.c ****     asm volatile("MRS   r3, CONTROL");
+  71              		.loc 1 34 0
+  72              	@ 34 "Src/task_cpu.c" 1
+  73 0006 EFF31483 		MRS   r3, CONTROL
+  74              	@ 0 "" 2
+  35:Src/task_cpu.c ****     asm volatile("STMDB r0!, {r2-r11}");
+  75              		.loc 1 35 0
+  76              	@ 35 "Src/task_cpu.c" 1
+  77 000a 20E9FC0F 		STMDB r0!, {r2-r11}
+  78              	@ 0 "" 2
+  36:Src/task_cpu.c ****     asm volatile(
+  79              		.loc 1 36 0
+  80              	@ 36 "Src/task_cpu.c" 1
+  81 000e 0346     		MOV r3, r0
+ARM GAS  /tmp/ccagWtT1.s 			page 3
+
+
+  82              	@ 0 "" 2
+  83              	.LVL3:
+  37:Src/task_cpu.c ****         "MOV %0, r0"
+  38:Src/task_cpu.c ****         : "=r" (t));
+  39:Src/task_cpu.c ****     asm volatile("ISB");    
+  84              		.loc 1 39 0
+  85              	@ 39 "Src/task_cpu.c" 1
+  86 0010 BFF36F8F 		ISB
+  87              	@ 0 "" 2
+  40:Src/task_cpu.c ****     *(ptrToCurrentSP) = (char*)t;
+  88              		.loc 1 40 0
+  89              		.thumb
+  90              		.syntax unified
+  91 0014 0360     		str	r3, [r0]
+  41:Src/task_cpu.c **** }
+  92              		.loc 1 41 0
+  93 0016 7047     		bx	lr
+  94              		.cfi_endproc
+  95              	.LFE67:
+  97              		.section	.text.loadContext,"ax",%progbits
+  98              		.align	1
+  99              		.global	loadContext
+ 100              		.syntax unified
+ 101              		.thumb
+ 102              		.thumb_func
+ 103              		.fpu softvfp
+ 105              	loadContext:
+ 106              	.LFB68:
+  42:Src/task_cpu.c **** 
+  43:Src/task_cpu.c **** __attribute__((naked)) void loadContext()
+  44:Src/task_cpu.c **** {
+ 107              		.loc 1 44 0
+ 108              		.cfi_startproc
+ 109              		@ Naked Function: prologue and epilogue provided by programmer.
+ 110              		@ args = 0, pretend = 0, frame = 0
+ 111              		@ frame_needed = 0, uses_anonymous_args = 0
+  45:Src/task_cpu.c ****     asm volatile (
+ 112              		.loc 1 45 0
+ 113              		.syntax unified
+ 114              	@ 45 "Src/task_cpu.c" 1
+ 115 0000 EFF30980 		MRS    r0, psp             
+ 116 0004 B0E8FC0F 		LDMIA  r0!, {r2-r11}       
+ 117 0008 9646     		MOV    lr, r2              
+ 118 000a 83F31488 		MSR    CONTROL, r3         
+ 119 000e 80F30988 		MSR    psp, r0             
+ 120 0012 BFF36F8F 		ISB                        
+ 121 0016 62B6     		CPSIE  I                   
+ 122 0018 7047     		BX     lr
+ 123              	@ 0 "" 2
+  46:Src/task_cpu.c ****         "MRS    r0, psp             \n\t"
+  47:Src/task_cpu.c ****         "LDMIA  r0!, {r2-r11}       \n\t"
+  48:Src/task_cpu.c ****         "MOV    lr, r2              \n\t"
+  49:Src/task_cpu.c ****         "MSR    CONTROL, r3         \n\t"
+  50:Src/task_cpu.c ****         "MSR    psp, r0             \n\t"
+  51:Src/task_cpu.c ****         "ISB                        \n\t"
+  52:Src/task_cpu.c ****         "CPSIE  I                   \n\t"
+  53:Src/task_cpu.c ****         "BX     lr"
+ARM GAS  /tmp/ccagWtT1.s 			page 4
+
+
+  54:Src/task_cpu.c **** //        "MOV    pc, lr"
+  55:Src/task_cpu.c ****     );  
+  56:Src/task_cpu.c **** }
+ 124              		.loc 1 56 0
+ 125              		.thumb
+ 126              		.syntax unified
+ 127              		.cfi_endproc
+ 128              	.LFE68:
+ 130              		.section	.text.contextSwitcher,"ax",%progbits
+ 131              		.align	1
+ 132              		.global	contextSwitcher
+ 133              		.syntax unified
+ 134              		.thumb
+ 135              		.thumb_func
+ 136              		.fpu softvfp
+ 138              	contextSwitcher:
+ 139              	.LFB69:
+  57:Src/task_cpu.c **** 
+  58:Src/task_cpu.c **** void contextSwitcher(char* nextSP)
+  59:Src/task_cpu.c **** {
+ 140              		.loc 1 59 0
+ 141              		.cfi_startproc
+ 142              		@ args = 0, pretend = 0, frame = 0
+ 143              		@ frame_needed = 0, uses_anonymous_args = 0
+ 144              		@ link register save eliminated.
+ 145              	.LVL4:
+  60:Src/task_cpu.c ****     asm volatile (
+ 146              		.loc 1 60 0
+ 147              		.syntax unified
+ 148              	@ 60 "Src/task_cpu.c" 1
+ 149 0000 80F30988 		MSR    psp, r0             
+ 150              		
+ 151              	@ 0 "" 2
+  61:Src/task_cpu.c ****         "MSR    psp, %0             \n\t"
+  62:Src/task_cpu.c ****         :
+  63:Src/task_cpu.c ****         : "r" (nextSP)
+  64:Src/task_cpu.c ****     );
+  65:Src/task_cpu.c **** }
+ 152              		.loc 1 65 0
+ 153              		.thumb
+ 154              		.syntax unified
+ 155 0004 7047     		bx	lr
+ 156              		.cfi_endproc
+ 157              	.LFE69:
+ 159              		.section	.text.enterCritical,"ax",%progbits
+ 160              		.align	1
+ 161              		.global	enterCritical
+ 162              		.syntax unified
+ 163              		.thumb
+ 164              		.thumb_func
+ 165              		.fpu softvfp
+ 167              	enterCritical:
+ 168              	.LFB70:
+  66:Src/task_cpu.c **** 
+  67:Src/task_cpu.c **** void enterCritical()
+  68:Src/task_cpu.c **** {
+ 169              		.loc 1 68 0
+ARM GAS  /tmp/ccagWtT1.s 			page 5
+
+
+ 170              		.cfi_startproc
+ 171              		@ args = 0, pretend = 0, frame = 0
+ 172              		@ frame_needed = 0, uses_anonymous_args = 0
+ 173              		@ link register save eliminated.
+  69:Src/task_cpu.c ****     asm volatile (
+ 174              		.loc 1 69 0
+ 175              		.syntax unified
+ 176              	@ 69 "Src/task_cpu.c" 1
+ 177 0000 72B6     		CPSID I
+ 178              	@ 0 "" 2
+  70:Src/task_cpu.c ****         "CPSID I"
+  71:Src/task_cpu.c ****     );
+  72:Src/task_cpu.c **** }
+ 179              		.loc 1 72 0
+ 180              		.thumb
+ 181              		.syntax unified
+ 182 0002 7047     		bx	lr
+ 183              		.cfi_endproc
+ 184              	.LFE70:
+ 186              		.section	.text.exitCritical,"ax",%progbits
+ 187              		.align	1
+ 188              		.global	exitCritical
+ 189              		.syntax unified
+ 190              		.thumb
+ 191              		.thumb_func
+ 192              		.fpu softvfp
+ 194              	exitCritical:
+ 195              	.LFB71:
+  73:Src/task_cpu.c **** 
+  74:Src/task_cpu.c **** void exitCritical()
+  75:Src/task_cpu.c **** {
+ 196              		.loc 1 75 0
+ 197              		.cfi_startproc
+ 198              		@ args = 0, pretend = 0, frame = 0
+ 199              		@ frame_needed = 0, uses_anonymous_args = 0
+ 200              		@ link register save eliminated.
+  76:Src/task_cpu.c ****     asm volatile (
+ 201              		.loc 1 76 0
+ 202              		.syntax unified
+ 203              	@ 76 "Src/task_cpu.c" 1
+ 204 0000 62B6     		CPSIE I
+ 205              	@ 0 "" 2
+  77:Src/task_cpu.c ****         "CPSIE I"
+  78:Src/task_cpu.c ****     );
+  79:Src/task_cpu.c **** }...
+ 206              		.loc 1 79 0
+ 207              		.thumb
+ 208              		.syntax unified
+ 209 0002 7047     		bx	lr
+ 210              		.cfi_endproc
+ 211              	.LFE71:
+ 213              		.text
+ 214              	.Letext0:
+ 215              		.file 2 "/opt/gcc-arm-none-eabi-7-2017-q4-major/arm-none-eabi/include/machine/_default_types.h"
+ 216              		.file 3 "/opt/gcc-arm-none-eabi-7-2017-q4-major/arm-none-eabi/include/sys/lock.h"
+ 217              		.file 4 "/opt/gcc-arm-none-eabi-7-2017-q4-major/arm-none-eabi/include/sys/_types.h"
+ 218              		.file 5 "/opt/gcc-arm-none-eabi-7-2017-q4-major/lib/gcc/arm-none-eabi/7.2.1/include/stddef.h"
+ARM GAS  /tmp/ccagWtT1.s 			page 6
+
+
+ 219              		.file 6 "/opt/gcc-arm-none-eabi-7-2017-q4-major/arm-none-eabi/include/sys/reent.h"
+ 220              		.file 7 "/opt/gcc-arm-none-eabi-7-2017-q4-major/arm-none-eabi/include/stdlib.h"
+ 221              		.file 8 "/opt/gcc-arm-none-eabi-7-2017-q4-major/arm-none-eabi/include/sys/_stdint.h"
+ 222              		.file 9 "Drivers/CMSIS/Include/core_cm3.h"
+ 223              		.file 10 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 224              		.file 11 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 225              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 226              		.file 13 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 227              		.file 14 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h"
+ 228              		.file 15 "Inc/debug.h"
+ARM GAS  /tmp/ccagWtT1.s 			page 7
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 task_cpu.c
+     /tmp/ccagWtT1.s:16     .text.getCurrentStackPtr:0000000000000000 $t
+     /tmp/ccagWtT1.s:23     .text.getCurrentStackPtr:0000000000000000 getCurrentStackPtr
+     /tmp/ccagWtT1.s:47     .text.saveContext:0000000000000000 $t
+     /tmp/ccagWtT1.s:54     .text.saveContext:0000000000000000 saveContext
+     /tmp/ccagWtT1.s:98     .text.loadContext:0000000000000000 $t
+     /tmp/ccagWtT1.s:105    .text.loadContext:0000000000000000 loadContext
+     /tmp/ccagWtT1.s:131    .text.contextSwitcher:0000000000000000 $t
+     /tmp/ccagWtT1.s:138    .text.contextSwitcher:0000000000000000 contextSwitcher
+     /tmp/ccagWtT1.s:160    .text.enterCritical:0000000000000000 $t
+     /tmp/ccagWtT1.s:167    .text.enterCritical:0000000000000000 enterCritical
+     /tmp/ccagWtT1.s:187    .text.exitCritical:0000000000000000 $t
+     /tmp/ccagWtT1.s:194    .text.exitCritical:0000000000000000 exitCritical
+
+NO UNDEFINED SYMBOLS

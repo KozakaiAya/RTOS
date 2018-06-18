@@ -19,28 +19,32 @@ uint32_t getCurrentStackPtr()
 
 void saveContext(char** ptrToCurrentSP)
 {
-    uint32_t t;
+    uint32_t t = 0;
     asm volatile (
-        "MRS    %0, psp             \n\t"
-        "STMDB  %0!, {r4-r11}       \n\t"
-        "MSR    psp, %0             \n\t"
-        : "=r" (t)        
+        "MRS    r0, psp             \n\t"
+        "MOV    r2, lr              \n\t"
+        "MRS    r3, CONTROL         \n\t"
+        "STMDB  r0!, {r2-r11}       \n\t"
+        "MOV    %0, r0              \n\t"
+        "ISB                        \n\t"
+        : "=r" (t)
     );
     *(ptrToCurrentSP) = (char*)t;
 }
 
 __attribute__((naked)) void loadContext()
 {
-    uint32_t t;
     asm volatile (
-        "MRS    %0, psp             \n\t"
-        "LDMIA  %0!, {r4-r11}       \n\t"
-        "MSR    psp, %0             \n\t"
-        "MOV    lr, #0xFFFFFFFD      \n\t"
-        "CPSIE I                    \n\t"
-        "BX     lr                  \n\t"
-        : "=r" (t)
-    );
+        "MRS    r0, psp             \n\t"
+        "LDMIA  r0!, {r2-r11}       \n\t"
+        "MOV    lr, r2              \n\t"
+        "MSR    CONTROL, r3         \n\t"
+        "MSR    psp, r0             \n\t"
+        "ISB                        \n\t"
+        "CPSIE  I                   \n\t"
+//        "BX     lr"
+        "MOV    pc, lr"
+    );  
 }
 
 void contextSwitcher(char* nextSP)

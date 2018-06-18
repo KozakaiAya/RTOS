@@ -1,0 +1,498 @@
+ARM GAS  /tmp/ccc8fQ7x.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"os.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.scheduler,"ax",%progbits
+  16              		.align	1
+  17              		.global	scheduler
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu softvfp
+  23              	scheduler:
+  24              	.LFB66:
+  25              		.file 1 "Src/os.c"
+   1:Src/os.c      **** #include "os.h"
+   2:Src/os.c      **** #include "task.h"
+   3:Src/os.c      **** 
+   4:Src/os.c      **** #include "debug.h"
+   5:Src/os.c      **** 
+   6:Src/os.c      **** int os_started = 0;
+   7:Src/os.c      **** 
+   8:Src/os.c      **** #define svc(code) asm volatile ("svc %[immediate]"::[immediate] "I" (code))
+   9:Src/os.c      **** 
+  10:Src/os.c      **** int scheduler()
+  11:Src/os.c      **** {
+  26              		.loc 1 11 0
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 0
+  29              		@ frame_needed = 0, uses_anonymous_args = 0
+  30 0000 08B5     		push	{r3, lr}
+  31              	.LCFI0:
+  32              		.cfi_def_cfa_offset 8
+  33              		.cfi_offset 3, -8
+  34              		.cfi_offset 14, -4
+  12:Src/os.c      ****     enterCritical();
+  35              		.loc 1 12 0
+  36 0002 FFF7FEFF 		bl	enterCritical
+  37              	.LVL0:
+  13:Src/os.c      ****     int nextTask = getNextReady();
+  38              		.loc 1 13 0
+  39 0006 FFF7FEFF 		bl	getNextReady
+  40              	.LVL1:
+  14:Src/os.c      ****     if (nextTask == NO_SUCH_TASK)
+  41              		.loc 1 14 0
+  42 000a B0F1FF3F 		cmp	r0, #-1
+  43 000e 03D0     		beq	.L5
+  15:Src/os.c      ****     {
+ARM GAS  /tmp/ccc8fQ7x.s 			page 2
+
+
+  16:Src/os.c      ****         //Enter Sleep Mode
+  17:Src/os.c      ****         //logger(&huart1, "Scheduler_Sleep\n");
+  18:Src/os.c      ****         exitCritical();
+  19:Src/os.c      ****         while(1){};
+  20:Src/os.c      ****     }
+  21:Src/os.c      ****     else
+  22:Src/os.c      ****     {
+  23:Src/os.c      ****         //logger(&huart1, "Scheduler_Switch\n");
+  24:Src/os.c      ****         switchTaskTo(nextTask);
+  44              		.loc 1 24 0
+  45 0010 FFF7FEFF 		bl	switchTaskTo
+  46              	.LVL2:
+  25:Src/os.c      ****     }
+  26:Src/os.c      ****     return 0;
+  27:Src/os.c      **** }
+  47              		.loc 1 27 0
+  48 0014 0020     		movs	r0, #0
+  49 0016 08BD     		pop	{r3, pc}
+  50              	.LVL3:
+  51              	.L5:
+  18:Src/os.c      ****         while(1){};
+  52              		.loc 1 18 0
+  53 0018 FFF7FEFF 		bl	exitCritical
+  54              	.LVL4:
+  55              	.L3:
+  56 001c FEE7     		b	.L3
+  57              		.cfi_endproc
+  58              	.LFE66:
+  60              		.section	.text.halfScheduler,"ax",%progbits
+  61              		.align	1
+  62              		.global	halfScheduler
+  63              		.syntax unified
+  64              		.thumb
+  65              		.thumb_func
+  66              		.fpu softvfp
+  68              	halfScheduler:
+  69              	.LFB67:
+  28:Src/os.c      **** 
+  29:Src/os.c      **** int halfScheduler()
+  30:Src/os.c      **** {
+  70              		.loc 1 30 0
+  71              		.cfi_startproc
+  72              		@ args = 0, pretend = 0, frame = 0
+  73              		@ frame_needed = 0, uses_anonymous_args = 0
+  74 0000 08B5     		push	{r3, lr}
+  75              	.LCFI1:
+  76              		.cfi_def_cfa_offset 8
+  77              		.cfi_offset 3, -8
+  78              		.cfi_offset 14, -4
+  31:Src/os.c      ****     enterCritical();
+  79              		.loc 1 31 0
+  80 0002 FFF7FEFF 		bl	enterCritical
+  81              	.LVL5:
+  32:Src/os.c      **** 
+  33:Src/os.c      ****     int nextTask = getNextReady();
+  82              		.loc 1 33 0
+  83 0006 FFF7FEFF 		bl	getNextReady
+ARM GAS  /tmp/ccc8fQ7x.s 			page 3
+
+
+  84              	.LVL6:
+  34:Src/os.c      ****     if (nextTask != NO_SUCH_TASK)
+  85              		.loc 1 34 0
+  86 000a B0F1FF3F 		cmp	r0, #-1
+  87 000e 01D0     		beq	.L7
+  35:Src/os.c      ****     {
+  36:Src/os.c      ****         runFirstTask(nextTask);
+  88              		.loc 1 36 0
+  89 0010 FFF7FEFF 		bl	runFirstTask
+  90              	.LVL7:
+  91              	.L7:
+  37:Src/os.c      ****     }
+  38:Src/os.c      ****     return 0;
+  39:Src/os.c      **** }
+  92              		.loc 1 39 0
+  93 0014 0020     		movs	r0, #0
+  94 0016 08BD     		pop	{r3, pc}
+  95              		.cfi_endproc
+  96              	.LFE67:
+  98              		.section	.text.osStart,"ax",%progbits
+  99              		.align	1
+ 100              		.global	osStart
+ 101              		.syntax unified
+ 102              		.thumb
+ 103              		.thumb_func
+ 104              		.fpu softvfp
+ 106              	osStart:
+ 107              	.LFB68:
+  40:Src/os.c      **** 
+  41:Src/os.c      **** int osStart()
+  42:Src/os.c      **** {
+ 108              		.loc 1 42 0
+ 109              		.cfi_startproc
+ 110              		@ args = 0, pretend = 0, frame = 0
+ 111              		@ frame_needed = 0, uses_anonymous_args = 0
+ 112 0000 08B5     		push	{r3, lr}
+ 113              	.LCFI2:
+ 114              		.cfi_def_cfa_offset 8
+ 115              		.cfi_offset 3, -8
+ 116              		.cfi_offset 14, -4
+  43:Src/os.c      ****     //logger(&huart1, "OS_Started\n");
+  44:Src/os.c      ****     os_started = 1;
+ 117              		.loc 1 44 0
+ 118 0002 034B     		ldr	r3, .L11
+ 119 0004 0122     		movs	r2, #1
+ 120 0006 1A60     		str	r2, [r3]
+  45:Src/os.c      ****     //scheduler();
+  46:Src/os.c      ****     halfScheduler();
+ 121              		.loc 1 46 0
+ 122 0008 FFF7FEFF 		bl	halfScheduler
+ 123              	.LVL8:
+  47:Src/os.c      ****     return 0;
+  48:Src/os.c      **** }
+ 124              		.loc 1 48 0
+ 125 000c 0020     		movs	r0, #0
+ 126 000e 08BD     		pop	{r3, pc}
+ 127              	.L12:
+ARM GAS  /tmp/ccc8fQ7x.s 			page 4
+
+
+ 128              		.align	2
+ 129              	.L11:
+ 130 0010 00000000 		.word	.LANCHOR0
+ 131              		.cfi_endproc
+ 132              	.LFE68:
+ 134              		.section	.text.os_pre,"ax",%progbits
+ 135              		.align	1
+ 136              		.global	os_pre
+ 137              		.syntax unified
+ 138              		.thumb
+ 139              		.thumb_func
+ 140              		.fpu softvfp
+ 142              	os_pre:
+ 143              	.LFB69:
+  49:Src/os.c      **** 
+  50:Src/os.c      **** int os_pre()
+  51:Src/os.c      **** {
+ 144              		.loc 1 51 0
+ 145              		.cfi_startproc
+ 146              		@ args = 0, pretend = 0, frame = 0
+ 147              		@ frame_needed = 0, uses_anonymous_args = 0
+ 148 0000 08B5     		push	{r3, lr}
+ 149              	.LCFI3:
+ 150              		.cfi_def_cfa_offset 8
+ 151              		.cfi_offset 3, -8
+ 152              		.cfi_offset 14, -4
+  52:Src/os.c      ****     //logger(&huart1, "OS_Pre\n");
+  53:Src/os.c      ****     initTask();
+ 153              		.loc 1 53 0
+ 154 0002 FFF7FEFF 		bl	initTask
+ 155              	.LVL9:
+  54:Src/os.c      ****     return 0;
+  55:Src/os.c      **** }
+ 156              		.loc 1 55 0
+ 157 0006 0020     		movs	r0, #0
+ 158 0008 08BD     		pop	{r3, pc}
+ 159              		.cfi_endproc
+ 160              	.LFE69:
+ 162              		.section	.text.os_sysTickHandler,"ax",%progbits
+ 163              		.align	1
+ 164              		.global	os_sysTickHandler
+ 165              		.syntax unified
+ 166              		.thumb
+ 167              		.thumb_func
+ 168              		.fpu softvfp
+ 170              	os_sysTickHandler:
+ 171              	.LFB70:
+  56:Src/os.c      **** 
+  57:Src/os.c      **** int os_sysTickHandler()
+  58:Src/os.c      **** {
+ 172              		.loc 1 58 0
+ 173              		.cfi_startproc
+ 174              		@ args = 0, pretend = 0, frame = 0
+ 175              		@ frame_needed = 0, uses_anonymous_args = 0
+ 176 0000 08B5     		push	{r3, lr}
+ 177              	.LCFI4:
+ 178              		.cfi_def_cfa_offset 8
+ARM GAS  /tmp/ccc8fQ7x.s 			page 5
+
+
+ 179              		.cfi_offset 3, -8
+ 180              		.cfi_offset 14, -4
+  59:Src/os.c      ****     //logger(&huart1, "OS_Systick1\n");
+  60:Src/os.c      ****     if (!os_started)
+ 181              		.loc 1 60 0
+ 182 0002 084B     		ldr	r3, .L21
+ 183 0004 1B68     		ldr	r3, [r3]
+ 184 0006 0BB9     		cbnz	r3, .L19
+ 185              	.L16:
+  61:Src/os.c      ****     {
+  62:Src/os.c      ****         return 0;
+  63:Src/os.c      ****     }
+  64:Src/os.c      ****     //TODO: Problem with the Interrupt
+  65:Src/os.c      ****         
+  66:Src/os.c      ****     //logger(&huart1, "OS_Systick\n");
+  67:Src/os.c      ****     enterCritical();
+  68:Src/os.c      ****     if (task_sysTickHandler())
+  69:Src/os.c      ****     {
+  70:Src/os.c      ****         scheduler();
+  71:Src/os.c      ****     }
+  72:Src/os.c      ****     
+  73:Src/os.c      ****     //TODO: Problem with the Interrupt
+  74:Src/os.c      ****     exitCritical();
+  75:Src/os.c      ****     return 0;
+  76:Src/os.c      **** }
+ 186              		.loc 1 76 0
+ 187 0008 0020     		movs	r0, #0
+ 188 000a 08BD     		pop	{r3, pc}
+ 189              	.L19:
+  67:Src/os.c      ****     if (task_sysTickHandler())
+ 190              		.loc 1 67 0
+ 191 000c FFF7FEFF 		bl	enterCritical
+ 192              	.LVL10:
+  68:Src/os.c      ****     {
+ 193              		.loc 1 68 0
+ 194 0010 FFF7FEFF 		bl	task_sysTickHandler
+ 195              	.LVL11:
+ 196 0014 10B9     		cbnz	r0, .L20
+ 197              	.L17:
+  74:Src/os.c      ****     return 0;
+ 198              		.loc 1 74 0
+ 199 0016 FFF7FEFF 		bl	exitCritical
+ 200              	.LVL12:
+  75:Src/os.c      **** }
+ 201              		.loc 1 75 0
+ 202 001a F5E7     		b	.L16
+ 203              	.L20:
+  70:Src/os.c      ****     }
+ 204              		.loc 1 70 0
+ 205 001c FFF7FEFF 		bl	scheduler
+ 206              	.LVL13:
+ 207 0020 F9E7     		b	.L17
+ 208              	.L22:
+ 209 0022 00BF     		.align	2
+ 210              	.L21:
+ 211 0024 00000000 		.word	.LANCHOR0
+ 212              		.cfi_endproc
+ARM GAS  /tmp/ccc8fQ7x.s 			page 6
+
+
+ 213              	.LFE70:
+ 215              		.section	.text.os_setTaskDelay,"ax",%progbits
+ 216              		.align	1
+ 217              		.global	os_setTaskDelay
+ 218              		.syntax unified
+ 219              		.thumb
+ 220              		.thumb_func
+ 221              		.fpu softvfp
+ 223              	os_setTaskDelay:
+ 224              	.LFB71:
+  77:Src/os.c      **** 
+  78:Src/os.c      **** __attribute__((naked)) int os_setTaskDelay(uint32_t ms)
+  79:Src/os.c      **** {
+ 225              		.loc 1 79 0
+ 226              		.cfi_startproc
+ 227              		@ Naked Function: prologue and epilogue provided by programmer.
+ 228              		@ args = 0, pretend = 0, frame = 0
+ 229              		@ frame_needed = 0, uses_anonymous_args = 0
+ 230              	.LVL14:
+  80:Src/os.c      ****     svc(OS_SVC_SET_TASK_DELAY);
+ 231              		.loc 1 80 0
+ 232              		.syntax unified
+ 233              	@ 80 "Src/os.c" 1
+ 234 0000 01DF     		svc #1
+ 235              	@ 0 "" 2
+  81:Src/os.c      ****     return 0;
+  82:Src/os.c      **** }
+ 236              		.loc 1 82 0
+ 237              		.thumb
+ 238              		.syntax unified
+ 239 0002 0020     		movs	r0, #0
+ 240              	.LVL15:
+ 241              		.cfi_endproc
+ 242              	.LFE71:
+ 244              		.section	.text.os_createTask,"ax",%progbits
+ 245              		.align	1
+ 246              		.global	os_createTask
+ 247              		.syntax unified
+ 248              		.thumb
+ 249              		.thumb_func
+ 250              		.fpu softvfp
+ 252              	os_createTask:
+ 253              	.LFB72:
+  83:Src/os.c      **** 
+  84:Src/os.c      **** int os_createTask( void* (*foo)())
+  85:Src/os.c      **** {
+ 254              		.loc 1 85 0
+ 255              		.cfi_startproc
+ 256              		@ args = 0, pretend = 0, frame = 0
+ 257              		@ frame_needed = 0, uses_anonymous_args = 0
+ 258              	.LVL16:
+ 259 0000 08B5     		push	{r3, lr}
+ 260              	.LCFI5:
+ 261              		.cfi_def_cfa_offset 8
+ 262              		.cfi_offset 3, -8
+ 263              		.cfi_offset 14, -4
+  86:Src/os.c      ****     return createTask(foo);
+ARM GAS  /tmp/ccc8fQ7x.s 			page 7
+
+
+ 264              		.loc 1 86 0
+ 265 0002 FFF7FEFF 		bl	createTask
+ 266              	.LVL17:
+  87:Src/os.c      **** }
+ 267              		.loc 1 87 0
+ 268 0006 08BD     		pop	{r3, pc}
+ 269              		.cfi_endproc
+ 270              	.LFE72:
+ 272              		.section	.text.os_enterCritical,"ax",%progbits
+ 273              		.align	1
+ 274              		.global	os_enterCritical
+ 275              		.syntax unified
+ 276              		.thumb
+ 277              		.thumb_func
+ 278              		.fpu softvfp
+ 280              	os_enterCritical:
+ 281              	.LFB73:
+  88:Src/os.c      **** 
+  89:Src/os.c      **** int os_enterCritical()
+  90:Src/os.c      **** {
+ 282              		.loc 1 90 0
+ 283              		.cfi_startproc
+ 284              		@ args = 0, pretend = 0, frame = 0
+ 285              		@ frame_needed = 0, uses_anonymous_args = 0
+ 286 0000 08B5     		push	{r3, lr}
+ 287              	.LCFI6:
+ 288              		.cfi_def_cfa_offset 8
+ 289              		.cfi_offset 3, -8
+ 290              		.cfi_offset 14, -4
+  91:Src/os.c      ****     enterCritical();
+ 291              		.loc 1 91 0
+ 292 0002 FFF7FEFF 		bl	enterCritical
+ 293              	.LVL18:
+  92:Src/os.c      ****     return 0;
+  93:Src/os.c      **** }
+ 294              		.loc 1 93 0
+ 295 0006 0020     		movs	r0, #0
+ 296 0008 08BD     		pop	{r3, pc}
+ 297              		.cfi_endproc
+ 298              	.LFE73:
+ 300              		.section	.text.os_exitCritical,"ax",%progbits
+ 301              		.align	1
+ 302              		.global	os_exitCritical
+ 303              		.syntax unified
+ 304              		.thumb
+ 305              		.thumb_func
+ 306              		.fpu softvfp
+ 308              	os_exitCritical:
+ 309              	.LFB74:
+  94:Src/os.c      **** 
+  95:Src/os.c      **** int os_exitCritical()
+  96:Src/os.c      **** {
+ 310              		.loc 1 96 0
+ 311              		.cfi_startproc
+ 312              		@ args = 0, pretend = 0, frame = 0
+ 313              		@ frame_needed = 0, uses_anonymous_args = 0
+ 314 0000 08B5     		push	{r3, lr}
+ARM GAS  /tmp/ccc8fQ7x.s 			page 8
+
+
+ 315              	.LCFI7:
+ 316              		.cfi_def_cfa_offset 8
+ 317              		.cfi_offset 3, -8
+ 318              		.cfi_offset 14, -4
+  97:Src/os.c      ****     exitCritical();
+ 319              		.loc 1 97 0
+ 320 0002 FFF7FEFF 		bl	exitCritical
+ 321              	.LVL19:
+  98:Src/os.c      ****     return 0;
+  99:Src/os.c      **** }
+ 322              		.loc 1 99 0
+ 323 0006 0020     		movs	r0, #0
+ 324 0008 08BD     		pop	{r3, pc}
+ 325              		.cfi_endproc
+ 326              	.LFE74:
+ 328              		.global	os_started
+ 329              		.section	.bss.os_started,"aw",%nobits
+ 330              		.align	2
+ 331              		.set	.LANCHOR0,. + 0
+ 334              	os_started:
+ 335 0000 00000000 		.space	4
+ 336              		.text
+ 337              	.Letext0:
+ 338              		.file 2 "/opt/gcc-arm-none-eabi-7-2017-q4-major/arm-none-eabi/include/machine/_default_types.h"
+ 339              		.file 3 "/opt/gcc-arm-none-eabi-7-2017-q4-major/arm-none-eabi/include/sys/_stdint.h"
+ 340              		.file 4 "Drivers/CMSIS/Include/core_cm3.h"
+ 341              		.file 5 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 342              		.file 6 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 343              		.file 7 "/opt/gcc-arm-none-eabi-7-2017-q4-major/arm-none-eabi/include/sys/lock.h"
+ 344              		.file 8 "/opt/gcc-arm-none-eabi-7-2017-q4-major/arm-none-eabi/include/sys/_types.h"
+ 345              		.file 9 "/opt/gcc-arm-none-eabi-7-2017-q4-major/lib/gcc/arm-none-eabi/7.2.1/include/stddef.h"
+ 346              		.file 10 "/opt/gcc-arm-none-eabi-7-2017-q4-major/arm-none-eabi/include/sys/reent.h"
+ 347              		.file 11 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 348              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 349              		.file 13 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h"
+ 350              		.file 14 "Inc/debug.h"
+ 351              		.file 15 "Inc/task_cpu.h"
+ 352              		.file 16 "Inc/task.h"
+ARM GAS  /tmp/ccc8fQ7x.s 			page 9
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 os.c
+     /tmp/ccc8fQ7x.s:16     .text.scheduler:0000000000000000 $t
+     /tmp/ccc8fQ7x.s:23     .text.scheduler:0000000000000000 scheduler
+     /tmp/ccc8fQ7x.s:61     .text.halfScheduler:0000000000000000 $t
+     /tmp/ccc8fQ7x.s:68     .text.halfScheduler:0000000000000000 halfScheduler
+     /tmp/ccc8fQ7x.s:99     .text.osStart:0000000000000000 $t
+     /tmp/ccc8fQ7x.s:106    .text.osStart:0000000000000000 osStart
+     /tmp/ccc8fQ7x.s:130    .text.osStart:0000000000000010 $d
+     /tmp/ccc8fQ7x.s:135    .text.os_pre:0000000000000000 $t
+     /tmp/ccc8fQ7x.s:142    .text.os_pre:0000000000000000 os_pre
+     /tmp/ccc8fQ7x.s:163    .text.os_sysTickHandler:0000000000000000 $t
+     /tmp/ccc8fQ7x.s:170    .text.os_sysTickHandler:0000000000000000 os_sysTickHandler
+     /tmp/ccc8fQ7x.s:211    .text.os_sysTickHandler:0000000000000024 $d
+     /tmp/ccc8fQ7x.s:216    .text.os_setTaskDelay:0000000000000000 $t
+     /tmp/ccc8fQ7x.s:223    .text.os_setTaskDelay:0000000000000000 os_setTaskDelay
+     /tmp/ccc8fQ7x.s:245    .text.os_createTask:0000000000000000 $t
+     /tmp/ccc8fQ7x.s:252    .text.os_createTask:0000000000000000 os_createTask
+     /tmp/ccc8fQ7x.s:273    .text.os_enterCritical:0000000000000000 $t
+     /tmp/ccc8fQ7x.s:280    .text.os_enterCritical:0000000000000000 os_enterCritical
+     /tmp/ccc8fQ7x.s:301    .text.os_exitCritical:0000000000000000 $t
+     /tmp/ccc8fQ7x.s:308    .text.os_exitCritical:0000000000000000 os_exitCritical
+     /tmp/ccc8fQ7x.s:334    .bss.os_started:0000000000000000 os_started
+     /tmp/ccc8fQ7x.s:330    .bss.os_started:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+enterCritical
+getNextReady
+switchTaskTo
+exitCritical
+runFirstTask
+initTask
+task_sysTickHandler
+createTask

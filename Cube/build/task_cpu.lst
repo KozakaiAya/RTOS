@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccUmwucG.s 			page 1
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc7h0SfD.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccUmwucG.s 			page 1
   18:Src/task_cpu.c **** }
   39              		.loc 1 18 0
   40              		.thumb
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccUmwucG.s 			page 2
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc7h0SfD.s 			page 2
 
 
   41              		.syntax unified
@@ -83,218 +83,225 @@ ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccUmwucG.s 			page 1
   59              		@ frame_needed = 0, uses_anonymous_args = 0
   60              		@ link register save eliminated.
   61              	.LVL2:
-  22:Src/task_cpu.c ****     uint32_t t;
+  22:Src/task_cpu.c ****     uint32_t t = 0;
   23:Src/task_cpu.c ****     asm volatile (
   62              		.loc 1 23 0
   63              		.syntax unified
   64              	@ 23 "Src/task_cpu.c" 1
-  65 0000 EFF30983 		MRS    r3, psp             
-  66 0004 23E9F00F 		STMDB  r3!, {r4-r11}       
-  67 0008 83F30988 		MSR    psp, r3             
-  68              		
-  69              	@ 0 "" 2
-  70              	.LVL3:
-  24:Src/task_cpu.c ****         "MRS    %0, psp             \n\t"
-  25:Src/task_cpu.c ****         "STMDB  %0!, {r4-r11}       \n\t"
-  26:Src/task_cpu.c ****         "MSR    psp, %0             \n\t"
-  27:Src/task_cpu.c ****         : "=r" (t)        
-  28:Src/task_cpu.c ****     );
-  29:Src/task_cpu.c ****     *(ptrToCurrentSP) = (char*)t;
-  71              		.loc 1 29 0
-  72              		.thumb
-  73              		.syntax unified
-  74 000c 0360     		str	r3, [r0]
-  30:Src/task_cpu.c **** }
-  75              		.loc 1 30 0
-  76 000e 7047     		bx	lr
-  77              		.cfi_endproc
-  78              	.LFE67:
-  80              		.section	.text.loadContext,"ax",%progbits
-  81              		.align	1
-  82              		.global	loadContext
-  83              		.syntax unified
-  84              		.thumb
-  85              		.thumb_func
-  86              		.fpu softvfp
-  88              	loadContext:
-  89              	.LFB68:
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccUmwucG.s 			page 3
+  65 0000 EFF30980 		MRS    r0, psp             
+  66 0004 7246     		MOV    r2, lr              
+  67 0006 EFF31483 		MRS    r3, CONTROL         
+  68 000a 20E9FC0F 		STMDB  r0!, {r2-r11}       
+  69 000e 0346     		MOV    r3, r0              
+  70 0010 BFF36F8F 		ISB                        
+  71              		
+  72              	@ 0 "" 2
+  73              	.LVL3:
+  24:Src/task_cpu.c ****         "MRS    r0, psp             \n\t"
+  25:Src/task_cpu.c ****         "MOV    r2, lr              \n\t"
+  26:Src/task_cpu.c ****         "MRS    r3, CONTROL         \n\t"
+  27:Src/task_cpu.c ****         "STMDB  r0!, {r2-r11}       \n\t"
+  28:Src/task_cpu.c ****         "MOV    %0, r0              \n\t"
+  29:Src/task_cpu.c ****         "ISB                        \n\t"
+  30:Src/task_cpu.c ****         : "=r" (t)
+  31:Src/task_cpu.c ****     );
+  32:Src/task_cpu.c ****     *(ptrToCurrentSP) = (char*)t;
+  74              		.loc 1 32 0
+  75              		.thumb
+  76              		.syntax unified
+  77 0014 0360     		str	r3, [r0]
+  33:Src/task_cpu.c **** }
+  78              		.loc 1 33 0
+  79 0016 7047     		bx	lr
+  80              		.cfi_endproc
+  81              	.LFE67:
+  83              		.section	.text.loadContext,"ax",%progbits
+  84              		.align	1
+  85              		.global	loadContext
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc7h0SfD.s 			page 3
 
 
-  31:Src/task_cpu.c **** 
-  32:Src/task_cpu.c **** __attribute__((naked)) void loadContext()
-  33:Src/task_cpu.c **** {
-  90              		.loc 1 33 0
-  91              		.cfi_startproc
-  92              		@ Naked Function: prologue and epilogue provided by programmer.
-  93              		@ args = 0, pretend = 0, frame = 0
-  94              		@ frame_needed = 0, uses_anonymous_args = 0
-  34:Src/task_cpu.c ****     uint32_t t;
-  35:Src/task_cpu.c ****     asm volatile (
-  95              		.loc 1 35 0
-  96              		.syntax unified
-  97              	@ 35 "Src/task_cpu.c" 1
-  98 0000 EFF30983 		MRS    r3, psp             
-  99 0004 B3E8F00F 		LDMIA  r3!, {r4-r11}       
- 100 0008 83F30988 		MSR    psp, r3             
- 101 000c 6FF0020E 		MOV    lr, #0xFFFFFFFD      
- 102 0010 62B6     		CPSIE I                    
- 103 0012 7047     		BX     lr                  
- 104              		
- 105              	@ 0 "" 2
- 106              	.LVL4:
-  36:Src/task_cpu.c ****         "MRS    %0, psp             \n\t"
-  37:Src/task_cpu.c ****         "LDMIA  %0!, {r4-r11}       \n\t"
-  38:Src/task_cpu.c ****         "MSR    psp, %0             \n\t"
-  39:Src/task_cpu.c ****         "MOV    lr, #0xFFFFFFFD      \n\t"
-  40:Src/task_cpu.c ****         "CPSIE I                    \n\t"
-  41:Src/task_cpu.c ****         "BX     lr                  \n\t"
-  42:Src/task_cpu.c ****         : "=r" (t)
-  43:Src/task_cpu.c ****     );
-  44:Src/task_cpu.c **** }
- 107              		.loc 1 44 0
- 108              		.thumb
- 109              		.syntax unified
- 110              		.cfi_endproc
- 111              	.LFE68:
- 113              		.section	.text.contextSwitcher,"ax",%progbits
- 114              		.align	1
- 115              		.global	contextSwitcher
- 116              		.syntax unified
- 117              		.thumb
- 118              		.thumb_func
- 119              		.fpu softvfp
- 121              	contextSwitcher:
- 122              	.LFB69:
-  45:Src/task_cpu.c **** 
-  46:Src/task_cpu.c **** void contextSwitcher(char* nextSP)
-  47:Src/task_cpu.c **** {
- 123              		.loc 1 47 0
- 124              		.cfi_startproc
- 125              		@ args = 0, pretend = 0, frame = 0
- 126              		@ frame_needed = 0, uses_anonymous_args = 0
- 127              		@ link register save eliminated.
- 128              	.LVL5:
-  48:Src/task_cpu.c ****     asm volatile (
- 129              		.loc 1 48 0
- 130              		.syntax unified
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccUmwucG.s 			page 4
+  86              		.syntax unified
+  87              		.thumb
+  88              		.thumb_func
+  89              		.fpu softvfp
+  91              	loadContext:
+  92              	.LFB68:
+  34:Src/task_cpu.c **** 
+  35:Src/task_cpu.c **** __attribute__((naked)) void loadContext()
+  36:Src/task_cpu.c **** {
+  93              		.loc 1 36 0
+  94              		.cfi_startproc
+  95              		@ Naked Function: prologue and epilogue provided by programmer.
+  96              		@ args = 0, pretend = 0, frame = 0
+  97              		@ frame_needed = 0, uses_anonymous_args = 0
+  37:Src/task_cpu.c ****     asm volatile (
+  98              		.loc 1 37 0
+  99              		.syntax unified
+ 100              	@ 37 "Src/task_cpu.c" 1
+ 101 0000 EFF30980 		MRS    r0, psp             
+ 102 0004 B0E8FC0F 		LDMIA  r0!, {r2-r11}       
+ 103 0008 9646     		MOV    lr, r2              
+ 104 000a 83F31488 		MSR    CONTROL, r3         
+ 105 000e 80F30988 		MSR    psp, r0             
+ 106 0012 BFF36F8F 		ISB                        
+ 107 0016 62B6     		CPSIE  I                   
+ 108 0018 F746     		MOV    pc, lr
+ 109              	@ 0 "" 2
+  38:Src/task_cpu.c ****         "MRS    r0, psp             \n\t"
+  39:Src/task_cpu.c ****         "LDMIA  r0!, {r2-r11}       \n\t"
+  40:Src/task_cpu.c ****         "MOV    lr, r2              \n\t"
+  41:Src/task_cpu.c ****         "MSR    CONTROL, r3         \n\t"
+  42:Src/task_cpu.c ****         "MSR    psp, r0             \n\t"
+  43:Src/task_cpu.c ****         "ISB                        \n\t"
+  44:Src/task_cpu.c ****         "CPSIE  I                   \n\t"
+  45:Src/task_cpu.c **** //        "BX     lr"
+  46:Src/task_cpu.c ****         "MOV    pc, lr"
+  47:Src/task_cpu.c ****     );  
+  48:Src/task_cpu.c **** }
+ 110              		.loc 1 48 0
+ 111              		.thumb
+ 112              		.syntax unified
+ 113              		.cfi_endproc
+ 114              	.LFE68:
+ 116              		.section	.text.contextSwitcher,"ax",%progbits
+ 117              		.align	1
+ 118              		.global	contextSwitcher
+ 119              		.syntax unified
+ 120              		.thumb
+ 121              		.thumb_func
+ 122              		.fpu softvfp
+ 124              	contextSwitcher:
+ 125              	.LFB69:
+  49:Src/task_cpu.c **** 
+  50:Src/task_cpu.c **** void contextSwitcher(char* nextSP)
+  51:Src/task_cpu.c **** {
+ 126              		.loc 1 51 0
+ 127              		.cfi_startproc
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc7h0SfD.s 			page 4
 
 
- 131              	@ 48 "Src/task_cpu.c" 1
- 132 0000 80F30988 		MSR    psp, r0             
- 133              		
- 134              	@ 0 "" 2
-  49:Src/task_cpu.c ****         "MSR    psp, %0             \n\t"
-  50:Src/task_cpu.c ****         :
-  51:Src/task_cpu.c ****         : "r" (nextSP)
-  52:Src/task_cpu.c ****     );
-  53:Src/task_cpu.c **** }
- 135              		.loc 1 53 0
- 136              		.thumb
- 137              		.syntax unified
- 138 0004 7047     		bx	lr
- 139              		.cfi_endproc
- 140              	.LFE69:
- 142              		.section	.text.enterCritical,"ax",%progbits
- 143              		.align	1
- 144              		.global	enterCritical
- 145              		.syntax unified
- 146              		.thumb
- 147              		.thumb_func
- 148              		.fpu softvfp
- 150              	enterCritical:
- 151              	.LFB70:
-  54:Src/task_cpu.c **** 
-  55:Src/task_cpu.c **** void enterCritical()
-  56:Src/task_cpu.c **** {
- 152              		.loc 1 56 0
- 153              		.cfi_startproc
- 154              		@ args = 0, pretend = 0, frame = 0
- 155              		@ frame_needed = 0, uses_anonymous_args = 0
- 156              		@ link register save eliminated.
-  57:Src/task_cpu.c ****     asm volatile (
- 157              		.loc 1 57 0
- 158              		.syntax unified
- 159              	@ 57 "Src/task_cpu.c" 1
- 160 0000 72B6     		CPSID I
- 161              	@ 0 "" 2
-  58:Src/task_cpu.c ****         "CPSID I"
-  59:Src/task_cpu.c ****     );
-  60:Src/task_cpu.c **** }
- 162              		.loc 1 60 0
- 163              		.thumb
- 164              		.syntax unified
- 165 0002 7047     		bx	lr
- 166              		.cfi_endproc
- 167              	.LFE70:
- 169              		.section	.text.exitCritical,"ax",%progbits
- 170              		.align	1
- 171              		.global	exitCritical
- 172              		.syntax unified
- 173              		.thumb
- 174              		.thumb_func
- 175              		.fpu softvfp
- 177              	exitCritical:
- 178              	.LFB71:
-  61:Src/task_cpu.c **** 
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccUmwucG.s 			page 5
+ 128              		@ args = 0, pretend = 0, frame = 0
+ 129              		@ frame_needed = 0, uses_anonymous_args = 0
+ 130              		@ link register save eliminated.
+ 131              	.LVL4:
+  52:Src/task_cpu.c ****     asm volatile (
+ 132              		.loc 1 52 0
+ 133              		.syntax unified
+ 134              	@ 52 "Src/task_cpu.c" 1
+ 135 0000 80F30988 		MSR    psp, r0             
+ 136              		
+ 137              	@ 0 "" 2
+  53:Src/task_cpu.c ****         "MSR    psp, %0             \n\t"
+  54:Src/task_cpu.c ****         :
+  55:Src/task_cpu.c ****         : "r" (nextSP)
+  56:Src/task_cpu.c ****     );
+  57:Src/task_cpu.c **** }
+ 138              		.loc 1 57 0
+ 139              		.thumb
+ 140              		.syntax unified
+ 141 0004 7047     		bx	lr
+ 142              		.cfi_endproc
+ 143              	.LFE69:
+ 145              		.section	.text.enterCritical,"ax",%progbits
+ 146              		.align	1
+ 147              		.global	enterCritical
+ 148              		.syntax unified
+ 149              		.thumb
+ 150              		.thumb_func
+ 151              		.fpu softvfp
+ 153              	enterCritical:
+ 154              	.LFB70:
+  58:Src/task_cpu.c **** 
+  59:Src/task_cpu.c **** void enterCritical()
+  60:Src/task_cpu.c **** {
+ 155              		.loc 1 60 0
+ 156              		.cfi_startproc
+ 157              		@ args = 0, pretend = 0, frame = 0
+ 158              		@ frame_needed = 0, uses_anonymous_args = 0
+ 159              		@ link register save eliminated.
+  61:Src/task_cpu.c ****     asm volatile (
+ 160              		.loc 1 61 0
+ 161              		.syntax unified
+ 162              	@ 61 "Src/task_cpu.c" 1
+ 163 0000 72B6     		CPSID I
+ 164              	@ 0 "" 2
+  62:Src/task_cpu.c ****         "CPSID I"
+  63:Src/task_cpu.c ****     );
+  64:Src/task_cpu.c **** }
+ 165              		.loc 1 64 0
+ 166              		.thumb
+ 167              		.syntax unified
+ 168 0002 7047     		bx	lr
+ 169              		.cfi_endproc
+ 170              	.LFE70:
+ 172              		.section	.text.exitCritical,"ax",%progbits
+ 173              		.align	1
+ 174              		.global	exitCritical
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc7h0SfD.s 			page 5
 
 
-  62:Src/task_cpu.c **** void exitCritical()
-  63:Src/task_cpu.c **** {
- 179              		.loc 1 63 0
- 180              		.cfi_startproc
- 181              		@ args = 0, pretend = 0, frame = 0
- 182              		@ frame_needed = 0, uses_anonymous_args = 0
- 183              		@ link register save eliminated.
-  64:Src/task_cpu.c ****     asm volatile (
- 184              		.loc 1 64 0
- 185              		.syntax unified
- 186              	@ 64 "Src/task_cpu.c" 1
- 187 0000 62B6     		CPSIE I
- 188              	@ 0 "" 2
-  65:Src/task_cpu.c ****         "CPSIE I"
-  66:Src/task_cpu.c ****     );
-  67:Src/task_cpu.c **** }...
- 189              		.loc 1 67 0
- 190              		.thumb
- 191              		.syntax unified
- 192 0002 7047     		bx	lr
- 193              		.cfi_endproc
- 194              	.LFE71:
- 196              		.text
- 197              	.Letext0:
- 198              		.file 2 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
- 199              		.file 3 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
- 200              		.file 4 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
- 201              		.file 5 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\lib\\gcc\\arm-none-eabi
- 202              		.file 6 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
- 203              		.file 7 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
- 204              		.file 8 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
- 205              		.file 9 "Drivers/CMSIS/Include/core_cm3.h"
- 206              		.file 10 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
- 207              		.file 11 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
- 208              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
- 209              		.file 13 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
- 210              		.file 14 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h"
- 211              		.file 15 "Inc/debug.h"
-ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccUmwucG.s 			page 6
+ 175              		.syntax unified
+ 176              		.thumb
+ 177              		.thumb_func
+ 178              		.fpu softvfp
+ 180              	exitCritical:
+ 181              	.LFB71:
+  65:Src/task_cpu.c **** 
+  66:Src/task_cpu.c **** void exitCritical()
+  67:Src/task_cpu.c **** {
+ 182              		.loc 1 67 0
+ 183              		.cfi_startproc
+ 184              		@ args = 0, pretend = 0, frame = 0
+ 185              		@ frame_needed = 0, uses_anonymous_args = 0
+ 186              		@ link register save eliminated.
+  68:Src/task_cpu.c ****     asm volatile (
+ 187              		.loc 1 68 0
+ 188              		.syntax unified
+ 189              	@ 68 "Src/task_cpu.c" 1
+ 190 0000 62B6     		CPSIE I
+ 191              	@ 0 "" 2
+  69:Src/task_cpu.c ****         "CPSIE I"
+  70:Src/task_cpu.c ****     );
+  71:Src/task_cpu.c **** }...
+ 192              		.loc 1 71 0
+ 193              		.thumb
+ 194              		.syntax unified
+ 195 0002 7047     		bx	lr
+ 196              		.cfi_endproc
+ 197              	.LFE71:
+ 199              		.text
+ 200              	.Letext0:
+ 201              		.file 2 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 202              		.file 3 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 203              		.file 4 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 204              		.file 5 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\lib\\gcc\\arm-none-eabi
+ 205              		.file 6 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 206              		.file 7 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 207              		.file 8 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 208              		.file 9 "Drivers/CMSIS/Include/core_cm3.h"
+ 209              		.file 10 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 210              		.file 11 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 211              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 212              		.file 13 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 213              		.file 14 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h"
+ 214              		.file 15 "Inc/debug.h"
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\cc7h0SfD.s 			page 6
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 task_cpu.c
-C:\Users\Qian\AppData\Local\Temp\ccUmwucG.s:16     .text.getCurrentStackPtr:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccUmwucG.s:23     .text.getCurrentStackPtr:00000000 getCurrentStackPtr
-C:\Users\Qian\AppData\Local\Temp\ccUmwucG.s:47     .text.saveContext:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccUmwucG.s:54     .text.saveContext:00000000 saveContext
-C:\Users\Qian\AppData\Local\Temp\ccUmwucG.s:81     .text.loadContext:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccUmwucG.s:88     .text.loadContext:00000000 loadContext
-C:\Users\Qian\AppData\Local\Temp\ccUmwucG.s:114    .text.contextSwitcher:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccUmwucG.s:121    .text.contextSwitcher:00000000 contextSwitcher
-C:\Users\Qian\AppData\Local\Temp\ccUmwucG.s:143    .text.enterCritical:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccUmwucG.s:150    .text.enterCritical:00000000 enterCritical
-C:\Users\Qian\AppData\Local\Temp\ccUmwucG.s:170    .text.exitCritical:00000000 $t
-C:\Users\Qian\AppData\Local\Temp\ccUmwucG.s:177    .text.exitCritical:00000000 exitCritical
+C:\Users\Qian\AppData\Local\Temp\cc7h0SfD.s:16     .text.getCurrentStackPtr:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\cc7h0SfD.s:23     .text.getCurrentStackPtr:00000000 getCurrentStackPtr
+C:\Users\Qian\AppData\Local\Temp\cc7h0SfD.s:47     .text.saveContext:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\cc7h0SfD.s:54     .text.saveContext:00000000 saveContext
+C:\Users\Qian\AppData\Local\Temp\cc7h0SfD.s:84     .text.loadContext:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\cc7h0SfD.s:91     .text.loadContext:00000000 loadContext
+C:\Users\Qian\AppData\Local\Temp\cc7h0SfD.s:117    .text.contextSwitcher:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\cc7h0SfD.s:124    .text.contextSwitcher:00000000 contextSwitcher
+C:\Users\Qian\AppData\Local\Temp\cc7h0SfD.s:146    .text.enterCritical:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\cc7h0SfD.s:153    .text.enterCritical:00000000 enterCritical
+C:\Users\Qian\AppData\Local\Temp\cc7h0SfD.s:173    .text.exitCritical:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\cc7h0SfD.s:180    .text.exitCritical:00000000 exitCritical
 
 NO UNDEFINED SYMBOLS

@@ -1,0 +1,907 @@
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"syscall.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.initialise_monitor_handles,"ax",%progbits
+  16              		.align	1
+  17              		.global	initialise_monitor_handles
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu softvfp
+  23              	initialise_monitor_handles:
+  24              	.LFB19:
+  25              		.file 1 "Src/syscall.c"
+   1:Src/syscall.c **** 
+   2:Src/syscall.c **** /**
+   3:Src/syscall.c **** *****************************************************************************
+   4:Src/syscall.c **** **
+   5:Src/syscall.c **** **  File        : syscalls.c
+   6:Src/syscall.c **** **
+   7:Src/syscall.c **** **  Abstract    : System Workbench Minimal System calls file
+   8:Src/syscall.c **** **
+   9:Src/syscall.c **** ** 		          For more information about which c-functions
+  10:Src/syscall.c **** **                need which of these lowlevel functions
+  11:Src/syscall.c **** **                please consult the Newlib libc-manual
+  12:Src/syscall.c **** **
+  13:Src/syscall.c **** **  Environment : System Workbench for MCU
+  14:Src/syscall.c **** **
+  15:Src/syscall.c **** **  Distribution: The file is distributed �as is,� without any warranty
+  16:Src/syscall.c **** **                of any kind.
+  17:Src/syscall.c **** **
+  18:Src/syscall.c **** **  (c)Copyright System Workbench for MCU.
+  19:Src/syscall.c **** **  You may use this file as-is or modify it according to the needs of your
+  20:Src/syscall.c **** **  project. Distribution of this file (unmodified or modified) is not
+  21:Src/syscall.c **** **  permitted. System Workbench for MCU permit registered System Workbench(R) users the
+  22:Src/syscall.c **** **  rights to distribute the assembled, compiled & linked contents of this
+  23:Src/syscall.c **** **  file as part of an application binary file, provided that it is built
+  24:Src/syscall.c **** **  using the System Workbench for MCU toolchain.
+  25:Src/syscall.c **** **
+  26:Src/syscall.c **** *****************************************************************************
+  27:Src/syscall.c **** */
+  28:Src/syscall.c **** 
+  29:Src/syscall.c **** /* Includes */
+  30:Src/syscall.c **** #include <sys/stat.h>
+  31:Src/syscall.c **** #include <stdlib.h>
+  32:Src/syscall.c **** #include <errno.h>
+  33:Src/syscall.c **** #include <stdio.h>
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s 			page 2
+
+
+  34:Src/syscall.c **** #include <signal.h>
+  35:Src/syscall.c **** #include <time.h>
+  36:Src/syscall.c **** #include <sys/time.h>
+  37:Src/syscall.c **** #include <sys/times.h>
+  38:Src/syscall.c **** 
+  39:Src/syscall.c **** 
+  40:Src/syscall.c **** /* Variables */
+  41:Src/syscall.c **** //#undef errno
+  42:Src/syscall.c **** extern int errno;
+  43:Src/syscall.c **** extern int __io_putchar(int ch) __attribute__((weak));
+  44:Src/syscall.c **** extern int __io_getchar(void) __attribute__((weak));
+  45:Src/syscall.c **** 
+  46:Src/syscall.c **** register char * stack_ptr asm("sp");
+  47:Src/syscall.c **** 
+  48:Src/syscall.c **** char *__env[1] = { 0 };
+  49:Src/syscall.c **** char **environ = __env;
+  50:Src/syscall.c **** 
+  51:Src/syscall.c **** 
+  52:Src/syscall.c **** /* Functions */
+  53:Src/syscall.c **** void initialise_monitor_handles()
+  54:Src/syscall.c **** {
+  26              		.loc 1 54 0
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 0
+  29              		@ frame_needed = 0, uses_anonymous_args = 0
+  30              		@ link register save eliminated.
+  55:Src/syscall.c **** }
+  31              		.loc 1 55 0
+  32 0000 7047     		bx	lr
+  33              		.cfi_endproc
+  34              	.LFE19:
+  36              		.section	.text._getpid,"ax",%progbits
+  37              		.align	1
+  38              		.global	_getpid
+  39              		.syntax unified
+  40              		.thumb
+  41              		.thumb_func
+  42              		.fpu softvfp
+  44              	_getpid:
+  45              	.LFB20:
+  56:Src/syscall.c **** 
+  57:Src/syscall.c **** int _getpid(void)
+  58:Src/syscall.c **** {
+  46              		.loc 1 58 0
+  47              		.cfi_startproc
+  48              		@ args = 0, pretend = 0, frame = 0
+  49              		@ frame_needed = 0, uses_anonymous_args = 0
+  50              		@ link register save eliminated.
+  59:Src/syscall.c **** 	return 1;
+  60:Src/syscall.c **** }
+  51              		.loc 1 60 0
+  52 0000 0120     		movs	r0, #1
+  53 0002 7047     		bx	lr
+  54              		.cfi_endproc
+  55              	.LFE20:
+  57              		.section	.text._kill,"ax",%progbits
+  58              		.align	1
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s 			page 3
+
+
+  59              		.global	_kill
+  60              		.syntax unified
+  61              		.thumb
+  62              		.thumb_func
+  63              		.fpu softvfp
+  65              	_kill:
+  66              	.LFB21:
+  61:Src/syscall.c **** 
+  62:Src/syscall.c **** int _kill(int pid, int sig)
+  63:Src/syscall.c **** {
+  67              		.loc 1 63 0
+  68              		.cfi_startproc
+  69              		@ args = 0, pretend = 0, frame = 0
+  70              		@ frame_needed = 0, uses_anonymous_args = 0
+  71              	.LVL0:
+  72 0000 08B5     		push	{r3, lr}
+  73              	.LCFI0:
+  74              		.cfi_def_cfa_offset 8
+  75              		.cfi_offset 3, -8
+  76              		.cfi_offset 14, -4
+  64:Src/syscall.c **** 	errno = EINVAL;
+  77              		.loc 1 64 0
+  78 0002 FFF7FEFF 		bl	__errno
+  79              	.LVL1:
+  80 0006 1623     		movs	r3, #22
+  81 0008 0360     		str	r3, [r0]
+  65:Src/syscall.c **** 	return -1;
+  66:Src/syscall.c **** }
+  82              		.loc 1 66 0
+  83 000a 4FF0FF30 		mov	r0, #-1
+  84 000e 08BD     		pop	{r3, pc}
+  85              		.cfi_endproc
+  86              	.LFE21:
+  88              		.section	.text._exit,"ax",%progbits
+  89              		.align	1
+  90              		.global	_exit
+  91              		.syntax unified
+  92              		.thumb
+  93              		.thumb_func
+  94              		.fpu softvfp
+  96              	_exit:
+  97              	.LFB22:
+  67:Src/syscall.c **** 
+  68:Src/syscall.c **** void _exit (int status)
+  69:Src/syscall.c **** {
+  98              		.loc 1 69 0
+  99              		.cfi_startproc
+ 100              		@ Volatile: function does not return.
+ 101              		@ args = 0, pretend = 0, frame = 0
+ 102              		@ frame_needed = 0, uses_anonymous_args = 0
+ 103              	.LVL2:
+ 104 0000 08B5     		push	{r3, lr}
+ 105              	.LCFI1:
+ 106              		.cfi_def_cfa_offset 8
+ 107              		.cfi_offset 3, -8
+ 108              		.cfi_offset 14, -4
+  70:Src/syscall.c **** 	_kill(status, -1);
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s 			page 4
+
+
+ 109              		.loc 1 70 0
+ 110 0002 4FF0FF31 		mov	r1, #-1
+ 111 0006 FFF7FEFF 		bl	_kill
+ 112              	.LVL3:
+ 113              	.L6:
+ 114 000a FEE7     		b	.L6
+ 115              		.cfi_endproc
+ 116              	.LFE22:
+ 118              		.section	.text._read,"ax",%progbits
+ 119              		.align	1
+ 120              		.global	_read
+ 121              		.syntax unified
+ 122              		.thumb
+ 123              		.thumb_func
+ 124              		.fpu softvfp
+ 126              	_read:
+ 127              	.LFB23:
+  71:Src/syscall.c **** 	while (1) {}		/* Make sure we hang here */
+  72:Src/syscall.c **** }
+  73:Src/syscall.c **** 
+  74:Src/syscall.c **** int _read (int file, char *ptr, int len)
+  75:Src/syscall.c **** {
+ 128              		.loc 1 75 0
+ 129              		.cfi_startproc
+ 130              		@ args = 0, pretend = 0, frame = 0
+ 131              		@ frame_needed = 0, uses_anonymous_args = 0
+ 132              	.LVL4:
+ 133 0000 70B5     		push	{r4, r5, r6, lr}
+ 134              	.LCFI2:
+ 135              		.cfi_def_cfa_offset 16
+ 136              		.cfi_offset 4, -16
+ 137              		.cfi_offset 5, -12
+ 138              		.cfi_offset 6, -8
+ 139              		.cfi_offset 14, -4
+ 140 0002 0D46     		mov	r5, r1
+ 141 0004 1646     		mov	r6, r2
+ 142              	.LVL5:
+  76:Src/syscall.c **** 	int DataIdx;
+  77:Src/syscall.c **** 
+  78:Src/syscall.c **** 	for (DataIdx = 0; DataIdx < len; DataIdx++)
+ 143              		.loc 1 78 0
+ 144 0006 0024     		movs	r4, #0
+ 145 0008 04E0     		b	.L9
+ 146              	.LVL6:
+ 147              	.L10:
+  79:Src/syscall.c **** 	{
+  80:Src/syscall.c **** 		*ptr++ = __io_getchar();
+ 148              		.loc 1 80 0 discriminator 3
+ 149 000a FFF7FEFF 		bl	__io_getchar
+ 150              	.LVL7:
+ 151 000e 2870     		strb	r0, [r5]
+  78:Src/syscall.c **** 	{
+ 152              		.loc 1 78 0 discriminator 3
+ 153 0010 0134     		adds	r4, r4, #1
+ 154              	.LVL8:
+ 155              		.loc 1 80 0 discriminator 3
+ 156 0012 0135     		adds	r5, r5, #1
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s 			page 5
+
+
+ 157              	.LVL9:
+ 158              	.L9:
+  78:Src/syscall.c **** 	{
+ 159              		.loc 1 78 0 discriminator 1
+ 160 0014 B442     		cmp	r4, r6
+ 161 0016 F8DB     		blt	.L10
+  81:Src/syscall.c **** 	}
+  82:Src/syscall.c **** 
+  83:Src/syscall.c **** return len;
+  84:Src/syscall.c **** }
+ 162              		.loc 1 84 0
+ 163 0018 3046     		mov	r0, r6
+ 164 001a 70BD     		pop	{r4, r5, r6, pc}
+ 165              		.cfi_endproc
+ 166              	.LFE23:
+ 168              		.section	.text._write,"ax",%progbits
+ 169              		.align	1
+ 170              		.global	_write
+ 171              		.syntax unified
+ 172              		.thumb
+ 173              		.thumb_func
+ 174              		.fpu softvfp
+ 176              	_write:
+ 177              	.LFB24:
+  85:Src/syscall.c **** 
+  86:Src/syscall.c **** int _write(int file, char *ptr, int len)
+  87:Src/syscall.c **** {
+ 178              		.loc 1 87 0
+ 179              		.cfi_startproc
+ 180              		@ args = 0, pretend = 0, frame = 0
+ 181              		@ frame_needed = 0, uses_anonymous_args = 0
+ 182              	.LVL10:
+ 183 0000 70B5     		push	{r4, r5, r6, lr}
+ 184              	.LCFI3:
+ 185              		.cfi_def_cfa_offset 16
+ 186              		.cfi_offset 4, -16
+ 187              		.cfi_offset 5, -12
+ 188              		.cfi_offset 6, -8
+ 189              		.cfi_offset 14, -4
+ 190 0002 1646     		mov	r6, r2
+ 191              	.LVL11:
+  88:Src/syscall.c **** 	int DataIdx;
+  89:Src/syscall.c **** 
+  90:Src/syscall.c **** 	for (DataIdx = 0; DataIdx < len; DataIdx++)
+ 192              		.loc 1 90 0
+ 193 0004 0024     		movs	r4, #0
+ 194 0006 05E0     		b	.L13
+ 195              	.LVL12:
+ 196              	.L14:
+  91:Src/syscall.c **** 	{
+  92:Src/syscall.c **** 		__io_putchar(*ptr++);
+ 197              		.loc 1 92 0 discriminator 3
+ 198 0008 4D1C     		adds	r5, r1, #1
+ 199              	.LVL13:
+ 200 000a 0878     		ldrb	r0, [r1]	@ zero_extendqisi2
+ 201 000c FFF7FEFF 		bl	__io_putchar
+ 202              	.LVL14:
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s 			page 6
+
+
+  90:Src/syscall.c **** 	{
+ 203              		.loc 1 90 0 discriminator 3
+ 204 0010 0134     		adds	r4, r4, #1
+ 205              	.LVL15:
+ 206              		.loc 1 92 0 discriminator 3
+ 207 0012 2946     		mov	r1, r5
+ 208              	.LVL16:
+ 209              	.L13:
+  90:Src/syscall.c **** 	{
+ 210              		.loc 1 90 0 discriminator 1
+ 211 0014 B442     		cmp	r4, r6
+ 212 0016 F7DB     		blt	.L14
+  93:Src/syscall.c **** 	}
+  94:Src/syscall.c **** 	return len;
+  95:Src/syscall.c **** }
+ 213              		.loc 1 95 0
+ 214 0018 3046     		mov	r0, r6
+ 215 001a 70BD     		pop	{r4, r5, r6, pc}
+ 216              		.cfi_endproc
+ 217              	.LFE24:
+ 219              		.section	.text._sbrk,"ax",%progbits
+ 220              		.align	1
+ 221              		.global	_sbrk
+ 222              		.syntax unified
+ 223              		.thumb
+ 224              		.thumb_func
+ 225              		.fpu softvfp
+ 227              	_sbrk:
+ 228              	.LFB25:
+  96:Src/syscall.c **** 
+  97:Src/syscall.c **** caddr_t _sbrk(int incr)
+  98:Src/syscall.c **** {
+ 229              		.loc 1 98 0
+ 230              		.cfi_startproc
+ 231              		@ args = 0, pretend = 0, frame = 0
+ 232              		@ frame_needed = 0, uses_anonymous_args = 0
+ 233              	.LVL17:
+ 234 0000 08B5     		push	{r3, lr}
+ 235              	.LCFI4:
+ 236              		.cfi_def_cfa_offset 8
+ 237              		.cfi_offset 3, -8
+ 238              		.cfi_offset 14, -4
+ 239 0002 0346     		mov	r3, r0
+  99:Src/syscall.c **** 	extern char end asm("end");
+ 100:Src/syscall.c **** 	static char *heap_end;
+ 101:Src/syscall.c **** 	char *prev_heap_end;
+ 102:Src/syscall.c **** 
+ 103:Src/syscall.c **** 	if (heap_end == 0)
+ 240              		.loc 1 103 0
+ 241 0004 0B4A     		ldr	r2, .L23
+ 242 0006 1268     		ldr	r2, [r2]
+ 243 0008 42B1     		cbz	r2, .L21
+ 244              	.L17:
+ 104:Src/syscall.c **** 		heap_end = &end;
+ 105:Src/syscall.c **** 
+ 106:Src/syscall.c **** 	prev_heap_end = heap_end;
+ 245              		.loc 1 106 0
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s 			page 7
+
+
+ 246 000a 0A4A     		ldr	r2, .L23
+ 247 000c 1068     		ldr	r0, [r2]
+ 248              	.LVL18:
+ 107:Src/syscall.c **** 	if (heap_end + incr > stack_ptr)
+ 249              		.loc 1 107 0
+ 250 000e 0344     		add	r3, r3, r0
+ 251              	.LVL19:
+ 252 0010 6A46     		mov	r2, sp
+ 253 0012 9342     		cmp	r3, r2
+ 254 0014 06D8     		bhi	.L22
+ 108:Src/syscall.c **** 	{
+ 109:Src/syscall.c **** //		write(1, "Heap and stack collision\n", 25);
+ 110:Src/syscall.c **** //		abort();
+ 111:Src/syscall.c **** 		errno = ENOMEM;
+ 112:Src/syscall.c **** 		return (caddr_t) -1;
+ 113:Src/syscall.c **** 	}
+ 114:Src/syscall.c **** 
+ 115:Src/syscall.c **** 	heap_end += incr;
+ 255              		.loc 1 115 0
+ 256 0016 074A     		ldr	r2, .L23
+ 257 0018 1360     		str	r3, [r2]
+ 258              	.LVL20:
+ 259              	.L16:
+ 116:Src/syscall.c **** 
+ 117:Src/syscall.c **** 	return (caddr_t) prev_heap_end;
+ 118:Src/syscall.c **** }
+ 260              		.loc 1 118 0
+ 261 001a 08BD     		pop	{r3, pc}
+ 262              	.LVL21:
+ 263              	.L21:
+ 104:Src/syscall.c **** 
+ 264              		.loc 1 104 0
+ 265 001c 054A     		ldr	r2, .L23
+ 266 001e 0649     		ldr	r1, .L23+4
+ 267 0020 1160     		str	r1, [r2]
+ 268 0022 F2E7     		b	.L17
+ 269              	.LVL22:
+ 270              	.L22:
+ 111:Src/syscall.c **** 		return (caddr_t) -1;
+ 271              		.loc 1 111 0
+ 272 0024 FFF7FEFF 		bl	__errno
+ 273              	.LVL23:
+ 274 0028 0C23     		movs	r3, #12
+ 275 002a 0360     		str	r3, [r0]
+ 112:Src/syscall.c **** 	}
+ 276              		.loc 1 112 0
+ 277 002c 4FF0FF30 		mov	r0, #-1
+ 278 0030 F3E7     		b	.L16
+ 279              	.L24:
+ 280 0032 00BF     		.align	2
+ 281              	.L23:
+ 282 0034 00000000 		.word	.LANCHOR0
+ 283 0038 00000000 		.word	end
+ 284              		.cfi_endproc
+ 285              	.LFE25:
+ 287              		.section	.text._close,"ax",%progbits
+ 288              		.align	1
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s 			page 8
+
+
+ 289              		.global	_close
+ 290              		.syntax unified
+ 291              		.thumb
+ 292              		.thumb_func
+ 293              		.fpu softvfp
+ 295              	_close:
+ 296              	.LFB26:
+ 119:Src/syscall.c **** 
+ 120:Src/syscall.c **** int _close(int file)
+ 121:Src/syscall.c **** {
+ 297              		.loc 1 121 0
+ 298              		.cfi_startproc
+ 299              		@ args = 0, pretend = 0, frame = 0
+ 300              		@ frame_needed = 0, uses_anonymous_args = 0
+ 301              		@ link register save eliminated.
+ 302              	.LVL24:
+ 122:Src/syscall.c **** 	return -1;
+ 123:Src/syscall.c **** }
+ 303              		.loc 1 123 0
+ 304 0000 4FF0FF30 		mov	r0, #-1
+ 305              	.LVL25:
+ 306 0004 7047     		bx	lr
+ 307              		.cfi_endproc
+ 308              	.LFE26:
+ 310              		.section	.text._fstat,"ax",%progbits
+ 311              		.align	1
+ 312              		.global	_fstat
+ 313              		.syntax unified
+ 314              		.thumb
+ 315              		.thumb_func
+ 316              		.fpu softvfp
+ 318              	_fstat:
+ 319              	.LFB27:
+ 124:Src/syscall.c **** 
+ 125:Src/syscall.c **** 
+ 126:Src/syscall.c **** int _fstat(int file, struct stat *st)
+ 127:Src/syscall.c **** {
+ 320              		.loc 1 127 0
+ 321              		.cfi_startproc
+ 322              		@ args = 0, pretend = 0, frame = 0
+ 323              		@ frame_needed = 0, uses_anonymous_args = 0
+ 324              		@ link register save eliminated.
+ 325              	.LVL26:
+ 128:Src/syscall.c **** 	st->st_mode = S_IFCHR;
+ 326              		.loc 1 128 0
+ 327 0000 4FF40053 		mov	r3, #8192
+ 328 0004 4B60     		str	r3, [r1, #4]
+ 129:Src/syscall.c **** 	return 0;
+ 130:Src/syscall.c **** }
+ 329              		.loc 1 130 0
+ 330 0006 0020     		movs	r0, #0
+ 331              	.LVL27:
+ 332 0008 7047     		bx	lr
+ 333              		.cfi_endproc
+ 334              	.LFE27:
+ 336              		.section	.text._isatty,"ax",%progbits
+ 337              		.align	1
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s 			page 9
+
+
+ 338              		.global	_isatty
+ 339              		.syntax unified
+ 340              		.thumb
+ 341              		.thumb_func
+ 342              		.fpu softvfp
+ 344              	_isatty:
+ 345              	.LFB28:
+ 131:Src/syscall.c **** 
+ 132:Src/syscall.c **** int _isatty(int file)
+ 133:Src/syscall.c **** {
+ 346              		.loc 1 133 0
+ 347              		.cfi_startproc
+ 348              		@ args = 0, pretend = 0, frame = 0
+ 349              		@ frame_needed = 0, uses_anonymous_args = 0
+ 350              		@ link register save eliminated.
+ 351              	.LVL28:
+ 134:Src/syscall.c **** 	return 1;
+ 135:Src/syscall.c **** }
+ 352              		.loc 1 135 0
+ 353 0000 0120     		movs	r0, #1
+ 354              	.LVL29:
+ 355 0002 7047     		bx	lr
+ 356              		.cfi_endproc
+ 357              	.LFE28:
+ 359              		.section	.text._lseek,"ax",%progbits
+ 360              		.align	1
+ 361              		.global	_lseek
+ 362              		.syntax unified
+ 363              		.thumb
+ 364              		.thumb_func
+ 365              		.fpu softvfp
+ 367              	_lseek:
+ 368              	.LFB29:
+ 136:Src/syscall.c **** 
+ 137:Src/syscall.c **** int _lseek(int file, int ptr, int dir)
+ 138:Src/syscall.c **** {
+ 369              		.loc 1 138 0
+ 370              		.cfi_startproc
+ 371              		@ args = 0, pretend = 0, frame = 0
+ 372              		@ frame_needed = 0, uses_anonymous_args = 0
+ 373              		@ link register save eliminated.
+ 374              	.LVL30:
+ 139:Src/syscall.c **** 	return 0;
+ 140:Src/syscall.c **** }
+ 375              		.loc 1 140 0
+ 376 0000 0020     		movs	r0, #0
+ 377              	.LVL31:
+ 378 0002 7047     		bx	lr
+ 379              		.cfi_endproc
+ 380              	.LFE29:
+ 382              		.section	.text._open,"ax",%progbits
+ 383              		.align	1
+ 384              		.global	_open
+ 385              		.syntax unified
+ 386              		.thumb
+ 387              		.thumb_func
+ 388              		.fpu softvfp
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s 			page 10
+
+
+ 390              	_open:
+ 391              	.LFB30:
+ 141:Src/syscall.c **** 
+ 142:Src/syscall.c **** int _open(char *path, int flags, ...)
+ 143:Src/syscall.c **** {
+ 392              		.loc 1 143 0
+ 393              		.cfi_startproc
+ 394              		@ args = 4, pretend = 12, frame = 0
+ 395              		@ frame_needed = 0, uses_anonymous_args = 1
+ 396              		@ link register save eliminated.
+ 397              	.LVL32:
+ 398 0000 0EB4     		push	{r1, r2, r3}
+ 399              	.LCFI5:
+ 400              		.cfi_def_cfa_offset 12
+ 401              		.cfi_offset 1, -12
+ 402              		.cfi_offset 2, -8
+ 403              		.cfi_offset 3, -4
+ 144:Src/syscall.c **** 	/* Pretend like we always fail */
+ 145:Src/syscall.c **** 	return -1;
+ 146:Src/syscall.c **** }
+ 404              		.loc 1 146 0
+ 405 0002 4FF0FF30 		mov	r0, #-1
+ 406              	.LVL33:
+ 407 0006 03B0     		add	sp, sp, #12
+ 408              	.LCFI6:
+ 409              		.cfi_restore 3
+ 410              		.cfi_restore 2
+ 411              		.cfi_restore 1
+ 412              		.cfi_def_cfa_offset 0
+ 413 0008 7047     		bx	lr
+ 414              		.cfi_endproc
+ 415              	.LFE30:
+ 417              		.section	.text._wait,"ax",%progbits
+ 418              		.align	1
+ 419              		.global	_wait
+ 420              		.syntax unified
+ 421              		.thumb
+ 422              		.thumb_func
+ 423              		.fpu softvfp
+ 425              	_wait:
+ 426              	.LFB31:
+ 147:Src/syscall.c **** 
+ 148:Src/syscall.c **** int _wait(int *status)
+ 149:Src/syscall.c **** {
+ 427              		.loc 1 149 0
+ 428              		.cfi_startproc
+ 429              		@ args = 0, pretend = 0, frame = 0
+ 430              		@ frame_needed = 0, uses_anonymous_args = 0
+ 431              	.LVL34:
+ 432 0000 08B5     		push	{r3, lr}
+ 433              	.LCFI7:
+ 434              		.cfi_def_cfa_offset 8
+ 435              		.cfi_offset 3, -8
+ 436              		.cfi_offset 14, -4
+ 150:Src/syscall.c **** 	errno = ECHILD;
+ 437              		.loc 1 150 0
+ 438 0002 FFF7FEFF 		bl	__errno
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s 			page 11
+
+
+ 439              	.LVL35:
+ 440 0006 0A23     		movs	r3, #10
+ 441 0008 0360     		str	r3, [r0]
+ 151:Src/syscall.c **** 	return -1;
+ 152:Src/syscall.c **** }
+ 442              		.loc 1 152 0
+ 443 000a 4FF0FF30 		mov	r0, #-1
+ 444 000e 08BD     		pop	{r3, pc}
+ 445              		.cfi_endproc
+ 446              	.LFE31:
+ 448              		.section	.text._unlink,"ax",%progbits
+ 449              		.align	1
+ 450              		.global	_unlink
+ 451              		.syntax unified
+ 452              		.thumb
+ 453              		.thumb_func
+ 454              		.fpu softvfp
+ 456              	_unlink:
+ 457              	.LFB32:
+ 153:Src/syscall.c **** 
+ 154:Src/syscall.c **** int _unlink(char *name)
+ 155:Src/syscall.c **** {
+ 458              		.loc 1 155 0
+ 459              		.cfi_startproc
+ 460              		@ args = 0, pretend = 0, frame = 0
+ 461              		@ frame_needed = 0, uses_anonymous_args = 0
+ 462              	.LVL36:
+ 463 0000 08B5     		push	{r3, lr}
+ 464              	.LCFI8:
+ 465              		.cfi_def_cfa_offset 8
+ 466              		.cfi_offset 3, -8
+ 467              		.cfi_offset 14, -4
+ 156:Src/syscall.c **** 	errno = ENOENT;
+ 468              		.loc 1 156 0
+ 469 0002 FFF7FEFF 		bl	__errno
+ 470              	.LVL37:
+ 471 0006 0223     		movs	r3, #2
+ 472 0008 0360     		str	r3, [r0]
+ 157:Src/syscall.c **** 	return -1;
+ 158:Src/syscall.c **** }
+ 473              		.loc 1 158 0
+ 474 000a 4FF0FF30 		mov	r0, #-1
+ 475 000e 08BD     		pop	{r3, pc}
+ 476              		.cfi_endproc
+ 477              	.LFE32:
+ 479              		.section	.text._times,"ax",%progbits
+ 480              		.align	1
+ 481              		.global	_times
+ 482              		.syntax unified
+ 483              		.thumb
+ 484              		.thumb_func
+ 485              		.fpu softvfp
+ 487              	_times:
+ 488              	.LFB33:
+ 159:Src/syscall.c **** 
+ 160:Src/syscall.c **** int _times(struct tms *buf)
+ 161:Src/syscall.c **** {
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s 			page 12
+
+
+ 489              		.loc 1 161 0
+ 490              		.cfi_startproc
+ 491              		@ args = 0, pretend = 0, frame = 0
+ 492              		@ frame_needed = 0, uses_anonymous_args = 0
+ 493              		@ link register save eliminated.
+ 494              	.LVL38:
+ 162:Src/syscall.c **** 	return -1;
+ 163:Src/syscall.c **** }
+ 495              		.loc 1 163 0
+ 496 0000 4FF0FF30 		mov	r0, #-1
+ 497              	.LVL39:
+ 498 0004 7047     		bx	lr
+ 499              		.cfi_endproc
+ 500              	.LFE33:
+ 502              		.section	.text._stat,"ax",%progbits
+ 503              		.align	1
+ 504              		.global	_stat
+ 505              		.syntax unified
+ 506              		.thumb
+ 507              		.thumb_func
+ 508              		.fpu softvfp
+ 510              	_stat:
+ 511              	.LFB34:
+ 164:Src/syscall.c **** 
+ 165:Src/syscall.c **** int _stat(char *file, struct stat *st)
+ 166:Src/syscall.c **** {
+ 512              		.loc 1 166 0
+ 513              		.cfi_startproc
+ 514              		@ args = 0, pretend = 0, frame = 0
+ 515              		@ frame_needed = 0, uses_anonymous_args = 0
+ 516              		@ link register save eliminated.
+ 517              	.LVL40:
+ 167:Src/syscall.c **** 	st->st_mode = S_IFCHR;
+ 518              		.loc 1 167 0
+ 519 0000 4FF40053 		mov	r3, #8192
+ 520 0004 4B60     		str	r3, [r1, #4]
+ 168:Src/syscall.c **** 	return 0;
+ 169:Src/syscall.c **** }
+ 521              		.loc 1 169 0
+ 522 0006 0020     		movs	r0, #0
+ 523              	.LVL41:
+ 524 0008 7047     		bx	lr
+ 525              		.cfi_endproc
+ 526              	.LFE34:
+ 528              		.section	.text._link,"ax",%progbits
+ 529              		.align	1
+ 530              		.global	_link
+ 531              		.syntax unified
+ 532              		.thumb
+ 533              		.thumb_func
+ 534              		.fpu softvfp
+ 536              	_link:
+ 537              	.LFB35:
+ 170:Src/syscall.c **** 
+ 171:Src/syscall.c **** int _link(char *old, char *new)
+ 172:Src/syscall.c **** {
+ 538              		.loc 1 172 0
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s 			page 13
+
+
+ 539              		.cfi_startproc
+ 540              		@ args = 0, pretend = 0, frame = 0
+ 541              		@ frame_needed = 0, uses_anonymous_args = 0
+ 542              	.LVL42:
+ 543 0000 08B5     		push	{r3, lr}
+ 544              	.LCFI9:
+ 545              		.cfi_def_cfa_offset 8
+ 546              		.cfi_offset 3, -8
+ 547              		.cfi_offset 14, -4
+ 173:Src/syscall.c **** 	errno = EMLINK;
+ 548              		.loc 1 173 0
+ 549 0002 FFF7FEFF 		bl	__errno
+ 550              	.LVL43:
+ 551 0006 1F23     		movs	r3, #31
+ 552 0008 0360     		str	r3, [r0]
+ 174:Src/syscall.c **** 	return -1;
+ 175:Src/syscall.c **** }
+ 553              		.loc 1 175 0
+ 554 000a 4FF0FF30 		mov	r0, #-1
+ 555 000e 08BD     		pop	{r3, pc}
+ 556              		.cfi_endproc
+ 557              	.LFE35:
+ 559              		.section	.text._fork,"ax",%progbits
+ 560              		.align	1
+ 561              		.global	_fork
+ 562              		.syntax unified
+ 563              		.thumb
+ 564              		.thumb_func
+ 565              		.fpu softvfp
+ 567              	_fork:
+ 568              	.LFB36:
+ 176:Src/syscall.c **** 
+ 177:Src/syscall.c **** int _fork(void)
+ 178:Src/syscall.c **** {
+ 569              		.loc 1 178 0
+ 570              		.cfi_startproc
+ 571              		@ args = 0, pretend = 0, frame = 0
+ 572              		@ frame_needed = 0, uses_anonymous_args = 0
+ 573 0000 08B5     		push	{r3, lr}
+ 574              	.LCFI10:
+ 575              		.cfi_def_cfa_offset 8
+ 576              		.cfi_offset 3, -8
+ 577              		.cfi_offset 14, -4
+ 179:Src/syscall.c **** 	errno = EAGAIN;
+ 578              		.loc 1 179 0
+ 579 0002 FFF7FEFF 		bl	__errno
+ 580              	.LVL44:
+ 581 0006 0B23     		movs	r3, #11
+ 582 0008 0360     		str	r3, [r0]
+ 180:Src/syscall.c **** 	return -1;
+ 181:Src/syscall.c **** }
+ 583              		.loc 1 181 0
+ 584 000a 4FF0FF30 		mov	r0, #-1
+ 585 000e 08BD     		pop	{r3, pc}
+ 586              		.cfi_endproc
+ 587              	.LFE36:
+ 589              		.section	.text._execve,"ax",%progbits
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s 			page 14
+
+
+ 590              		.align	1
+ 591              		.global	_execve
+ 592              		.syntax unified
+ 593              		.thumb
+ 594              		.thumb_func
+ 595              		.fpu softvfp
+ 597              	_execve:
+ 598              	.LFB37:
+ 182:Src/syscall.c **** 
+ 183:Src/syscall.c **** int _execve(char *name, char **argv, char **env)
+ 184:Src/syscall.c **** {
+ 599              		.loc 1 184 0
+ 600              		.cfi_startproc
+ 601              		@ args = 0, pretend = 0, frame = 0
+ 602              		@ frame_needed = 0, uses_anonymous_args = 0
+ 603              	.LVL45:
+ 604 0000 08B5     		push	{r3, lr}
+ 605              	.LCFI11:
+ 606              		.cfi_def_cfa_offset 8
+ 607              		.cfi_offset 3, -8
+ 608              		.cfi_offset 14, -4
+ 185:Src/syscall.c **** 	errno = ENOMEM;
+ 609              		.loc 1 185 0
+ 610 0002 FFF7FEFF 		bl	__errno
+ 611              	.LVL46:
+ 612 0006 0C23     		movs	r3, #12
+ 613 0008 0360     		str	r3, [r0]
+ 186:Src/syscall.c **** 	return -1;
+ 187:Src/syscall.c **** }
+ 614              		.loc 1 187 0
+ 615 000a 4FF0FF30 		mov	r0, #-1
+ 616 000e 08BD     		pop	{r3, pc}
+ 617              		.cfi_endproc
+ 618              	.LFE37:
+ 620              		.global	environ
+ 621              		.global	__env
+ 622              		.section	.bss.__env,"aw",%nobits
+ 623              		.align	2
+ 626              	__env:
+ 627 0000 00000000 		.space	4
+ 628              		.section	.bss.heap_end.5959,"aw",%nobits
+ 629              		.align	2
+ 630              		.set	.LANCHOR0,. + 0
+ 633              	heap_end.5959:
+ 634 0000 00000000 		.space	4
+ 635              		.section	.data.environ,"aw",%progbits
+ 636              		.align	2
+ 639              	environ:
+ 640 0000 00000000 		.word	__env
+ 641              		.weak	__io_putchar
+ 642              		.weak	__io_getchar
+ 643              		.text
+ 644              	.Letext0:
+ 645              		.file 2 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 646              		.file 3 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 647              		.file 4 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 648              		.file 5 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\lib\\gcc\\arm-none-eabi
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s 			page 15
+
+
+ 649              		.file 6 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 650              		.file 7 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 651              		.file 8 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 652              		.file 9 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include\
+ 653              		.file 10 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+ 654              		.file 11 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+ 655              		.file 12 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+ 656              		.file 13 "d:\\program files (x86)\\gnu tools arm embedded\\7 2017-q4-major\\arm-none-eabi\\include
+ARM GAS  C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s 			page 16
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 syscall.c
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:16     .text.initialise_monitor_handles:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:23     .text.initialise_monitor_handles:00000000 initialise_monitor_handles
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:37     .text._getpid:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:44     .text._getpid:00000000 _getpid
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:58     .text._kill:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:65     .text._kill:00000000 _kill
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:89     .text._exit:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:96     .text._exit:00000000 _exit
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:119    .text._read:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:126    .text._read:00000000 _read
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:169    .text._write:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:176    .text._write:00000000 _write
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:220    .text._sbrk:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:227    .text._sbrk:00000000 _sbrk
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:282    .text._sbrk:00000034 $d
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:288    .text._close:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:295    .text._close:00000000 _close
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:311    .text._fstat:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:318    .text._fstat:00000000 _fstat
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:337    .text._isatty:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:344    .text._isatty:00000000 _isatty
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:360    .text._lseek:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:367    .text._lseek:00000000 _lseek
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:383    .text._open:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:390    .text._open:00000000 _open
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:418    .text._wait:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:425    .text._wait:00000000 _wait
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:449    .text._unlink:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:456    .text._unlink:00000000 _unlink
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:480    .text._times:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:487    .text._times:00000000 _times
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:503    .text._stat:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:510    .text._stat:00000000 _stat
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:529    .text._link:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:536    .text._link:00000000 _link
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:560    .text._fork:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:567    .text._fork:00000000 _fork
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:590    .text._execve:00000000 $t
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:597    .text._execve:00000000 _execve
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:639    .data.environ:00000000 environ
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:626    .bss.__env:00000000 __env
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:623    .bss.__env:00000000 $d
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:629    .bss.heap_end.5959:00000000 $d
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:633    .bss.heap_end.5959:00000000 heap_end.5959
+C:\Users\Qian\AppData\Local\Temp\ccBXKs4A.s:636    .data.environ:00000000 $d
+
+UNDEFINED SYMBOLS
+__errno
+__io_getchar
+__io_putchar
+end
